@@ -2,9 +2,9 @@ name: Main
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [ opened, synchronize, reopened ]
   push:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   quality:
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: [ "3.9", "3.10", "3.11", "3.12", "3.13" ]
       fail-fast: false
     defaults:
       run:
@@ -66,6 +66,3 @@ jobs:
 
       - name: Set up the environment
         uses: ./.github/actions/setup-python-env
-
-      - name: Check if documentation can be built
-        run: uv run mkdocs build -s

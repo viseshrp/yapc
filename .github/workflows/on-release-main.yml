@@ -2,7 +2,7 @@ name: release-main
 
 on:
   release:
-    types: [published]
+    types: [ published ]
 
 jobs:
   deploy-docs:
@@ -13,6 +13,3 @@ jobs:
 
       - name: Set up the environment
         uses: ./.github/actions/setup-python-env
-
-      - name: Deploy documentation
-        run: uv run mkdocs gh-deploy --force
