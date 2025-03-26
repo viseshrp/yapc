@@ -1,10 +1,10 @@
 [project]
-name = "cookiecutter-uv"
+name = "yapc"
 version = "0.0.1"
-description = "A python cookiecutter application to create a new python project that uses uv to manage its dependencies."
-authors = [{ name = "Florian Maas", email = "fpgmaas@gmail.com" }]
+description = "A python cookiecutter application to create a new python project."
+authors = [{ name = "Visesh P", email = "viseshrprasad@gmail.com" }]
 readme = "README.md"
-keywords = ['cookiecutter', 'template', 'uv']
+keywords = ['cookiecutter', 'template', 'uv', 'yapc']
 requires-python = ">=3.9,<4.0"
 dependencies = [
   "cookiecutter>=2.1.1"
@@ -26,9 +26,9 @@ classifiers = [
 
 
 [project.urls]
-Repository = "https://github.com/fpgmaas/cookiecutter-uv"
-Documentation = "https://fpgmaas.github.io/cookiecutter-uv/"
-Homepage = "https://fpgmaas.github.io/cookiecutter-uv/"
+Repository = "https://github.com/viseshrp/yapc"
+Documentation = "https://github.com/viseshrp/yapc"
+Homepage = "https://github.com/viseshrp/yapc"
 
 [dependency-groups]
 dev = [
@@ -40,9 +40,6 @@ dev = [
     "mypy>=0.991",
     "pytest-cov>=4.0.0",
     "ruff>=0.9.2",
-    "mkdocs>=1.4.2",
-    "mkdocs-material>=8.5.10",
-    "mkdocstrings[python]>=0.19.0",
 ]
 
 [build-system]

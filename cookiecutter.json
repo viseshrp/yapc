@@ -1,6 +1,6 @@
 {
   "author": "Florian Maas",
-  "author_github_handle": "fpgmaas",
+  "author_github_handle": "viseshrp",
   "codecov": [
     "y",
     "n"
@@ -13,7 +13,7 @@
     "y",
     "n"
   ],
-  "email": "fpgmaas@gmail.com",
+  "email": "viseshrprasad@gmail.com",
   "include_github_actions": [
     "y",
     "n"
