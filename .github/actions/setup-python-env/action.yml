@@ -26,5 +26,5 @@ runs:
         cache-suffix: ${{ matrix.python-version }}
 
     - name: Install Python dependencies
-      run: uv pip install .[dev]
+      run: uv pip install .[dev] --system
       shell: bash
