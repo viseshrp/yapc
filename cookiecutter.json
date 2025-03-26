@@ -9,10 +9,6 @@
     "y",
     "n"
   ],
-  "devcontainer": [
-    "y",
-    "n"
-  ],
   "dockerfile": [
     "y",
     "n"
