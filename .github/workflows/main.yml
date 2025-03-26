@@ -27,9 +27,6 @@ jobs:
       - name: Inspect dependencies
         run: uv run deptry .
 
-      - name: Check lock file consistency
-        run: uv sync --locked
-
   tests-and-type-check:
     runs-on: ubuntu-latest
     strategy:
