@@ -38,5 +38,5 @@ Follow the prompts to configure your project. Once completed, a new directory co
 
 ## Acknowledgements
 
-This project is based on the [cookiecutter-uv](https://github.com/viseshrp/yapc)
+This project is based on the [cookiecutter-uv](https://github.com/fpgmaas/cookiecutter-uv)
 repository.
