@@ -1,10 +1,10 @@
 [project]
 name = "yapc"
 version = "0.0.1"
-description = "A python cookiecutter application to create a new python project."
+description = "A Python cookiecutter template for initializing new Python projects."
 authors = [{ name = "Visesh P", email = "viseshrprasad@gmail.com" }]
 readme = "README.md"
-keywords = ['cookiecutter', 'template', 'uv', 'yapc']
+keywords = ["cookiecutter", "template", "uv", "cli", "yapc"]
 requires-python = ">=3.9,<4.0"
 dependencies = [
   "cookiecutter>=2.1.1"
@@ -23,7 +23,6 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Software Development :: Code Generators",
 ]
-
 
 [project.urls]
 Repository = "https://github.com/viseshrp/yapc"
@@ -47,10 +46,10 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.setuptools]
-packages = ["cookiecutter_uv"]
+packages = ["yapc"]
 
 [tool.setuptools.package-data]
-"cookiecutter_uv" = ["*"]
+"yapc" = ["*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -60,10 +59,10 @@ skip_empty = true
 
 [tool.coverage.run]
 branch = true
-source = ["cookiecutter_uv"]
+source = ["yapc"]
 
 [tool.mypy]
-files = ['cookiecutter_uv']
+files = ["yapc"]
 disallow_untyped_defs = true
 disallow_any_unimported = true
 no_implicit_optional = true
@@ -87,42 +86,25 @@ fix = true
 
 [tool.ruff.lint]
 select = [
-    # flake8-2020
-    "YTT",
-    # flake8-bandit
-    "S",
-    # flake8-bugbear
-    "B",
-    # flake8-builtins
-    "A",
-    # flake8-comprehensions
-    "C4",
-    # flake8-debugger
-    "T10",
-    # flake8-simplify
-    "SIM",
-    # isort
-    "I",
-    # mccabe
-    "C90",
-    # pycodestyle
-    "E", "W",
-    # pyflakes
-    "F",
-    # pygrep-hooks
-    "PGH",
-    # pyupgrade
-    "UP",
-    # ruff
-    "RUF",
-    # tryceratops
-    "TRY",
+    "YTT",  # flake8-2020
+    "S",    # flake8-bandit
+    "B",    # flake8-bugbear
+    "A",    # flake8-builtins
+    "C4",   # flake8-comprehensions
+    "T10",  # flake8-debugger
+    "SIM",  # flake8-simplify
+    "I",    # isort
+    "C90",  # mccabe
+    "E", "W",  # pycodestyle
+    "F",       # pyflakes
+    "PGH",     # pygrep-hooks
+    "UP",      # pyupgrade
+    "RUF",     # ruff
+    "TRY",     # tryceratops
 ]
 ignore = [
-    # LineTooLong
-    "E501",
-    # DoNotAssignLambda
-    "E731",
+    "E501",  # LineTooLong
+    "E731",  # DoNotAssignLambda
 ]
 
 [tool.ruff.lint.per-file-ignores]
