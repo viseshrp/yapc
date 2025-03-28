@@ -22,10 +22,6 @@
     "flat",
     "src"
   ],
-  "mkdocs": [
-    "y",
-    "n"
-  ],
   "open_source_license": [
     "MIT license",
     "BSD license",

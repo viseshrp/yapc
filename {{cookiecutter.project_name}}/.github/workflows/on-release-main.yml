@@ -52,19 +52,3 @@ jobs:
         env:
           UV_PUBLISH_TOKEN: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
 {% endif %}
-{%- if cookiecutter.mkdocs == "y" %}
-  deploy-docs:
-    {%- if cookiecutter.publish_to_pypi == "y" %}
-    needs: publish
-    {%- endif %}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out
-        uses: actions/checkout@v4
-
-      - name: Set up the environment
-        uses: ./.github/actions/setup-python-env
-
-      - name: Deploy documentation
-        run: uv run mkdocs gh-deploy --force
-{% endif %}
