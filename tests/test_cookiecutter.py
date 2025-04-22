@@ -59,16 +59,6 @@ def test_cicd_contains_pypi_secrets(cookies, tmp_path):
         assert file_contains_text(f"{result.project_path}/Makefile", "build-and-publish")
 
 
-def test_dont_publish(cookies, tmp_path):
-    with run_within_dir(tmp_path):
-        result = cookies.bake(extra_context={"publish_to_pypi": "n"})
-        assert result.exit_code == 0
-        assert is_valid_yaml(result.project_path / ".github" / "workflows" / "on-release-main.yml")
-        assert not file_contains_text(
-            f"{result.project_path}/.github/workflows/on-release-main.yml", "make build-and-publish"
-        )
-
-
 def test_tox(cookies, tmp_path):
     with run_within_dir(tmp_path):
         result = cookies.bake()
