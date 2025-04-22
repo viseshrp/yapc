@@ -113,10 +113,6 @@ def test_remove_release_workflow(cookies, tmp_path):
     with run_within_dir(tmp_path):
         result = cookies.bake(extra_context={"publish_to_pypi": "n"})
         assert result.exit_code == 0
-        assert os.path.isfile(f"{result.project_path}/.github/workflows/on-release-main.yml")
-
-        result = cookies.bake(extra_context={"publish_to_pypi": "n"})
-        assert result.exit_code == 0
         assert not os.path.isfile(f"{result.project_path}/.github/workflows/on-release-main.yml")
 
 
