@@ -4,8 +4,19 @@ version = "0.0.1"
 description = "{{cookiecutter.project_description}}"
 authors = [{ name = "{{cookiecutter.author}}", email = "{{cookiecutter.email}}" }]
 readme = "README.md"
-keywords = ['python']
+keywords = ["python"]
 requires-python = ">=3.9,<4.0"
+{% if cookiecutter.open_source_license == "MIT license" %}
+license = { text = "MIT" }
+{% elif cookiecutter.open_source_license == "BSD license" %}
+license = { text = "BSD-3-Clause" }
+{% elif cookiecutter.open_source_license == "ISC license" %}
+license = { text = "ISC" }
+{% elif cookiecutter.open_source_license == "Apache Software License 2.0" %}
+license = { text = "Apache-2.0" }
+{% elif cookiecutter.open_source_license == "GNU General Public License v3" %}
+license = { text = "GPL-3.0-only" }
+{% endif %}
 classifiers = [
     "Intended Audience :: Developers",
     "Programming Language :: Python",
@@ -115,10 +126,22 @@ preview = true
 
 {% if cookiecutter.codecov == "y"-%}
 [tool.coverage.report]
-skip_empty = true
+show_missing = true
+skip_covered = true
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self\\.debug",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "@(abc\\.)?abstractmethod",
+]
 
 [tool.coverage.run]
 branch = true
+omit = ["{{cookiecutter.project_slug}}/__main__.py"]
 source = [
     {%- if cookiecutter.layout == "src" -%}
     "src"
@@ -127,3 +150,43 @@ source = [
     {%- endif -%}
 ]
 {% endif %}
+
+[tool.flake8]
+exclude = ["venv", "__init__.py"]
+select = ["B", "B9", "C", "D", "DAR", "E", "F", "N", "RST", "S", "W"]
+count = true
+max-complexity = 10
+max-line-length = 100
+statistics = true
+ignore = [
+  "E203", "E501", "W503", "W605", "F821", "C901", "B904", "N813",
+  "B903", "N801", "N802", "N818", "B950", "F401", "B907"
+]
+
+[tool.black]
+line-length = 100
+target-version = ['py39']
+
+[tool.isort]
+profile = "black"
+skip_gitignore = true
+force_sort_within_sections = true
+line_length = 100
+section_default = "THIRDPARTY"
+filter_files = true
+known_first_party = ["{{cookiecutter.project_slug}}", "tests"]
+
+[tool.pre-commit.default_language_versions]
+python = "3.11"
+
+[tool.versioningit]
+vcs = { method = "git", default-tag = "0.0.0" }
+write = { file = "{{cookiecutter.project_slug}}/_version.py" }
+
+[tool.versioningit.next-version]
+method = "smallest"
+
+[tool.versioningit.format]
+distance = "{next_version}.dev{build_date:%Y%m%d%H%M%S}"
+dirty = "{base_version}.dev{build_date:%Y%m%d%H%M%S}+dirty"
+distance-dirty = "{next_version}.dev{build_date:%Y%m%d%H%M%S}+dirty"
