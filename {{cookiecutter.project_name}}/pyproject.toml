@@ -72,7 +72,6 @@ show_error_codes = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-
 [tool.ruff]
 target-version = "py39"
 line-length = 120
@@ -94,7 +93,7 @@ select = [
     "T10",
     # flake8-simplify
     "SIM",
-    # isort
+    # isort (keep this if you want Ruff to sort imports)
     "I",
     # mccabe
     "C90",
@@ -106,16 +105,14 @@ select = [
     "PGH",
     # pyupgrade
     "UP",
-    # ruff
+    # ruff-native rules
     "RUF",
-    # tryceratops
+    # try/except linting
     "TRY",
 ]
 ignore = [
-    # LineTooLong
-    "E501",
-    # DoNotAssignLambda
-    "E731",
+    "E501",  # Line too long
+    "E731",  # Do not assign a lambda expression
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -151,30 +148,9 @@ source = [
 ]
 {% endif %}
 
-[tool.flake8]
-exclude = ["venv", "__init__.py"]
-select = ["B", "B9", "C", "D", "DAR", "E", "F", "N", "RST", "S", "W"]
-count = true
-max-complexity = 10
-max-line-length = 100
-statistics = true
-ignore = [
-  "E203", "E501", "W503", "W605", "F821", "C901", "B904", "N813",
-  "B903", "N801", "N802", "N818", "B950", "F401", "B907"
-]
-
 [tool.black]
 line-length = 100
-target-version = ['py39']
-
-[tool.isort]
-profile = "black"
-skip_gitignore = true
-force_sort_within_sections = true
-line_length = 100
-section_default = "THIRDPARTY"
-filter_files = true
-known_first_party = ["{{cookiecutter.project_slug}}", "tests"]
+target-version = ["py39"]
 
 [tool.pre-commit.default_language_versions]
 python = "3.11"
