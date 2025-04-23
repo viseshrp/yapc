@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from contextlib import contextmanager
 from pathlib import Path
 
@@ -31,11 +32,9 @@ def run_within_dir(path: str | Path):
     path = Path(path).resolve()
     oldpwd = Path.cwd()
     try:
-        # Switch directory
         os.chdir(path)
         yield
     finally:
-        # Restore directory
         os.chdir(oldpwd)
 
 
