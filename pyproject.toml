@@ -73,7 +73,7 @@ show_error_codes = true
 
 [tool.deptry]
 extend_exclude = [
-  ".+/test_foo.py"
+  ".+/test_{{cookiecutter.project_slug}}.py"
 ]
 
 [tool.deptry.per_rule_ignores]
