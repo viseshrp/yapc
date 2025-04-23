@@ -7,10 +7,6 @@
   "version": "0.1.0",
   "project_slug": "{{cookiecutter.project_name|lower|replace('-', '_')}}",
   "project_description": "This is a template repository for Python projects that use uv for their dependency management.",
-  "pytest": [
-    "y",
-    "n"
-  ],
   "codecov": [
     "y",
     "n"
