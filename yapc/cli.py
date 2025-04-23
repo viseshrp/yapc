@@ -1,9 +1,14 @@
 from __future__ import annotations
 
-import os
+from pathlib import Path
+import subprocess
 
 
 def main() -> None:
-    cwd = os.path.dirname(__file__)
-    package_dir = os.path.abspath(os.path.join(cwd, ".."))
-    os.system(f"cookiecutter {package_dir}")  # noqa: S605 | No injection, retrieving path in OS
+    cwd = Path(__file__).parent
+    package_dir = cwd.parent.resolve()
+
+    subprocess.run(
+        ["cookiecutter", str(package_dir)],
+        check=True,
+    )

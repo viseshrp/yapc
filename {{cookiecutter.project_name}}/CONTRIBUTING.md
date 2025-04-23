@@ -9,7 +9,7 @@ You can contribute in many ways:
 
 ## Report Bugs
 
-Report bugs at https://github.com/{{cookiecutter.author_github_handle}}/{{cookiecutter.project_name}}/issues
+Report bugs at https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/issues
 
 If you are reporting a bug, please include:
 
@@ -33,7 +33,7 @@ Anything tagged with "enhancement" and "help wanted" is open to whoever wants to
 
 ## Submit Feedback
 
-The best way to send feedback is to file an issue at https://github.com/{{cookiecutter.author_github_handle}}/{{cookiecutter.project_name}}/issues.
+The best way to send feedback is to file an issue at https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/issues.
 
 If you are proposing a new feature:
 

@@ -34,12 +34,12 @@ if __name__ == "__main__":
     elif "{{cookiecutter.publish_to_pypi}}" == "n":
         remove_file(".github/workflows/on-release-main.yml")
 
-    # Dockerfile
-    if "{{cookiecutter.dockerfile}}" != "y":
-        remove_file("Dockerfile")
-
     # Codecov config
     if "{{cookiecutter.codecov}}" != "y":
         remove_file("codecov.yaml")
         if "{{cookiecutter.include_github_actions}}" == "y":
             remove_file(".github/workflows/validate-codecov-config.yml")
+
+    if "{{cookiecutter.cli_tool}}" != "y":
+        remove_file(os.path.join("{{cookiecutter.project_slug}}", "__main__.py"))
+        remove_file(os.path.join("{{cookiecutter.project_slug}}", "cli.py"))

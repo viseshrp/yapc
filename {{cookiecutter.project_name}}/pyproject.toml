@@ -6,6 +6,12 @@ authors = [{ name = "{{cookiecutter.author}}", email = "{{cookiecutter.email}}" 
 readme = "README.md"
 keywords = ["python"]
 requires-python = ">=3.9,<4.0"
+dependencies = [
+{% if cookiecutter.cli_tool == "y" %}
+    "click>=8.1.1",
+    "click-default-group>=1.2.2",
+{% endif %}
+]
 license = { text = "MIT" }
 classifiers = [
     "Intended Audience :: Developers",
@@ -20,10 +26,15 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://{{cookiecutter.author_github_handle}}.github.io/{{cookiecutter.project_name}}/"
-Repository = "https://github.com/{{cookiecutter.author_github_handle}}/{{cookiecutter.project_name}}"
-Documentation = "https://{{cookiecutter.author_github_handle}}.github.io/{{cookiecutter.project_name}}/"
+Homepage = "https://{{cookiecutter.github_username}}.github.io/{{cookiecutter.project_name}}/"
+Repository = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}"
+Documentation = "https://{{cookiecutter.github_username}}.github.io/{{cookiecutter.project_name}}/"
 
+{% if cookiecutter.cli_tool == "y" %}
+[project.scripts]
+{{cookiecutter.project_slug}} = "{{cookiecutter.project_slug}}.cli:main"
+
+{% endif %}
 [dependency-groups]
 dev = [
     "pytest>=7.2.0",
