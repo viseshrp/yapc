@@ -51,23 +51,15 @@ build-backend = "hatchling.build"
 
 [tool.hatch.version]
 source = "vcs"
+path = "{{cookiecutter.project_slug}}/_version.py"
 
 [tool.hatch.version.raw-options]
 version_scheme = "guess-next-dev"
 local_scheme = "node-and-date"
 
-{% if cookiecutter.layout == "flat" -%}
-[tool.setuptools]
-py-modules = ["{{cookiecutter.project_slug}}"]
-{%- endif %}
-
 [tool.mypy]
 files = [
-    {%- if cookiecutter.layout == "src" -%}
-    "src"
-    {%- else -%}
     "{{cookiecutter.project_slug}}"
-    {%- endif -%}
 ]
 disallow_untyped_defs = true
 disallow_any_unimported = true
@@ -148,11 +140,7 @@ exclude_lines = [
 branch = true
 omit = ["{{cookiecutter.project_slug}}/__main__.py"]
 source = [
-    {%- if cookiecutter.layout == "src" -%}
-    "src"
-    {%- else -%}
     "{{cookiecutter.project_slug}}"
-    {%- endif -%}
 ]
 {% endif %}
 

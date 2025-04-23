@@ -14,7 +14,7 @@ check: ## Run code quality tools.
 	@uv run mypy
 {%- if cookiecutter.deptry == 'y' %}
 	@echo "🚀 Checking for obsolete dependencies: Running deptry"
-	@uv run deptry {% if cookiecutter.layout == "src" %}src{% else %}.{% endif %}
+	@uv run deptry .
 {%- endif %}
 
 .PHONY: test

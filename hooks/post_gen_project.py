@@ -63,9 +63,3 @@ if __name__ == "__main__":
     elif selected_license == "Not open source":
         for file in ALL_LICENSES.values():
             remove_file(file)
-
-    # src layout
-    if "{{cookiecutter.layout}}" == "src":
-        if os.path.isdir("src"):
-            remove_dir("src")
-        move_dir("{{cookiecutter.project_slug}}", os.path.join("src", "{{cookiecutter.project_slug}}"))

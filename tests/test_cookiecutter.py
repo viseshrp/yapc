@@ -33,23 +33,6 @@ def test_using_pytest(cookies, tmp_path):
             assert subprocess.check_call(shlex.split("uv run make test")) == 0
 
 
-def test_src_layout_using_pytest(cookies, tmp_path):
-    with run_within_dir(tmp_path):
-        result = cookies.bake(extra_context={"layout": "src"})
-
-        # Assert that project was created.
-        assert result.exit_code == 0
-        assert result.exception is None
-        assert result.project_path.name == "example-project"
-        assert result.project_path.is_dir()
-        assert is_valid_yaml(result.project_path / ".github" / "workflows" / "main.yml")
-
-        # Install the uv environment and run the tests.
-        with run_within_dir(str(result.project_path)):
-            assert subprocess.check_call(shlex.split("uv sync")) == 0
-            assert subprocess.check_call(shlex.split("uv run make test")) == 0
-
-
 def test_cicd_contains_pypi_secrets(cookies, tmp_path):
     with run_within_dir(tmp_path):
         result = cookies.bake(extra_context={"publish_to_pypi": "y"})
