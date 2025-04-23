@@ -43,23 +43,3 @@ if __name__ == "__main__":
         remove_file("codecov.yaml")
         if "{{cookiecutter.include_github_actions}}" == "y":
             remove_file(".github/workflows/validate-codecov-config.yml")
-
-    # License selection
-    ALL_LICENSES = {
-        "MIT license": "LICENSE_MIT",
-        "BSD license": "LICENSE_BSD",
-        "ISC license": "LICENSE_ISC",
-        "Apache Software License 2.0": "LICENSE_APACHE",
-        "GNU General Public License v3": "LICENSE_GPL",
-    }
-
-    selected_license = "{{cookiecutter.open_source_license}}"
-
-    if selected_license in ALL_LICENSES:
-        move_file(ALL_LICENSES[selected_license], "LICENSE")
-        for name, file in ALL_LICENSES.items():
-            if name != selected_license:
-                remove_file(file)
-    elif selected_license == "Not open source":
-        for file in ALL_LICENSES.values():
-            remove_file(file)

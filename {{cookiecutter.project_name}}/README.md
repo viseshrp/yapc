@@ -36,7 +36,7 @@ Requirements
 Features
 --------
 
-- stuff
+
 
 Usage
 -----
@@ -49,7 +49,5 @@ Limitations
 Credits
 -------
 
-- [Click](https://click.palletsprojects.com), for making writing CLI
-    tools a complete pleasure.
 - [Simon Willison](https://github.com/simonw/sqlite-utils/) for some
     inspiration.
