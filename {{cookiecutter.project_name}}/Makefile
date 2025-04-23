@@ -36,15 +36,15 @@ clean-build: ## Clean build artifacts
 	@echo "🚀 Removing build artifacts"
 	@rm -rf dist *.egg-info build
 
+.PHONY: version
+version: ## Print the current project version
+	@uv run hatch version
+
 .PHONY: tag
 tag: ## Create a Git tag based on the current version
 	@echo "🏷 Tagging version"
 	@git tag v$(shell uv run hatch version)
 	@git push --tags
-
-.PHONY: version
-version: ## Print the current project version
-	@uv run hatch version
 
 {%- if cookiecutter.publish_to_pypi == "y" %}
 
