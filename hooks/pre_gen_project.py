@@ -5,8 +5,8 @@ import re
 import sys
 
 # Validation Rules
-PROJECT_NAME_REGEX = r"^[-a-zA-Z][-a-zA-Z0-9]+$"   # CLI name: hyphenated
-PROJECT_SLUG_REGEX = r"^[_a-zA-Z][_a-zA-Z0-9]+$"   # Python module name: underscored
+PROJECT_NAME_REGEX = r"^[-a-zA-Z][-a-zA-Z0-9]+$"  # CLI name: hyphenated
+PROJECT_SLUG_REGEX = r"^[_a-zA-Z][_a-zA-Z0-9]+$"  # Python module name: underscored
 
 project_name = "{{cookiecutter.project_name}}"
 project_slug = "{{cookiecutter.project_slug}}"

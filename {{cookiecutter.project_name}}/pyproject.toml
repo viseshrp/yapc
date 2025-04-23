@@ -46,8 +46,15 @@ dev = [
 ]
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.version.raw-options]
+version_scheme = "guess-next-dev"
+local_scheme = "node-and-date"
 
 {% if cookiecutter.layout == "flat" -%}
 [tool.setuptools]
@@ -72,6 +79,7 @@ show_error_codes = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
 [tool.ruff]
 target-version = "py39"
 line-length = 120
@@ -154,15 +162,3 @@ target-version = ["py39"]
 
 [tool.pre-commit.default_language_versions]
 python = "3.11"
-
-[tool.versioningit]
-vcs = { method = "git", default-tag = "0.0.0" }
-write = { file = "{{cookiecutter.project_slug}}/_version.py" }
-
-[tool.versioningit.next-version]
-method = "smallest"
-
-[tool.versioningit.format]
-distance = "{next_version}.dev{build_date:%Y%m%d%H%M%S}"
-dirty = "{base_version}.dev{build_date:%Y%m%d%H%M%S}+dirty"
-distance-dirty = "{next_version}.dev{build_date:%Y%m%d%H%M%S}+dirty"
