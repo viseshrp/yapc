@@ -35,7 +35,7 @@ build: clean-build ## Build wheel file
 .PHONY: clean-build
 clean-build: ## Clean build artifacts
 	@echo "🚀 Removing build artifacts"
-	@uv run python -c "import shutil; import os; shutil.rmtree('dist') if os.path.exists('dist') else None"
+	@rm -rf dist *.egg-info build
 
 .PHONY: publish
 publish: ## Publish a release to PyPI.
