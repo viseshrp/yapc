@@ -65,7 +65,7 @@ repos:
         require_serial: true
         args: [
           --line-length, "100",
-          --target-version, "py37",
+          --target-version, "py39",
           workedon, tests
         ]
 
@@ -75,7 +75,7 @@ repos:
         entry: pyupgrade
         language: system
         types: [python]
-        args: [--py37-plus]
+        args: [--py39-plus]
 
       - id: refurb
         name: refurb
@@ -83,7 +83,7 @@ repos:
         entry: refurb
         language: system
         types: [python]
-        args: [--python-version, "3.7"]
+        args: [--python-version, "3.9"]
 
       - id: bandit
         name: bandit
