@@ -22,6 +22,8 @@ def test_using_pytest(cookies, tmp_path):
         result = cookies.bake()
         project_path = Path(result.project_path)
 
+        (project_path / project_path.name / "_version.py").write_text('__version__ = "0.0.0"\n')
+
         assert result.exit_code == 0
         assert result.exception is None
         assert project_path.name == "example-project"
@@ -31,7 +33,6 @@ def test_using_pytest(cookies, tmp_path):
         with run_within_dir(project_path):
             uv_exe = shutil.which("uv") or "uv"
             subprocess.run([uv_exe, "sync"], check=True)
-            subprocess.run([uv_exe, "pip", "install", "."], check=True)
             subprocess.run([uv_exe, "run", "make", "test"], check=True)
 
 
