@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pathlib import Path
+import shutil
 import subprocess
 
 from tests.utils import file_contains_text, is_valid_yaml, run_within_dir
@@ -26,8 +26,9 @@ def test_using_pytest(cookies, tmp_path):
         assert is_valid_yaml(result.project_path / ".github" / "workflows" / "main.yml")
 
         with run_within_dir(result.project_path):
-            subprocess.run(["uv", "sync"], check=True)
-            subprocess.run(["uv", "run", "make", "test"], check=True)
+            uv_exe = shutil.which("uv") or "uv"
+            subprocess.run([uv_exe, "sync"], check=True)
+            subprocess.run([uv_exe, "run", "make", "test"], check=True)
 
 
 def test_cicd_contains_pypi_secrets(cookies, tmp_path):

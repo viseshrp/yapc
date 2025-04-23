@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 from __future__ import annotations
 
-from pathlib import Path
 import shutil
+from pathlib import Path
 
 PROJECT_DIRECTORY = Path.cwd().resolve()
 
@@ -41,5 +41,5 @@ if __name__ == "__main__":
             remove_file(".github/workflows/validate-codecov-config.yml")
 
     if "{{cookiecutter.cli_tool}}" != "y":
-        remove_file(f"{{cookiecutter.project_slug}}/__main__.py")
-        remove_file(f"{{cookiecutter.project_slug}}/cli.py")
+        remove_file("{cookiecutter.project_slug}/__main__.py")
+        remove_file("{cookiecutter.project_slug}/cli.py")
