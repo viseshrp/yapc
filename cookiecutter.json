@@ -1,6 +1,16 @@
 {
   "author": "Visesh Prasad",
-  "author_github_handle": "viseshrp",
+  "github_username": "viseshrp",
+  "pypi_username": "{{ cookiecutter.github_username }}",
+  "email": "viseshrprasad@gmail.com",
+  "project_name": "example-project",
+  "version": "0.1.0",
+  "project_slug": "{{cookiecutter.project_name|lower|replace('-', '_')}}",
+  "project_description": "This is a template repository for Python projects that use uv for their dependency management.",
+  "pytest": [
+    "y",
+    "n"
+  ],
   "codecov": [
     "y",
     "n"
@@ -9,18 +19,11 @@
     "y",
     "n"
   ],
-  "dockerfile": [
+  "github_actions": [
     "y",
     "n"
   ],
-  "email": "viseshrprasad@gmail.com",
-  "include_github_actions": [
-    "y",
-    "n"
-  ],
-  "project_description": "This is a template repository for Python projects that use uv for their dependency management.",
-  "project_name": "example-project",
-  "project_slug": "{{cookiecutter.project_name|lower|replace('-', '_')}}",
+  "cli_tool": ["y", "n"],
   "publish_to_pypi": [
     "y",
     "n"
