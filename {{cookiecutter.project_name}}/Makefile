@@ -28,15 +28,25 @@ test: ## Test the code with pytest
 
 .PHONY: build
 build: clean-build ## Build wheel file
-	@echo "🚀 Creating wheel file"
-	@uvx --from build pyproject-build --installer uv
+	@echo "🚀 Building project with hatch"
+	@uv run hatch build
 
 .PHONY: clean-build
 clean-build: ## Clean build artifacts
 	@echo "🚀 Removing build artifacts"
-	@uv run python -c "import shutil; import os; shutil.rmtree('dist') if os.path.exists('dist') else None"
+	@rm -rf dist *.egg-info build
 
-{%- if cookiecutter.publish_to_pypi == "y"%}
+.PHONY: tag
+tag: ## Create a Git tag based on the current version
+	@echo "🏷 Tagging version"
+	@git tag v$(shell uv run hatch version)
+	@git push --tags
+
+.PHONY: version
+version: ## Print the current project version
+	@uv run hatch version
+
+{%- if cookiecutter.publish_to_pypi == "y" %}
 
 .PHONY: publish
 publish: ## Publish a release to PyPI.
@@ -45,7 +55,7 @@ publish: ## Publish a release to PyPI.
 
 .PHONY: build-and-publish
 build-and-publish: build publish ## Build and publish.
-{%- endif%}
+{%- endif %}
 
 .PHONY: help
 help:
