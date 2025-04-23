@@ -21,8 +21,8 @@ def test_using_pytest(cookies, tmp_path):
     with run_within_dir(tmp_path):
         result = cookies.bake()
         project_path = Path(result.project_path)
-
-        (project_path / project_path.name / "_version.py").write_text('__version__ = "0.0.0"\n')
+        slug = project_path.name.replace("-", "_")
+        (project_path / slug / "_version.py").write_text('__version__ = "0.0.0"\n')
 
         assert result.exit_code == 0
         assert result.exception is None
