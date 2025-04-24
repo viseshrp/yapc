@@ -54,5 +54,5 @@ jobs:
         uses: codecov/codecov-action@v4
         if: {% raw %}${{ matrix.python-version == '3.11' }}{% endraw %}
         env:
-            {% raw %}CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}{% endraw %}
+            CODECOV_TOKEN: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
 {%- endif %}
