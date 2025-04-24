@@ -154,8 +154,8 @@ omit = ["{{cookiecutter.project_slug}}/__main__.py"]
 source = [
     "{{cookiecutter.project_slug}}"
 ]
-{% endif %}
 
+{% endif %}
 [tool.black]
 line-length = 100
 target-version = ["py39"]
