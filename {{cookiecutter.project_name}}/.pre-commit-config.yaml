@@ -63,13 +63,6 @@ repos:
         types: [python]
 
 {%- endif %}
-      - id: refurb
-        name: refurb
-        entry: refurb
-        language: system
-        types: [python]
-        args: [--python-version, "3.9"]
-
       - id: bandit
         name: bandit
         entry: bandit
