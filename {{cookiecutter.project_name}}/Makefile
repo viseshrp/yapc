@@ -12,12 +12,17 @@ check: ## Run all code quality checks
 	@uv run pre-commit run -a
 
 .PHONY: test
-test: ## Test the code with pytest
-	@echo "🚀 Running tests with pytest"
+test: ## Run tests using tox
+	@echo "🚀 Testing code: Running tox across Python versions"
+	@tox
+
+.PHONY: test-local
+test-local: ## Run tests in current Python environment using uv
+	@echo "🚀 Testing code locally"
 {%- if cookiecutter.codecov == "y" %}
-	@uv run python -m pytest --cov --cov-config=pyproject.toml --cov-report=xml
+	@uv run python -m pytest tests --cov --cov-config=pyproject.toml --cov-report=xml
 {%- else %}
-	@uv run python -m pytest --doctest-modules
+	@uv run python -m pytest tests
 {%- endif %}
 
 .PHONY: build
