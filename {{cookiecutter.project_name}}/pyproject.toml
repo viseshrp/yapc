@@ -77,6 +77,7 @@ testpaths = ["tests"]
 target-version = "py39"
 line-length = 120
 fix = true
+exclude = ["__init__.py"]
 
 [tool.ruff.lint]
 select = [
@@ -112,9 +113,26 @@ select = [
     "TRY",
 ]
 ignore = [
-    "E501",  # Line too long
-    "E731",  # Do not assign a lambda expression
+    "E501", # Line too long
+    "E731", # Do not assign a lambda expression
+    "E203", # Whitespace before ':'
+    "W503", # Line break before binary operator
+    "W605", # Invalid escape sequence
+    "F821", # Undefined name
+    "C901", # Function is too complex
+    "B904", # Exception chaining advice
+    "N813", # CamelCase imported as lowercase
+    "B903", # Suggest using __slots__ or immutability
+    "N801", # Class name should use CapWords
+    "N802", # Function name should be lowercase
+    "N818", # Exception name should end in 'Error'
+    "B950", # Line too long (conflicts with Black)
+    "F401", # Imported but unused
+    "B907"   # Prefer `!r` over manual repr wrapping
 ]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["S101"]
