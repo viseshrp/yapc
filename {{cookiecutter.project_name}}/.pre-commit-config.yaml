@@ -69,14 +69,6 @@ repos:
           "{{cookiecutter.project_slug}}", tests
         ]
 
-      - id: pyupgrade
-        name: pyupgrade
-        description: Automatically upgrade syntax for newer versions.
-        entry: pyupgrade
-        language: system
-        types: [python]
-        args: [--py39-plus]
-
       - id: refurb
         name: refurb
         description: A tool for refurbishing and modernizing Python codebases.
