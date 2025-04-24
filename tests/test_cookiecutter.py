@@ -34,7 +34,7 @@ def test_using_pytest(cookies, tmp_path):
         with run_within_dir(project_path):
             uv_exe = shutil.which("uv") or "uv"
             subprocess.run([uv_exe, "sync"], check=True)
-            subprocess.run([uv_exe, "run", "make", "test"], check=True)
+            subprocess.run(["make", "test"], check=True)
 
 
 def test_cicd_contains_pypi_secrets(cookies, tmp_path):
