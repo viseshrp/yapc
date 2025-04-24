@@ -44,6 +44,8 @@ dev = [
     "mypy>=0.991",
     {% if cookiecutter.codecov == 'y' %}"pytest-cov>=4.0.0",{% endif %}
     "ruff>=0.11.5",
+    "vulture>=2.7",
+    "safety>=2.3.5"
 ]
 
 [build-system]

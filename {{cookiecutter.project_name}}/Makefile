@@ -1,30 +1,24 @@
 .PHONY: install
-install: ## Install the virtual environment and install the pre-commit hooks
+install: ## Set up environment and pre-commit hooks
 	@echo "🚀 Creating virtual environment using uv"
 	@uv sync
 	@uv run pre-commit install
 
 .PHONY: check
-check: ## Run code quality tools.
-	@echo "🚀 Checking lock file consistency with 'pyproject.toml'"
+check: ## Run all code quality checks
+	@echo "🚀 Checking lock file consistency"
 	@uv lock --locked
-	@echo "🚀 Linting code: Running pre-commit"
+	@echo "🚀 Running pre-commit hooks (ruff, mypy, vulture, safety, etc.)"
 	@uv run pre-commit run -a
-	@echo "🚀 Static type checking: Running mypy"
-	@uv run mypy
-{%- if cookiecutter.deptry == 'y' %}
-	@echo "🚀 Checking for obsolete dependencies: Running deptry"
-	@uv run deptry .
-{%- endif %}
 
 .PHONY: test
 test: ## Test the code with pytest
-	@echo "🚀 Testing code: Running pytest"
-{%- if cookiecutter.codecov == "y"%}
+	@echo "🚀 Running tests with pytest"
+{%- if cookiecutter.codecov == "y" %}
 	@uv run python -m pytest --cov --cov-config=pyproject.toml --cov-report=xml
 {%- else %}
 	@uv run python -m pytest --doctest-modules
-{%- endif%}
+{%- endif %}
 
 .PHONY: build
 build: clean-build ## Build wheel file
@@ -41,7 +35,7 @@ version: ## Print the current project version
 	@uv run hatch version
 
 .PHONY: tag
-tag: ## Create a Git tag based on the current version
+tag: ## Create a Git tag from the current version
 	@echo "🏷 Tagging version"
 	@git tag v$(shell uv run hatch version)
 	@git push --tags
@@ -49,14 +43,14 @@ tag: ## Create a Git tag based on the current version
 {%- if cookiecutter.publish_to_pypi == "y" %}
 
 .PHONY: publish
-publish: ## Publish a release to PyPI.
-	@echo "🚀 Publishing."
+publish: ## Publish a release to PyPI
+	@echo "🚀 Publishing to PyPI"
 	@uvx twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
 
 .PHONY: build-and-publish
-build-and-publish: build publish ## Build and publish.
-{%- endif %}
+build-and-publish: build publish ## Build and publish
 
+{%- endif %}
 .PHONY: help
 help:
 	@uv run python -c "import re; \
