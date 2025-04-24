@@ -9,10 +9,11 @@ from tests.utils import file_contains_text, is_valid_yaml, run_within_dir
 
 def test_bake_project(cookies):
     result = cookies.bake(extra_context={"project_name": "my-project"})
-    project_path = Path(result.project_path)
 
-    assert result.exit_code == 0
+    assert result.exit_code == 0, result.exception
     assert result.exception is None
+    assert result.project_path is not None
+    project_path = Path(result.project_path)
     assert project_path.name == "my-project"
     assert project_path.is_dir()
 
