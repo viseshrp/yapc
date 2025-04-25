@@ -198,13 +198,13 @@ python = { "3.9" = "py39", "3.10" = "py310", "3.11" = "py311", "3.12" = "py312",
 pass_env = ["PYTHON_VERSION"]
 allowlist_externals = ["uv"]
 commands = [
-  "uv sync --python {envpython}",
-  {% if cookiecutter.codecov == "y" %}
-  "uv run python -m pytest tests --cov --cov-config=pyproject.toml --cov-report=xml",
-  {% else %}
-  "uv run python -m pytest tests",
-  {% endif %}
-  "uv run mypy"
+  ["uv", "sync", "--python", "{envpython}"],
+{% if cookiecutter.codecov == "y" %}
+  ["uv", "run", "python", "-m", "pytest", "tests", "--cov", "--cov-config=pyproject.toml", "--cov-report=xml"],
+{% else %}
+  ["uv", "run", "python", "-m", "pytest", "tests"],
+{% endif %}
+  ["uv", "run", "mypy"]
 ]
 
 [tool.tox.env.py310]
