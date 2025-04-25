@@ -45,10 +45,10 @@ jobs:
           name: pyproject-toml
 
       - name: Build package
-        run: uv build
+        run: make build
 
       - name: Publish package
-        run: uv publish
+        run: make publish
         env:
           UV_PUBLISH_TOKEN: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
 {% endif %}
