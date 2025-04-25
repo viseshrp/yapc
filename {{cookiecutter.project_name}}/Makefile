@@ -26,9 +26,9 @@ test-local: ## Run tests in current Python environment using uv
 {%- endif %}
 
 .PHONY: build
-build: clean-build ## Build wheel file
-	@echo "🚀 Building project with hatch"
-	@uv run hatch build
+build: clean-build ## Build package using uv
+	@echo "🚀 Building project"
+	@uv build
 
 .PHONY: clean-build
 clean-build: ## Clean build artifacts
@@ -46,14 +46,18 @@ tag: ## Create a Git tag from the current version
 	@git push --tags
 
 {%- if cookiecutter.publish_to_pypi == "y" %}
-
 .PHONY: publish
-publish: ## Publish a release to PyPI
+publish: ## Publish to production PyPI
 	@echo "🚀 Publishing to PyPI"
-	@uvx twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
+	@UV_PUBLISH_TOKEN=$(PYPI_TOKEN) uv publish --repository-url https://upload.pypi.org/legacy/
+
+.PHONY: publish-test
+publish-test: ## Publish to TestPyPI (for dry runs)
+	@echo "🚀 Publishing to TestPyPI"
+	@UV_PUBLISH_TOKEN=$(TEST_PYPI_TOKEN) uv publish --repository-url https://test.pypi.org/legacy/
 
 .PHONY: build-and-publish
-build-and-publish: build publish ## Build and publish
+build-and-publish: build publish ## Build and publish in one step
 
 {%- endif %}
 .PHONY: help
