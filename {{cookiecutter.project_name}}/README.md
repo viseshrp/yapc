@@ -21,10 +21,6 @@ Explain the problem this tool solves or the goal it's intended to fulfill.
 
 ## 🛠️ Features
 
-- Zero-config setup with `uv`, `tox`, `pre-commit`, and GitHub Actions
-- Opinionated code quality tools: `ruff`, `mypy`, `pytest`, `black`
-- Optional CLI setup with [`Click`](https://click.palletsprojects.com)
-- Optional publishing setup for PyPI
 
 ---
 
