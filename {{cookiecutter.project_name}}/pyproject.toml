@@ -186,7 +186,6 @@ python = "3.11"
 
 [tool.tox]
 min_version = "4.0"
-legacy_tox_ini = false
 
 [tool.tox.root]
 skipsdist = true
