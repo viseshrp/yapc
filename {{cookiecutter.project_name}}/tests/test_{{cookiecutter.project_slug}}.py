@@ -1,7 +1,8 @@
-from click.testing import CliRunner
 import pytest
+from click.testing import CliRunner
 
 from {{cookiecutter.project_slug}} import __version__, cli, exceptions
+
 
 @pytest.mark.parametrize(
     "options",

@@ -1,13 +1,10 @@
 """Console script for {{cookiecutter.project_slug}}."""
-import warnings
-
 import click
 from click_default_group import DefaultGroup
 
 from . import __version__ as _version
 from .{{cookiecutter.project_slug}} import do_stuff
 
-warnings.filterwarnings("ignore")
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
 
