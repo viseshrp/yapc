@@ -40,3 +40,4 @@ if __name__ == "__main__":
     if "{{cookiecutter.cli_tool}}" != "y":
         remove_file("{cookiecutter.project_slug}/__main__.py")
         remove_file("{cookiecutter.project_slug}/cli.py")
+        remove_file("tests/test_cli.py")

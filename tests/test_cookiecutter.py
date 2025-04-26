@@ -4,6 +4,8 @@ import shutil
 import subprocess
 from pathlib import Path
 
+import pytest
+
 from tests.utils import file_contains_text, is_valid_yaml, run_within_dir
 
 
@@ -18,9 +20,10 @@ def test_bake_project(cookies):
     assert project_path.is_dir()
 
 
-def test_using_pytest(cookies, tmp_path):
+@pytest.mark.parametrize("cli_opt", ["y", "n"])
+def test_using_pytest(cookies, tmp_path, cli_opt):
     with run_within_dir(tmp_path):
-        result = cookies.bake()
+        result = cookies.bake(extra_context={"cli_tool": cli_opt})
         project_path = Path(result.project_path)
         slug = project_path.name.replace("-", "_")
         (project_path / slug / "_version.py").write_text('__version__ = "0.0.0"\n')
@@ -33,8 +36,9 @@ def test_using_pytest(cookies, tmp_path):
 
         with run_within_dir(project_path):
             uv_exe = shutil.which("uv") or "uv"
+            make_exe = shutil.which("make") or "make"
             subprocess.run([uv_exe, "sync"], check=True)
-            subprocess.run(["make", "test"], check=True)
+            subprocess.run([make_exe, "test"], check=True)
 
 
 def test_cicd_contains_pypi_secrets(cookies, tmp_path):
