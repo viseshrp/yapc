@@ -46,7 +46,7 @@ def test_cicd_contains_pypi_secrets(cookies, tmp_path):
         result = cookies.bake(extra_context={"publish_to_pypi": "y"})
         project_path = Path(result.project_path)
 
-        workflow = project_path / ".github" / "workflows" / "on-release-main.yml"
+        workflow = project_path / ".github" / "workflows" / "release.yml"
         makefile = project_path / "Makefile"
         assert result.exit_code == 0
         assert is_valid_yaml(workflow)
@@ -104,7 +104,7 @@ def test_remove_release_workflow(cookies, tmp_path):
         project_path = Path(result.project_path)
 
         assert result.exit_code == 0
-        assert not (project_path / ".github" / "workflows" / "on-release-main.yml").is_file()
+        assert not (project_path / ".github" / "workflows" / "release.yml").is_file()
 
 
 def test_license_mit(cookies, tmp_path):
