@@ -1,3 +1,3 @@
-def do_stuff():
+def do_stuff() -> None:
     """Do stuff."""
     pass

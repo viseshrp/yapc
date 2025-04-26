@@ -8,7 +8,7 @@ from .{{cookiecutter.project_slug}} import do_stuff
 
 @click.command(context_settings=dict(help_option_names=["-h", "--help"]))
 @click.version_option(_version, "-v", "--version")
-def main():
+def main() -> None:
     """
     {{cookiecutter.project_description}}
 
