@@ -42,6 +42,12 @@ repos:
     rev: 1.7.4
     hooks:
       - id: bandit
+        args: [
+          "-lll",
+          "-n", "3",
+          "-r",
+          "-x", "venv/*,setup.py,tests/*"
+        ]
 
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.4
@@ -79,7 +85,27 @@ repos:
         entry: uv run deptry .
         language: system
         types: [python]
+
 {%- endif %}
+      - id: refurb
+        name: refurb
+        description: A tool for refurbishing and modernizing Python codebases.
+        entry: refurb
+        language: system
+        types: [python]
+        args: [--python-version, "3.9"]
+
+      - id: mypy
+        name: mypy
+        entry: mypy
+        language: system
+        types: [python]
+        args: [
+          "--disallow-untyped-defs",
+          "--no-implicit-optional",
+          "--warn-unused-ignores",
+          "--warn-return-any"
+        ]
 
       - id: vulture
         name: vulture
@@ -100,11 +126,3 @@ repos:
         args: [
           "check", "--full-report"
         ]
-
-      - repo: local
-        hooks:
-            - id: mypy
-              name: mypy
-              entry: uv run mypy
-              language: system
-              types: [python]
