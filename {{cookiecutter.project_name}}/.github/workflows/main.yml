@@ -1,4 +1,4 @@
-name: Quality and tests
+name: Main
 
 on:
   push:
@@ -30,8 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
-      fail-fast: true
+      fail-fast: false
     defaults:
       run:
         shell: bash
@@ -52,3 +51,26 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
+
+  publish-to-testpypi:
+    if: github.ref == 'refs/heads/main'
+    needs: [quality, tests]
+    runs-on: ubuntu-latest
+    environment:
+      name: test-pypi
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python + Environment
+        uses: ./.github/actions/setup-python-env
+
+      - name: Build project
+        run: make build
+
+      - name: Publish to TestPyPI
+        run: make publish-test
+        env:
+          TEST_PYPI_TOKEN: {% raw %}${{ secrets.TEST_PYPI_API_TOKEN }}{% endraw %}
