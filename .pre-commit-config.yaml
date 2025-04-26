@@ -23,13 +23,3 @@ repos:
       - id: ruff-format
         args: [--config=pyproject.toml]
         exclude: ^{{cookiecutter.project_name}}
-
-  - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: "v0.44.0"
-    hooks:
-      - id: markdownlint
-        name: markdownlint
-        entry: markdownlint
-        language: node
-        types: [markdown]
-        args: [--fix]
