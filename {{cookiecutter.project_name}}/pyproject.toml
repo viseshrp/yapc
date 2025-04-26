@@ -70,8 +70,59 @@ warn_unused_ignores = true
 show_error_codes = true
 
 [tool.pytest.ini_options]
+tmp_path_retention_policy = "failed"
 testpaths = ["tests"]
+addopts = "--capture=tee-sys --tb=native -p no:warnings -vv"
+markers =[
+    "integration:Run integration tests",
+    "smoke:Run the smoke tests",
+    "unit:Run the unit tests",
+]
+norecursedirs =[
+  ".git",
+  ".idea",
+]
+filterwarnings = [
+    "ignore:.+:DeprecationWarning"
+]
 
+{% if cookiecutter.codecov == "y"-%}
+# Configuration for coverage.py
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+# Regexes for lines to exclude from consideration
+exclude_lines = [
+    # Have to re-enable the standard pragma
+    "pragma: no cover",
+
+    # Don't complain about missing debug-only code:
+    "def __repr__",
+    "if self\\.debug",
+
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+
+    # Don't complain if non-runnable code isn't run:
+    "if 0:",
+    "if __name__ == .__main__.:",
+
+    # Don't complain about abstract methods, they aren't run:
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.coverage.run]
+branch = true
+omit = ["{{cookiecutter.project_slug}}/__main__.py"]
+source = [
+    "{{cookiecutter.project_slug}}"
+]
+
+[tool.coverage.html]
+show_contexts = true
+
+{% endif %}
 [tool.ruff]
 target-version = "py39"
 line-length = 120
@@ -139,43 +190,27 @@ max-complexity = 10
 [tool.ruff.format]
 preview = true
 
-{% if cookiecutter.codecov == "y"-%}
-# Configuration for coverage.py
-[tool.coverage.report]
-show_missing = true
-skip_covered = true
-# Regexes for lines to exclude from consideration
-exclude_lines = [
-    # Have to re-enable the standard pragma
-    "pragma: no cover",
-
-    # Don't complain about missing debug-only code:
-    "def __repr__",
-    "if self\\.debug",
-
-    # Don't complain if tests don't hit defensive assertion code:
-    "raise AssertionError",
-    "raise NotImplementedError",
-
-    # Don't complain if non-runnable code isn't run:
-    "if 0:",
-    "if __name__ == .__main__.:",
-
-    # Don't complain about abstract methods, they aren't run:
-    "@(abc\\.)?abstractmethod",
-]
-
-[tool.coverage.run]
-branch = true
-omit = ["{{cookiecutter.project_slug}}/__main__.py"]
-source = [
-    "{{cookiecutter.project_slug}}"
-]
-
-{% endif %}
 [tool.black]
 line-length = 100
 target-version = ["py39"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["{{cookiecutter.project_slug}}", "tests"]
+force-sort-within-sections = true
+line-length = 100
+
+[tool.codespell]
+ignore-words = ""
+skip = '*.pyc,*.xml,*.gif,*.png,*.jpg,*.js,*.html,*.json,*.gz'
+quiet-level = 3
+
+[tool.bandit]
+targets = ["{{cookiecutter.project_slug}}", ]
+recursive = true
+number = 3
+severity_level = "high"
+require_serial = true
+exclude_dirs = [ "venv/*", ".venv/*", "tests/*"]
 
 [tool.pre-commit.default_language_versions]
 python = "3.11"
