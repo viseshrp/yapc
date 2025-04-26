@@ -85,6 +85,13 @@ repos:
         language: system
         types: [python]
 
+      - id: refurb
+        name: refurb
+        entry: refurb
+        language: system
+        types: [python]
+        args: [--python-version, "3.9"]
+
       - id: mypy
         name: mypy
         entry: mypy
