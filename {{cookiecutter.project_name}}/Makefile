@@ -9,7 +9,7 @@ check: ## Run all code quality checks
 	@echo "🚀 Checking lock file consistency"
 	@uv lock --locked
 	@echo "🚀 Running pre-commit hooks (ruff, mypy, vulture, safety, etc.)"
-	@uv run pre-commit run -a --show-diff-on-failure
+	@uv run pre-commit run --all-files --show-diff-on-failure
 
 .PHONY: test
 test: ## Run tests using tox
