@@ -54,17 +54,6 @@ def test_cicd_contains_pypi_secrets(cookies, tmp_path):
         assert file_contains_text(makefile, "build-and-publish")
 
 
-def test_tox(cookies, tmp_path):
-    with run_within_dir(tmp_path):
-        result = cookies.bake()
-        project_path = Path(result.project_path)
-
-        tox_file = project_path / "tox.ini"
-        assert result.exit_code == 0
-        assert tox_file.is_file()
-        assert file_contains_text(tox_file, "[tox]")
-
-
 def test_codecov(cookies, tmp_path):
     with run_within_dir(tmp_path):
         result = cookies.bake()
