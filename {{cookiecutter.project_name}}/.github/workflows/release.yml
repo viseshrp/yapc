@@ -1,54 +1,53 @@
-name: release-main
+name: Release to PyPI
 
 on:
+  workflow_dispatch:
   release:
     types: [published]
 
 jobs:
-{% if cookiecutter.publish_to_pypi == "y" %}
-  set-version:
+  release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Export tag
-        id: vars
-        run: {% raw %}echo tag=${GITHUB_REF#refs/*/} >> $GITHUB_OUTPUT{% endraw %}
-        if: {% raw %}${{ github.event_name == 'release' }}{% endraw %}
-
-      - name: Update project version
-        run: |
-          sed -i "s/^version = \".*\"/version = \"$RELEASE_VERSION\"/" pyproject.toml
-        env:
-          RELEASE_VERSION: {% raw %}${{ steps.vars.outputs.tag }}{% endraw %}
-        if: {% raw %}${{ github.event_name == 'release' }}{% endraw %}
-
-      - name: Upload updated pyproject.toml
-        uses: actions/upload-artifact@v4
-        with:
-          name: pyproject-toml
-          path: pyproject.toml
-
-  publish:
-    runs-on: ubuntu-latest
-    needs: [set-version]
-    steps:
-      - name: Check out
+      - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # important for hatch-vcs to see full Git history and tags
 
-      - name: Set up the environment
+      - name: Set up Python Environment
         uses: ./.github/actions/setup-python-env
 
-      - name: Download updated pyproject.toml
-        uses: actions/download-artifact@v4
-        with:
-          name: pyproject-toml
+      - name: Verify tag matches project version
+        run: |
+          import os
+          import subprocess
+          import sys
+
+          tag = os.environ.get("GITHUB_REF_NAME", "").strip()
+
+          if tag.startswith("v"):
+              tag_stripped = tag[1:]
+          else:
+              tag_stripped = tag
+
+          result = subprocess.run(["uv", "run", "hatch", "version"], capture_output=True, text=True)
+          project_version = result.stdout.strip()
+
+          print(f"GitHub Tag: {tag_stripped}")
+          print(f"Project Version: {project_version}")
+
+          if tag_stripped != project_version:
+              print(f"::error ::Tag version ({tag_stripped}) does not match project version ({project_version})")
+              sys.exit(1)
+        shell: python
 
       - name: Build package
         run: make build
 
-      - name: Publish package
+      - name: Publish package to PyPI
         run: make publish
         env:
           UV_PUBLISH_TOKEN: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
-{% endif %}
