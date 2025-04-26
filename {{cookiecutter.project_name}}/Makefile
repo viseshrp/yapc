@@ -1,35 +1,34 @@
 .PHONY: install
-install: ## Install the virtual environment and install the pre-commit hooks
+install: ## Set up environment and pre-commit hooks
 	@echo "🚀 Creating virtual environment using uv"
 	@uv sync
 	@uv run pre-commit install
 
 .PHONY: check
-check: ## Run code quality tools.
-	@echo "🚀 Checking lock file consistency with 'pyproject.toml'"
+check: ## Run all code quality checks
+	@echo "🚀 Checking lock file consistency"
 	@uv lock --locked
-	@echo "🚀 Linting code: Running pre-commit"
-	@uv run pre-commit run -a
-	@echo "🚀 Static type checking: Running mypy"
-	@uv run mypy
-{%- if cookiecutter.deptry == 'y' %}
-	@echo "🚀 Checking for obsolete dependencies: Running deptry"
-	@uv run deptry .
-{%- endif %}
+	@echo "🚀 Running pre-commit hooks (ruff, mypy, vulture, safety, etc.)"
+	@uv run pre-commit run -a --show-diff-on-failure
 
 .PHONY: test
-test: ## Test the code with pytest
-	@echo "🚀 Testing code: Running pytest"
-{%- if cookiecutter.codecov == "y"%}
-	@uv run python -m pytest --cov --cov-config=pyproject.toml --cov-report=xml
+test: ## Run tests using tox
+	@echo "🚀 Testing code: Running tox across Python versions"
+	@tox
+
+.PHONY: test-local
+test-local: ## Run tests in current Python environment using uv
+	@echo "🚀 Testing code locally"
+{%- if cookiecutter.codecov == "y" %}
+	@uv run python -m pytest tests --cov --cov-config=pyproject.toml --cov-report=xml
 {%- else %}
-	@uv run python -m pytest --doctest-modules
-{%- endif%}
+	@uv run python -m pytest tests
+{%- endif %}
 
 .PHONY: build
-build: clean-build ## Build wheel file
-	@echo "🚀 Building project with hatch"
-	@uv run hatch build
+build: clean-build ## Build package using uv
+	@echo "🚀 Building project"
+	@uv build
 
 .PHONY: clean-build
 clean-build: ## Clean build artifacts
@@ -41,22 +40,26 @@ version: ## Print the current project version
 	@uv run hatch version
 
 .PHONY: tag
-tag: ## Create a Git tag based on the current version
+tag: ## Create a Git tag from the current version
 	@echo "🏷 Tagging version"
 	@git tag v$(shell uv run hatch version)
 	@git push --tags
 
 {%- if cookiecutter.publish_to_pypi == "y" %}
-
 .PHONY: publish
-publish: ## Publish a release to PyPI.
-	@echo "🚀 Publishing."
-	@uvx twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
+publish: ## Publish to production PyPI
+	@echo "🚀 Publishing to PyPI"
+	@UV_PUBLISH_TOKEN=$(PYPI_TOKEN) uv publish --repository-url https://upload.pypi.org/legacy/
+
+.PHONY: publish-test
+publish-test: ## Publish to TestPyPI (for dry runs)
+	@echo "🚀 Publishing to TestPyPI"
+	@UV_PUBLISH_TOKEN=$(TEST_PYPI_TOKEN) uv publish --repository-url https://test.pypi.org/legacy/
 
 .PHONY: build-and-publish
-build-and-publish: build publish ## Build and publish.
-{%- endif %}
+build-and-publish: build publish ## Build and publish in one step
 
+{%- endif %}
 .PHONY: help
 help:
 	@uv run python -c "import re; \

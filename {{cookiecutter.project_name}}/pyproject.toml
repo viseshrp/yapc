@@ -6,12 +6,7 @@ authors = [{ name = "{{cookiecutter.author}}", email = "{{cookiecutter.email}}" 
 readme = "README.md"
 keywords = ["python"]
 requires-python = ">=3.9,<4.0"
-dependencies = [
-{% if cookiecutter.cli_tool == "y" %}
-    "click>=8.1.1",
-    "click-default-group>=1.2.2",
-{% endif %}
-]
+dependencies = [{% if cookiecutter.cli_tool == "y" %}"click>=8.1.1", {% endif %}]
 license = { text = "MIT" }
 classifiers = [
     "Intended Audience :: Developers",
@@ -40,10 +35,13 @@ dev = [
     "pytest>=7.2.0",
     "pre-commit>=2.20.0",
     "tox-uv>=1.11.3",
-    {% if cookiecutter.deptry == 'y' %}"deptry>=0.23.0",{% endif %}
-    "mypy>=0.991",
-    {% if cookiecutter.codecov == 'y' %}"pytest-cov>=4.0.0",{% endif %}
     "ruff>=0.11.5",
+    "mypy>=1.0.0",
+    "deptry>=0.23.0",
+    {% if cookiecutter.codecov == 'y' %}"pytest-cov>=4.0.0",{% endif %}
+    "vulture>=2.7",
+    "safety>=2.3.5",
+    {% if cookiecutter.cli_tool == 'y' %}"cogapp>=3.3.0",{% endif %}
 ]
 
 [build-system]
@@ -77,6 +75,7 @@ testpaths = ["tests"]
 target-version = "py39"
 line-length = 120
 fix = true
+exclude = ["__init__.py"]
 
 [tool.ruff.lint]
 select = [
@@ -112,9 +111,26 @@ select = [
     "TRY",
 ]
 ignore = [
-    "E501",  # Line too long
-    "E731",  # Do not assign a lambda expression
+    "E501", # Line too long
+    "E731", # Do not assign a lambda expression
+    "E203", # Whitespace before ':'
+    "W503", # Line break before binary operator
+    "W605", # Invalid escape sequence
+    "F821", # Undefined name
+    "C901", # Function is too complex
+    "B904", # Exception chaining advice
+    "N813", # CamelCase imported as lowercase
+    "B903", # Suggest using __slots__ or immutability
+    "N801", # Class name should use CapWords
+    "N802", # Function name should be lowercase
+    "N818", # Exception name should end in 'Error'
+    "B950", # Line too long (conflicts with Black)
+    "F401", # Imported but unused
+    "B907"   # Prefer `!r` over manual repr wrapping
 ]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["S101"]
@@ -123,17 +139,28 @@ ignore = [
 preview = true
 
 {% if cookiecutter.codecov == "y"-%}
+# Configuration for coverage.py
 [tool.coverage.report]
 show_missing = true
 skip_covered = true
+# Regexes for lines to exclude from consideration
 exclude_lines = [
+    # Have to re-enable the standard pragma
     "pragma: no cover",
+
+    # Don't complain about missing debug-only code:
     "def __repr__",
     "if self\\.debug",
+
+    # Don't complain if tests don't hit defensive assertion code:
     "raise AssertionError",
     "raise NotImplementedError",
+
+    # Don't complain if non-runnable code isn't run:
     "if 0:",
     "if __name__ == .__main__.:",
+
+    # Don't complain about abstract methods, they aren't run:
     "@(abc\\.)?abstractmethod",
 ]
 
@@ -143,11 +170,45 @@ omit = ["{{cookiecutter.project_slug}}/__main__.py"]
 source = [
     "{{cookiecutter.project_slug}}"
 ]
-{% endif %}
 
+{% endif %}
 [tool.black]
 line-length = 100
 target-version = ["py39"]
 
 [tool.pre-commit.default_language_versions]
 python = "3.11"
+
+[tool.tox]
+min_version = "4.0"
+env_list = ["py39", "py310", "py311", "py312", "py313"]
+skipsdist = true
+
+[tool.tox.root]
+skipsdist = true
+
+{% if cookiecutter.github_actions == 'y' %}
+[tool.tox-gh-actions]
+python = { "3.9" = "py39", "3.10" = "py310", "3.11" = "py311", "3.12" = "py312", "3.13" = "py313" }
+
+{% endif %}
+[tool.tox.env.py39]
+pass_env = ["PYTHON_VERSION"]
+allowlist_externals = ["uv"]
+commands = [
+  ["uv", "sync", "--python", "{envpython}"],
+  ["uv", "run", "python", "-m", "pytest", "tests"{% if cookiecutter.codecov == 'y' %}, "--cov", "--cov-config=pyproject.toml", "--cov-report=xml"{% endif %}],
+  ["uv", "run", "mypy"]
+]
+
+[tool.tox.env.py310]
+inherits = "py39"
+
+[tool.tox.env.py311]
+inherits = "py39"
+
+[tool.tox.env.py312]
+inherits = "py39"
+
+[tool.tox.env.py313]
+inherits = "py39"

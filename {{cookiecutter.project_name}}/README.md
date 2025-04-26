@@ -1,56 +1,99 @@
-{{cookiecutter.project_name}}
-=============================
+# {{cookiecutter.project_name}}
 
-[![image](https://img.shields.io/pypi/v/{{cookiecutter.project_name}}.svg)](https://pypi.python.org/pypi/{{cookiecutter.project_name}})
+[![PyPI version](https://img.shields.io/pypi/v/{{cookiecutter.project_name}}.svg)](https://pypi.org/project/{{cookiecutter.project_name}})
 [![Python versions](https://img.shields.io/pypi/pyversions/{{cookiecutter.project_name}}.svg?logo=python&logoColor=white)](https://pypi.org/project/{{cookiecutter.project_name}}/)
-[![Tests status](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/workflows/Test/badge.svg)](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/actions?query=workflow%3ATest)
-[![Coverage](https://codecov.io/gh/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/branch/develop/graph/badge.svg)](https://codecov.io/gh/{{cookiecutter.github_username}}/{{cookiecutter.project_name}})
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/blob/develop/LICENSE)
-[![Downloads](https://pepy.tech/badge/{{cookiecutter.project_name}})](https://pepy.tech/project/{{cookiecutter.project_name}})
+{% if cookiecutter.github_actions == 'y' %}
+[![Test Status](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/workflows/Test/badge.svg)](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/actions?query=workflow%3ATest)
+[![Coverage](https://codecov.io/gh/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/branch/main/graph/badge.svg)](https://codecov.io/gh/{{cookiecutter.github_username}}/{{cookiecutter.project_name}})
+{% endif %}
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/blob/main/LICENSE)
+[![Downloads](https://static.pepy.tech/badge/{{cookiecutter.project_name}})](https://pepy.tech/project/{{cookiecutter.project_name}})
 
-{{cookiecutter.project_description}}
+> {{cookiecutter.project_description}}
 
-![demo](https://raw.githubusercontent.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/develop/demo.gif)
+![Demo](https://raw.githubusercontent.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/main/demo.gif)
 
-Why build this
---------------
+---
 
+## 🚀 Why this project exists
 
-How it works
-------------
+Explain the problem this tool solves or the goal it's intended to fulfill.
 
+---
 
+## 🧠 How this works
 
-Installation
-------------
+Explain how the tool works.
 
-``` {.bash}
+---
+
+## 🛠️ Features
+
+---
+
+## 📦 Installation
+
+```bash
 pip install {{cookiecutter.project_name}}
 ```
 
-Requirements
-------------
+---
 
-- Python 3.9+
+## 📦 Usage
 
-Features
---------
-
-
-
-Usage
------
-
-
-Limitations
------------
-
-
-Credits
--------
-{% if cookiecutter.cli_tool == "y" %}
-- [Click](https://click.palletsprojects.com), for making writing CLI
-    tools a complete pleasure.
+{% if cookiecutter.cli_tool == 'y' %}
+{% raw %}
+<!-- [[[cog
+import cog
+from {{cookiecutter.project_slug}} import cli
+from click.testing import CliRunner
+runner = CliRunner()
+result = runner.invoke(cli.main, ["--help"])
+out = result.output.replace("Usage: main", "Usage: {{cookiecutter.project_name}}")
+result = runner.invoke(cli.what, ["--help"])
+what_out = result.output
+cog.out(
+    "``` {{.bash}}\n"
+    "$ {{cookiecutter.project_name}} --help\n"
+    "{}"
+    "```".format(out)
+)
+]]] -->
+<!-- [[[end]]] -->
+{% endraw %}
 {% endif %}
-- [Simon Willison](https://github.com/simonw/sqlite-utils/) for some
-    inspiration.
+
+## 📐 Requirements
+
+
+
+## 📐 Requirements
+
+- Python >= 3.9
+
+---
+
+## 🧪 Usage
+
+```bash
+{{cookiecutter.project_slug}} --help
+```
+
+---
+
+## 🧾 Changelog
+
+See [CHANGELOG.md](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/blob/main/CHANGELOG.md)
+
+---
+
+## 🙏 Credits
+
+{% if cookiecutter.cli_tool == "y" %}- [Click](https://click.palletsprojects.com), for enabling delightful CLI development. {% endif %}
+- Inspired by [Simon Willison](https://github.com/simonw/sqlite-utils)
+
+---
+
+## 📄 License
+
+MIT © [{{cookiecutter.author}}](https://github.com/{{cookiecutter.github_username}})

@@ -1,7 +1,7 @@
 import pytest
 
 
-@pytest.fixture()
-def cleanup():
+@pytest.fixture(scope="session", autouse=True)
+def cleanup() -> None:
     yield
     print("cleanup")

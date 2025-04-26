@@ -1,14 +1,22 @@
 version: 2
 updates:
-  - package-ecosystem: github-actions
+  # 1. Python dependencies from pyproject.toml
+  - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: daily
-  - package-ecosystem: pip
-    directory: "/docs"
-    schedule:
-      interval: daily
-  - package-ecosystem: pip
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "automerge"
+
+  # 2. GitHub-hosted things:
+  #    - GitHub Actions in .github/workflows/
+  #    - pre-commit hook revs in .pre-commit-config.yaml
+  - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: daily
+      interval: "weekly"
+    labels:
+      - "ci"
+      - "dependencies"
+      - "automerge"

@@ -1,6 +1,9 @@
 repos:
+  # ─────────────────────────────────────────────────────────────────────
+  # 🧰 Built-in hooks for config, formatting, etc.
+  # ─────────────────────────────────────────────────────────────────────
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: "v5.0.0"
+    rev: v5.0.0
     hooks:
       - id: check-case-conflict
       - id: check-merge-conflict
@@ -11,95 +14,48 @@ repos:
         args: [--autofix, --no-sort-keys]
       - id: end-of-file-fixer
       - id: trailing-whitespace
+        exclude: \.py$  # Ruff handles Python files
 
+  # ─────────────────────────────────────────────────────────────────────
+  # ✨ Ruff for lint + format
+  # ─────────────────────────────────────────────────────────────────────
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.11.5"
+    rev: v0.11.6
     hooks:
       - id: ruff
         args: [--exit-non-zero-on-fix]
       - id: ruff-format
 
-  - repo: local
+  # ─────────────────────────────────────────────────────────────────────
+  # 🧪 Typing, formatting, and security tools via official mirrors
+  # ─────────────────────────────────────────────────────────────────────
+  - repo: https://github.com/psf/black
+    rev: 23.1.0
     hooks:
-      - id: check-yaml
-        name: check-yaml
-        entry: check-yaml
-        language: system
-        types: [yaml]
-
-      - id: check-case-conflict
-        name: check-case-conflict
-        entry: check-case-conflict
-        language: system
-
-      - id: codespell
-        name: codespell
-        entry: codespell
-        language: system
-
-      - id: trailing-whitespace
-        name: Trim Trailing Whitespace
-        entry: trailing-whitespace-fixer
-        language: system
-        types: [text]
-
-      - id: cog
-        name: cog
-        entry: cog
-        language: system
-        types: [markdown]
-        require_serial: true
-        args: [-r, "README.md"]
-
-      - id: debug-statements
-        name: debug-statements
-        entry: debug-statement-hook
-        language: system
-        types: [python]
-
       - id: black
-        name: black
-        entry: black
-        language: system
-        types: [python]
-        require_serial: true
         args: [
-          --line-length, "100",
-          --target-version, "py39",
-          "{{cookiecutter.project_slug}}", tests
+          --line-length=100,
+          --target-version=py39
         ]
 
-      - id: pyupgrade
-        name: pyupgrade
-        description: Automatically upgrade syntax for newer versions.
-        entry: pyupgrade
-        language: system
-        types: [python]
-        args: [--py39-plus]
-
-      - id: refurb
-        name: refurb
-        description: A tool for refurbishing and modernizing Python codebases.
-        entry: refurb
-        language: system
-        types: [python]
-        args: [--python-version, "3.9"]
-
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.4
+    hooks:
       - id: bandit
-        name: bandit
-        entry: bandit
-        language: system
-        types: [python]
-        require_serial: true
         args: [
-          -lll,
-          -n, "3",
-          -r,
-          -x, "venv/*,setup.py,tests/*"
+          "-lll",
+          "-n", "3",
+          "-r",
+          "-x", "venv/*,setup.py,tests/*"
         ]
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.4
+    hooks:
+      - id: codespell
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.33.0
+    rev: v0.44.0
     hooks:
       - id: markdownlint
         name: markdownlint
@@ -107,3 +63,56 @@ repos:
         language: node
         types: [markdown]
         args: [--fix]
+
+  # ─────────────────────────────────────────────────────────────────────
+  # 🧱 Local system hooks (must be installed via pyproject + uv)
+  # ─────────────────────────────────────────────────────────────────────
+  - repo: local
+    hooks:
+{% if cookiecutter.cli_tool == "y" %}
+      - id: cog
+        name: cog
+        entry: cog
+        language: system
+        types: [markdown]
+        require_serial: true
+        args: [-r, "README.md"]
+{% endif %}
+
+      - id: deptry
+        name: deptry
+        entry: uv run deptry .
+        language: system
+        types: [python]
+
+      - id: mypy
+        name: mypy
+        entry: mypy
+        language: system
+        types: [python]
+        args: [
+          "--disallow-untyped-defs",
+          "--no-implicit-optional",
+          "--warn-unused-ignores",
+          "--warn-return-any"
+        ]
+
+      - id: vulture
+        name: vulture
+        entry: vulture
+        language: system
+        types: [python]
+        args: [
+          "{{cookiecutter.project_slug}}",
+          "tests",
+          "--min-confidence", "80"
+        ]
+
+      - id: safety
+        name: safety
+        entry: safety
+        language: system
+        types: [python]
+        args: [
+          "check", "--full-report"
+        ]
