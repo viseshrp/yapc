@@ -87,14 +87,6 @@ repos:
         types: [python]
 
 {%- endif %}
-      - id: refurb
-        name: refurb
-        description: A tool for refurbishing and modernizing Python codebases.
-        entry: refurb
-        language: system
-        types: [python]
-        args: [--python-version, "3.9"]
-
       - id: mypy
         name: mypy
         entry: mypy
