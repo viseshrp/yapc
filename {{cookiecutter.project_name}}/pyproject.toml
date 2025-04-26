@@ -54,7 +54,8 @@ path = "{{cookiecutter.project_slug}}/_version.py"
 
 [tool.hatch.version.raw-options]
 version_scheme = "guess-next-dev"
-local_scheme = "node-and-date"
+local_scheme = "datetime"
+fallback_version = "{{ cookiecutter.project_version }}"
 
 [tool.mypy]
 files = [
