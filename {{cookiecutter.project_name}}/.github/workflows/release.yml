@@ -1,0 +1,29 @@
+name: Release to PyPI
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # important for hatch-vcs to see full Git history and tags
+
+      - name: Set up Python Environment
+        uses: ./.github/actions/setup-python-env
+
+      - name: Build package
+        run: make build
+
+      - name: Publish package to PyPI
+        run: make publish
+        env:
+          UV_PUBLISH_TOKEN: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}

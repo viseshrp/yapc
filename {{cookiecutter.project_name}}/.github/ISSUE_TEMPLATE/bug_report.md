@@ -3,7 +3,7 @@ name: Bug report
 about: Create a bug report to help us improve
 title: "Bug Summary"
 labels: "bug"
-assignees: "viseshrp"
+assignees: "{{ cookiecutter.github_username }}"
 ---
 
 **Describe the bug**

@@ -9,7 +9,7 @@ check: ## Run all code quality checks
 	@echo "🚀 Checking lock file consistency"
 	@uv lock --locked
 	@echo "🚀 Running pre-commit hooks (ruff, mypy, vulture, safety, etc.)"
-	@uv run pre-commit run -a --show-diff-on-failure
+	@uv run pre-commit run --all-files --show-diff-on-failure
 
 .PHONY: test
 test: ## Run tests using tox
@@ -20,9 +20,9 @@ test: ## Run tests using tox
 test-local: ## Run tests in current Python environment using uv
 	@echo "🚀 Testing code locally"
 {%- if cookiecutter.codecov == "y" %}
-	@uv run python -m pytest tests --cov --cov-config=pyproject.toml --cov-report=xml
+	@uv run python -m pytest -rvx --setup-show tests --cov --cov-config=pyproject.toml --cov-report html:coverage-html --cov-report term --cov-report xml:coverage.xml
 {%- else %}
-	@uv run python -m pytest tests
+	@uv run python -m pytest -rvx --setup-show tests
 {%- endif %}
 
 .PHONY: build
