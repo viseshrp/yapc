@@ -1,5 +1,12 @@
 {
   "author": "Visesh Prasad",
+  "email": "viseshrprasad@gmail.com",
+  "github_username": "viseshrp",
+  "pypi_username": "{{ cookiecutter.github_username }}",
+  "project_name": "example-project",
+  "project_slug": "{{cookiecutter.project_name|lower|replace('-', '_')}}",
+  "project_version": "0.1.0",
+  "project_description": "This is a template repository for Python projects that use uv for their dependency management.",
   "cli_tool": [
     "y",
     "n"
@@ -12,19 +19,12 @@
     "y",
     "n"
   ],
-  "email": "viseshrprasad@gmail.com",
   "github_actions": [
     "y",
     "n"
   ],
-  "github_username": "viseshrp",
-  "project_description": "This is a template repository for Python projects that use uv for their dependency management.",
-  "project_name": "example-project",
-  "project_slug": "{{cookiecutter.project_name|lower|replace('-', '_')}}",
   "publish_to_pypi": [
     "y",
     "n"
-  ],
-  "pypi_username": "{{ cookiecutter.github_username }}",
-  "version": "0.1.0"
+  ]
 }
