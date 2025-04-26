@@ -182,38 +182,3 @@ target-version = ["py39"]
 
 [tool.pre-commit.default_language_versions]
 python = "3.11"
-
-[tool.tox]
-min_version = "4.0"
-env_list = ["py39", "py310", "py311", "py312", "py313"]
-
-[tool.tox.root]
-skipsdist = true
-
-[tool.tox-gh-actions]
-python = { "3.9" = "py39", "3.10" = "py310", "3.11" = "py311", "3.12" = "py312", "3.13" = "py313" }
-
-[tool.tox.env.py39]
-pass_env = ["PYTHON_VERSION"]
-allowlist_externals = ["uv"]
-commands = [
-  ["uv", "sync", "--python", "{envpython}"],
-{% if cookiecutter.codecov == "y" %}
-  ["uv", "run", "python", "-m", "pytest", "tests", "--cov", "--cov-config=pyproject.toml", "--cov-report=xml"],
-{% else %}
-  ["uv", "run", "python", "-m", "pytest", "tests"],
-{% endif %}
-  ["uv", "run", "mypy"]
-]
-
-[tool.tox.env.py310]
-inherit = "py39"
-
-[tool.tox.env.py311]
-inherit = "py39"
-
-[tool.tox.env.py312]
-inherit = "py39"
-
-[tool.tox.env.py313]
-inherit = "py39"
