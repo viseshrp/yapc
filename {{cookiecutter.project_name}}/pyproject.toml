@@ -199,7 +199,7 @@ pass_env = ["PYTHON_VERSION"]
 allowlist_externals = ["uv"]
 commands = [
   ["uv", "sync", "--python", "{envpython}"],
-  ["uv", "run", "python", "-m", "pytest", "tests", "--cov", "--cov-config=pyproject.toml", "--cov-report=xml"],
+  ["uv", "run", "python", "-m", "pytest", "tests"{% if cookiecutter.codecov == 'y' %}, "--cov", "--cov-config=pyproject.toml", "--cov-report=xml"{% endif %}],
   ["uv", "run", "mypy"]
 ]
 
