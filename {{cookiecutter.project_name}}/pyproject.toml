@@ -43,7 +43,7 @@ dev = [
     "mypy>=1.0.0",
     {% if cookiecutter.deptry == 'y' %}"deptry>=0.23.0",{% endif %}
     {% if cookiecutter.codecov == 'y' %}"pytest-cov>=4.0.0",{% endif %}
-    "refurb>=1.26.0",
+    "refurb>=1.21.0",
     "vulture>=2.7",
     "safety>=2.3.5",
     {% if cookiecutter.cli_tool == 'y' %}"cogapp>=3.3.0",{% endif %}
