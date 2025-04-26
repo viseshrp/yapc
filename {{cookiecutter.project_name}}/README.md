@@ -41,6 +41,8 @@ pip install {{cookiecutter.project_name}}
 
 ## 📦 Usage
 
+{% if cookiecutter.cli_tool == 'y' %}
+{% raw %}
 <!-- [[[cog
 import cog
 from {{cookiecutter.project_slug}} import cli
@@ -58,6 +60,8 @@ cog.out(
 )
 ]]] -->
 <!-- [[[end]]] -->
+{% endraw %}
+{% endif %}
 
 ## 📐 Requirements
 
