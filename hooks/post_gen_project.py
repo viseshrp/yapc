@@ -29,15 +29,19 @@ def move_dir(src: str, dst: str) -> None:
 
 if __name__ == "__main__":
     # GitHub Actions cleanup
-    if "{{cookiecutter.publish_to_pypi}}" == "n":
+    if "{{ cookiecutter.publish_to_pypi }}" == "n":
         remove_file(".github/workflows/on-release-main.yml")
 
     # Codecov config
-    if "{{cookiecutter.codecov}}" != "y":
+    if "{{ cookiecutter.codecov }}" != "y":
         remove_file("codecov.yaml")
         remove_file(".github/workflows/validate-codecov-config.yml")
 
-    if "{{cookiecutter.cli_tool}}" != "y":
-        remove_file("{cookiecutter.project_slug}/__main__.py")
-        remove_file("{cookiecutter.project_slug}/cli.py")
+    if "{{ cookiecutter.cli_tool }}" != "y":
+        remove_file("{{ cookiecutter.project_slug }}/__main__.py")
+        remove_file("{{ cookiecutter.project_slug }}/cli.py")
         remove_file("tests/test_cli.py")
+
+    if "{{ cookiecutter.github_actions }}" != "y":
+        remove_dir(".github/actions")
+        remove_dir(".github/workflows")

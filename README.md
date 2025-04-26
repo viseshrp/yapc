@@ -26,7 +26,6 @@ all the necessary tools for development, testing, and deployment. It supports th
 - 📦 **Optional CLI scaffolding** with [Click](https://click.palletsprojects.com/)
 - 📦 **Optional PyPI publishing** setup (using uv)
 - 🛠️ **CI-ready** with GitHub Actions workflows baked in
-- 🧾 **Optional automatic changelog generation** with [cog](https://nedbatchelder.com/code/cog/) (if CLI is enabled)
 
 ## Quickstart
 

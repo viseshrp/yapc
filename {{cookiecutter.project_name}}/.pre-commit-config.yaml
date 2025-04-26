@@ -79,14 +79,12 @@ repos:
         args: [-r, "README.md"]
 {% endif %}
 
-{%- if cookiecutter.deptry == 'y' %}
       - id: deptry
         name: deptry
         entry: uv run deptry .
         language: system
         types: [python]
 
-{%- endif %}
       - id: mypy
         name: mypy
         entry: mypy

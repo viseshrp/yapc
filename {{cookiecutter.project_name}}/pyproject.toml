@@ -6,11 +6,7 @@ authors = [{ name = "{{cookiecutter.author}}", email = "{{cookiecutter.email}}" 
 readme = "README.md"
 keywords = ["python"]
 requires-python = ">=3.9,<4.0"
-dependencies = [
-{% if cookiecutter.cli_tool == "y" %}
-    "click>=8.1.1",
-{% endif %}
-]
+dependencies = [{% if cookiecutter.cli_tool == "y" %}"click>=8.1.1", {% endif %}]
 license = { text = "MIT" }
 classifiers = [
     "Intended Audience :: Developers",
@@ -41,7 +37,7 @@ dev = [
     "tox-uv>=1.11.3",
     "ruff>=0.11.5",
     "mypy>=1.0.0",
-    {% if cookiecutter.deptry == 'y' %}"deptry>=0.23.0",{% endif %}
+    "deptry>=0.23.0",
     {% if cookiecutter.codecov == 'y' %}"pytest-cov>=4.0.0",{% endif %}
     "vulture>=2.7",
     "safety>=2.3.5",
@@ -191,9 +187,11 @@ skipsdist = true
 [tool.tox.root]
 skipsdist = true
 
+{% if cookiecutter.github_actions == 'y' %}
 [tool.tox-gh-actions]
 python = { "3.9" = "py39", "3.10" = "py310", "3.11" = "py311", "3.12" = "py312", "3.13" = "py313" }
 
+{% endif %}
 [tool.tox.env.py39]
 pass_env = ["PYTHON_VERSION"]
 allowlist_externals = ["uv"]

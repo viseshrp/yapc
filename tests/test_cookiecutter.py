@@ -76,6 +76,28 @@ def test_not_codecov(cookies, tmp_path):
         assert not (project_path / ".github" / "workflows" / "validate-codecov-config.yml").is_file()
 
 
+def test_not_cli_tool(cookies, tmp_path):
+    with run_within_dir(tmp_path):
+        result = cookies.bake(extra_context={"cli_tool": "n"})
+        project_path = Path(result.project_path)
+
+        assert result.exit_code == 0
+        assert result.exception is None
+        assert not (project_path / "example_project" / "__main__.py").is_file()
+        assert not (project_path / "example_project" / "cli.py").is_file()
+        assert not (project_path / "tests" / "test_cli.py").is_file()
+
+
+def test_not_github_actions(cookies, tmp_path):
+    with run_within_dir(tmp_path):
+        result = cookies.bake(extra_context={"github_actions": "n"})
+        project_path = Path(result.project_path)
+
+        assert result.exit_code == 0
+        assert not (project_path / ".github" / "actions").is_dir()
+        assert not (project_path / ".github" / "workflows").is_dir()
+
+
 def test_remove_release_workflow(cookies, tmp_path):
     with run_within_dir(tmp_path):
         result = cookies.bake(extra_context={"publish_to_pypi": "n"})
