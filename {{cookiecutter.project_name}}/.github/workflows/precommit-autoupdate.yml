@@ -1,41 +1,44 @@
-name: "Pre-commit autoupdate"
+name: Pre-commit Autoupdate
 
 on:
   schedule:
-    - cron: '0 6 * * 1'
+    - cron: '0 4 * * 1'  # Every Monday at 11 PM Eastern / 4 AM UTC
   workflow_dispatch:
 
 jobs:
   autoupdate:
-    name: autoupdate
+    name: Autoupdate Pre-commit Hooks
     runs-on: ubuntu-latest
     steps:
-      - name: Check out
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - uses: actions/cache@v4
+      - name: Cache pre-commit hooks
+        uses: actions/cache@v4
         with:
           path: ~/.cache/pre-commit
           key: {% raw %}pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}{% endraw %}
 
-      - name: Set up the environment
+      - name: Set up Python + Environment
         uses: ./.github/actions/setup-python-env
 
-      - name: Run autoupdate
+      - name: Run pre-commit autoupdate
         run: uv run pre-commit autoupdate
         continue-on-error: true
 
-      - name: Run pre-commit
+      - name: Run pre-commit checks
         run: make check
 
-      - uses: peter-evans/create-pull-request@v7
+      - name: Create Pull Request for Updated Hooks
+        uses: peter-evans/create-pull-request@v7
         with:
           token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
-          branch: chore-update-pre-commit-hooks
-          title: Update pre-commit hooks
-          commit-message: "Update pre-commit hooks"
+          branch: chore/pre-commit-update
+          title: "chore(pre-commit): Update pre-commit hooks"
+          commit-message: "chore(pre-commit): Update pre-commit hooks"
           body: |
             # Update pre-commit hooks
 
-            - Update pre-commit hooks to the latest version.
+            - This PR updates the versions of pre-commit hooks to their latest releases.
+          labels: dependencies, chore
           delete-branch: true
