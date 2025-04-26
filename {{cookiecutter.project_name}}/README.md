@@ -21,13 +21,15 @@ Explain the problem this tool solves or the goal it's intended to fulfill.
 
 ---
 
-## 🧠 How this works
+## 🧠 How this project works
 
 Explain how the tool works.
 
 ---
 
 ## 🛠️ Features
+
+* Does stuff
 
 ---
 
@@ -39,7 +41,7 @@ pip install {{cookiecutter.project_name}}
 
 ---
 
-## 📦 Usage
+## 🧪 Usage
 
 {% if cookiecutter.cli_tool == 'y' %}
 {% raw %}
@@ -63,21 +65,11 @@ cog.out(
 {% endraw %}
 {% endif %}
 
-## 📐 Requirements
-
-
+---
 
 ## 📐 Requirements
 
 - Python >= 3.9
-
----
-
-## 🧪 Usage
-
-```bash
-{{cookiecutter.project_slug}} --help
-```
 
 ---
 
