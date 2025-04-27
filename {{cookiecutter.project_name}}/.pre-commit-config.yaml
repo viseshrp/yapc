@@ -115,4 +115,4 @@ repos:
         types: [ markdown ]
         require_serial: true
         args: [ -r, "README.md" ]
-  { % endif % }
+  {% endif %}
