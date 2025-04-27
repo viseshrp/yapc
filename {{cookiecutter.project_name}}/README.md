@@ -1,13 +1,11 @@
 # {{cookiecutter.project_name}}
 
-[![PyPI version](https://img.shields.io/pypi/v/{{cookiecutter.project_name}}.svg)](https://pypi.org/project/{{cookiecutter.project_name}})
-[![Python versions](https://img.shields.io/pypi/pyversions/{{cookiecutter.project_name}}.svg?logo=python&logoColor=white)](https://pypi.org/project/{{cookiecutter.project_name}}/)
-{% if cookiecutter.github_actions == 'y' %}
-[![Test Status](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/workflows/Test/badge.svg)](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/actions?query=workflow%3ATest)
-[![Coverage](https://codecov.io/gh/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/branch/main/graph/badge.svg)](https://codecov.io/gh/{{cookiecutter.github_username}}/{{cookiecutter.project_name}})
-{% endif %}
+{% if cookiecutter.publish_to_pypi == 'y' %}[![PyPI version](https://img.shields.io/pypi/v/{{cookiecutter.project_name}}.svg)](https://pypi.org/project/{{cookiecutter.project_name}})
+[![Python versions](https://img.shields.io/pypi/pyversions/{{cookiecutter.project_name}}.svg?logo=python&logoColor=white)](https://pypi.org/project/{{cookiecutter.project_name}}/){% endif %}
+{% if cookiecutter.github_actions == 'y' %}[![Test Status](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/workflows/Test/badge.svg)](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/actions?query=workflow%3ATest){% endif %}
+{% if cookiecutter.codecov == 'y' %}[![Coverage](https://codecov.io/gh/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/branch/main/graph/badge.svg)](https://codecov.io/gh/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}){% endif %}
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/blob/main/LICENSE)
-[![Downloads](https://static.pepy.tech/badge/{{cookiecutter.project_name}})](https://pepy.tech/project/{{cookiecutter.project_name}})
+{% if cookiecutter.publish_to_pypi == 'y' %}[![Downloads](https://static.pepy.tech/badge/{{cookiecutter.project_name}})](https://pepy.tech/project/{{cookiecutter.project_name}}){% endif %}
 
 > {{cookiecutter.project_description}}
 
@@ -82,7 +80,7 @@ See [CHANGELOG.md](https://github.com/{{cookiecutter.github_username}}/{{cookiec
 ## 🙏 Credits
 
 {% if cookiecutter.cli_tool == "y" %}- [Click](https://click.palletsprojects.com), for enabling delightful CLI development. {% endif %}
-- Inspired by [Simon Willison](https://github.com/simonw/sqlite-utils)
+- Inspired by [Simon Willison](https://github.com/simonw/sqlite-utils)'s work.
 
 ---
 
