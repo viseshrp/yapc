@@ -11,7 +11,7 @@ repos:
       - id: check-yaml
       - id: check-json
       - id: pretty-format-json
-        args: [--autofix, --no-sort-keys]
+        args: [ --autofix, --no-sort-keys ]
       - id: end-of-file-fixer
       - id: trailing-whitespace
         exclude: \.py$  # Ruff handles Python files
@@ -23,7 +23,7 @@ repos:
     rev: v0.11.6
     hooks:
       - id: ruff
-        args: [--exit-non-zero-on-fix]
+        args: [ --exit-non-zero-on-fix ]
       - id: ruff-format
 
   # ─────────────────────────────────────────────────────────────────────
@@ -61,35 +61,25 @@ repos:
         name: markdownlint
         entry: markdownlint
         language: node
-        types: [markdown]
-        args: [--fix]
+        types: [ markdown ]
+        args: [ --fix ]
 
   # ─────────────────────────────────────────────────────────────────────
   # 🧱 Local system hooks (must be installed via pyproject + uv)
   # ─────────────────────────────────────────────────────────────────────
   - repo: local
     hooks:
-{% if cookiecutter.cli_tool == "y" %}
-      - id: cog
-        name: cog
-        entry: cog
-        language: system
-        types: [markdown]
-        require_serial: true
-        args: [-r, "README.md"]
-{% endif %}
-
       - id: deptry
         name: deptry
         entry: uv run deptry .
         language: system
-        types: [python]
+        types: [ python ]
 
       - id: mypy
         name: mypy
         entry: mypy
         language: system
-        types: [python]
+        types: [ python ]
         args: [
           "--disallow-untyped-defs",
           "--no-implicit-optional",
@@ -101,7 +91,7 @@ repos:
         name: vulture
         entry: vulture
         language: system
-        types: [python]
+        types: [ python ]
         args: [
           "{{cookiecutter.project_slug}}",
           "tests",
@@ -112,7 +102,17 @@ repos:
         name: safety
         entry: safety
         language: system
-        types: [python]
+        types: [ python ]
         args: [
           "check", "--full-report"
         ]
+  {% if cookiecutter.cli_tool == "y" %}
+
+      - id: cog
+        name: cog
+        entry: cog
+        language: system
+        types: [ markdown ]
+        require_serial: true
+        args: [ -r, "README.md" ]
+  { % endif % }
