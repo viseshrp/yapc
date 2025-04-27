@@ -3,9 +3,9 @@ name: CodeQL
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
   schedule:
     - cron: '0 4 * * *' # Every night at 11 PM Eastern Time (4 AM UTC)
 
@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ['python']
+        language: [ 'python' ]
 
     steps:
       - name: Checkout repository
