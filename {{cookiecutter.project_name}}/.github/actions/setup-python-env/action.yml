@@ -34,5 +34,5 @@ runs:
           {% raw %}uv-venv-${{ inputs.python-version }}-{% endraw %}
 
     - name: Install Python dependencies
-      run: uv sync --frozen
+      run: uv pip install .[dev] --system
       shell: bash

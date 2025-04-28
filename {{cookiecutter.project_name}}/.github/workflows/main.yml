@@ -61,6 +61,7 @@ jobs:
       - name: Run tests
         run: make test
 
+{%- if cookiecutter.codecov == "y" %}
       - name: Upload coverage report
         if: {% raw %}${{ matrix.python-version == env.MAIN_PYTHON_VERSION }}{% endraw %}
         uses: actions/upload-artifact@v4
@@ -76,6 +77,7 @@ jobs:
         with:
           token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
 
+{%- endif %}
   publish-to-testpypi:
     if: github.ref == 'refs/heads/main'
     needs: [ quality, tests ]
