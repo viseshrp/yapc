@@ -1,3 +1,3 @@
-def do_stuff() -> None:
+def do_stuff(something: str) -> str:
     """Do stuff."""
-    pass
+    return something
