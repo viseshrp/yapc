@@ -6,9 +6,16 @@ from .exceptions import CustomException
 from .{{cookiecutter.project_slug}} import do_stuff
 
 
+@click.argument(
+    "stuff",
+    metavar="<what_you_worked_on>",
+    nargs=-1,
+    required=False,
+    type=click.STRING,
+)
 @click.command(context_settings=dict(help_option_names=["-h", "--help"]))
 @click.version_option(_version, "-v", "--version")
-def main() -> None:
+def main(stuff) -> None:
     """
     {{cookiecutter.project_description}}
 
@@ -17,7 +24,7 @@ def main() -> None:
 
     """
     try:
-        do_stuff()
+        do_stuff(stuff)
     except CustomException as e:
         raise click.ClickException(str(e))
     except Exception as e:
