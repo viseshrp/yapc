@@ -42,25 +42,25 @@ pip install {{cookiecutter.project_name}}
 ## 🧪 Usage
 
 {% if cookiecutter.cli_tool == 'y' %}
-{% raw %}
 <!-- [[[cog
 import cog
-from {{cookiecutter.project_slug}} import cli
+from {{'{{'}} cookiecutter.project_slug {{'}}'}} import cli
 from click.testing import CliRunner
+
 runner = CliRunner()
 result = runner.invoke(cli.main, ["--help"])
-out = result.output.replace("Usage: main", "Usage: {{cookiecutter.project_name}}")
+out = result.output.replace("Usage: main", "Usage: {{'{{'}} cookiecutter.project_name {{'}}'}}")
 result = runner.invoke(cli.what, ["--help"])
 what_out = result.output
+
 cog.out(
-    "``` {{.bash}}\n"
-    "$ {{cookiecutter.project_name}} --help\n"
+    "```bash\n"
+    "$ {{'{{'}} cookiecutter.project_name {{'}}'}} --help\n"
     "{}"
     "```".format(out)
 )
 ]]] -->
 <!-- [[[end]]] -->
-{% endraw %}
 {% endif %}
 
 ---
