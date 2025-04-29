@@ -36,7 +36,7 @@ pip install {{cookiecutter.project_name}}
 ```bash
 {{cookiecutter.project_name}} --help
 ```
-{-% endif %}
+{%- endif %}
 
 ## 📐 Requirements
 
