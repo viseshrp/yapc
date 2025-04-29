@@ -85,6 +85,7 @@ repos:
         language: python
         language_version: python3
         types: [ python ]
+        pass_filenames: false
 
 {%- if cookiecutter.cli_tool == 'y' %}
 
