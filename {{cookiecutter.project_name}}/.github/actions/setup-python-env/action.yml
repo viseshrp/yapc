@@ -34,7 +34,7 @@ runs:
           {% raw %}uv-venv-${{ inputs.python-version }}-{% endraw %}
 
     - name: Install Python dependencies
-      run: uv sync --group dev
+      run: uv sync --group dev --frozen
       shell: bash
 
     - name: Add .venv/bin to PATH

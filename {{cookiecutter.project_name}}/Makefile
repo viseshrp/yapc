@@ -1,11 +1,13 @@
 .PHONY: install
 install: ## Set up environment and pre-commit hooks
 	@echo "🚀 Creating virtual environment using uv"
-	@uv sync
+	@uv sync --group dev --frozen
 	@uv run pre-commit install
 
 .PHONY: check
 check: ## Run all code quality checks
+	@echo "🚀 Checking lock file consistency"
+	@uv lock --locked
 	@echo "🚀 Running pre-commit hooks (ruff, mypy, vulture, safety, etc.)"
 	@uv run pre-commit run --all-files --show-diff-on-failure
 
