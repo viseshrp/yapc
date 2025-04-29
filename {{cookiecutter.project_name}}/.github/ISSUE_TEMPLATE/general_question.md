@@ -6,7 +6,9 @@ labels: "question"
 assignees: "{{ cookiecutter.github_username }}"
 ---
 
-**Question**
+## Question
 
-<!-- Please ask your question here. It can be about the usage of this project, the internals, the implementation or whatever interests you.
-Please use the BUG template for bugs and the FEATURE REQUEST template for feature requests. -->
+<!-- Please ask your question here. It can be about the usage of this project,
+     the internals, the implementation or whatever interests you.
+     Please use the BUG template for bugs and the FEATURE REQUEST template for
+     feature requests. -->
