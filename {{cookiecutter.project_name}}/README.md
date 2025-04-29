@@ -42,32 +42,18 @@ pip install {{cookiecutter.project_name}}
 ## 🧪 Usage
 
 {% if cookiecutter.cli_tool == 'y' %}
-<!-- [[[cog
-import cog
-from {{'{{'}} cookiecutter.project_slug {{'}}'}} import cli
-from click.testing import CliRunner
+* To view the help message, run the following command:
 
-runner = CliRunner()
-result = runner.invoke(cli.main, ["--help"])
-out = result.output.replace("Usage: main", "Usage: {{'{{'}} cookiecutter.project_name {{'}}'}}")
-result = runner.invoke(cli.what, ["--help"])
-what_out = result.output
-
-cog.out(
-    "```bash\n"
-    "$ {{'{{'}} cookiecutter.project_name {{'}}'}} --help\n"
-    "{}"
-    "```".format(out)
-)
-]]] -->
-<!-- [[[end]]] -->
+```bash
+$ {{cookiecutter.project_name}} --help
+```
 {% endif %}
 
 ---
 
 ## 📐 Requirements
 
-- Python >= 3.9
+* Python >= 3.9
 
 ---
 
@@ -79,8 +65,8 @@ See [CHANGELOG.md](https://github.com/{{cookiecutter.github_username}}/{{cookiec
 
 ## 🙏 Credits
 
-{% if cookiecutter.cli_tool == "y" %}- [Click](https://click.palletsprojects.com), for enabling delightful CLI development. {% endif %}
-- Inspired by [Simon Willison](https://github.com/simonw)'s work.
+{% if cookiecutter.cli_tool == "y" %}* [Click](https://click.palletsprojects.com), for enabling delightful CLI development.{% endif %}
+* Inspired by [Simon Willison](https://github.com/simonw)'s work.
 
 ---
 
