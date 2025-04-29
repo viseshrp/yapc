@@ -40,15 +40,13 @@ pip install {{cookiecutter.project_name}}
 ---
 
 ## 🧪 Usage
-
 {% if cookiecutter.cli_tool == 'y' %}
 * To view the help message, run the following command:
 
 ```bash
-$ {{cookiecutter.project_name}} --help
+{{cookiecutter.project_name}} --help
 ```
 {% endif %}
-
 ---
 
 ## 📐 Requirements
