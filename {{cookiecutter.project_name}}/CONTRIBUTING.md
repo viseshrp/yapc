@@ -1,4 +1,4 @@
-# Contributing to `reelname`
+# Contributing to `{{cookiecutter.project_name}}`
 
 Contributions are welcome, and they are greatly appreciated!
 Every little bit helps, and credit will always be given.
@@ -9,7 +9,7 @@ You can contribute in many ways:
 
 ### Report Bugs
 
-Report bugs at <https://github.com/viseshrp/reelname/issues>
+Report bugs at <https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/issues>
 
 If you are reporting a bug, please include:
 
@@ -31,13 +31,13 @@ wants to implement it.
 
 ### Write Documentation
 
-`reelname` could always use more documentation, whether as part of the official docs,
+`{{cookiecutter.project_name}}` could always use more documentation, whether as part of the official docs,
 in docstrings, or even on the web in blog posts, articles, and such.
 
 ### Submit Feedback
 
 The best way to send feedback is to file an issue at
-<https://github.com/viseshrp/reelname/issues>.
+<https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/issues>.
 
 If you are proposing a new feature:
 
@@ -48,22 +48,22 @@ If you are proposing a new feature:
 
 ## Get Started
 
-Ready to contribute? Here's how to set up `reelname` for local development.
+Ready to contribute? Here's how to set up `{{cookiecutter.project_name}}` for local development.
 Please note this documentation assumes you already have `uv` and `Git` installed.
 
-1. Fork the `reelname` repo on GitHub.
+1. Fork the `{{cookiecutter.project_name}}` repo on GitHub.
 
 2. Clone your fork locally:
 
     ```bash
     cd <directory_in_which_repo_should_be_created>
-    git clone git@github.com:YOUR_NAME/reelname.git
+    git clone git@github.com:YOUR_NAME/{{cookiecutter.project_name}}.git
     ```
 
 3. Navigate into the project folder:
 
     ```bash
-    cd reelname
+    cd {{cookiecutter.project_name}}
     ```
 
 4. Install and activate the environment:

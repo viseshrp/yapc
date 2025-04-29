@@ -36,6 +36,7 @@ dev = [
     "uv>=0.6.17",
     "tox-uv>=1.25.0",
     "mypy>=1.15.0",
+    "deptry>=0.23.0",
     "pytest>=8.3.5",
     {% if cookiecutter.codecov == 'y' -%}
     "pytest-cov>=6.1.1",

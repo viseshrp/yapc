@@ -35,11 +35,6 @@ repos:
         args: [ "--strict" ]
         pass_filenames: false
 
-  - repo: https://github.com/fpgmaas/deptry.git
-    rev: 0.23.0
-    hooks:
-      - id: deptry
-
   - repo: https://github.com/PyCQA/bandit
     rev: 1.8.3
     hooks:
@@ -55,10 +50,6 @@ repos:
     rev: v0.44.0
     hooks:
       - id: markdownlint
-        name: markdownlint
-        entry: markdownlint
-        language: node
-        types: [ markdown ]
         args: [ --fix ]
 
   # 🧱 Local system hooks (for tools with no mirrors or your preference)
@@ -82,11 +73,18 @@ repos:
         language: system
         types: [ python ]
         args: [
-          "reelname",
+          "{{cookiecutter.project_slug}}",
           "tests",
           "--min-confidence", "80"
         ]
         pass_filenames: false
+
+      - id: deptry
+        name: deptry
+        entry: uv run deptry .
+        language: python
+        language_version: python3
+        types: [ python ]
 
 {%- if cookiecutter.cli_tool == 'y' %}
 
