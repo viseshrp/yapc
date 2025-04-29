@@ -88,7 +88,7 @@ repos:
         ]
         pass_filenames: false
 
-{-% if cookiecutter.cli_tool == 'y' %}
+{%- if cookiecutter.cli_tool == 'y' %}
       - id: cog
         name: cog
         entry: cog
@@ -96,4 +96,4 @@ repos:
         types: [ markdown ]
         require_serial: true
         args: [ "-r", "README.md" ]
-{% endif %}
+{% endif -%}
