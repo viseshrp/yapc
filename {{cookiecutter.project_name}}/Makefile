@@ -1,8 +1,7 @@
 .PHONY: install
-install: ## Set up environment and pre-commit hooks
+install: ## Set up environment
 	@echo "🚀 Creating virtual environment using uv"
 	@uv sync --group dev --frozen
-	@uv run pre-commit install
 
 .PHONY: check
 check: ## Run all code quality checks
