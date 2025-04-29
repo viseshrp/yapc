@@ -32,16 +32,14 @@ Documentation = "https://{{cookiecutter.github_username}}.github.io/{{cookiecutt
 {% endif %}
 [dependency-groups]
 dev = [
-    "pytest>=7.2.0",
-    "pre-commit>=2.20.0",
-    "tox-uv>=1.11.3",
-    "ruff>=0.11.5",
-    "mypy>=1.0.0",
-    "deptry>=0.23.0",
-    {% if cookiecutter.codecov == 'y' %}"pytest-cov>=4.0.0",{% endif %}
-    "vulture>=2.7",
-    "safety>=2.3.5",
-    {% if cookiecutter.cli_tool == 'y' %}"cogapp>=3.3.0",{% endif %}
+    "pre-commit>=4.2.0",
+    "uv>=0.6.17",
+    "tox-uv>=1.25.0",
+    "mypy>=1.15.0",
+    "pytest>=8.3.5",
+    {% if cookiecutter.codecov == 'y' %}"pytest-cov>=6.1.1",{% endif %}
+    "vulture>=2.14",
+    {% if cookiecutter.cli_tool == 'y' %}"cogapp>=3.4.1",{% endif %}
 ]
 
 [build-system]
@@ -166,7 +164,6 @@ ignore = [
     "E501", # Line too long
     "E731", # Do not assign a lambda expression
     "E203", # Whitespace before ':'
-    "W503", # Line break before binary operator
     "W605", # Invalid escape sequence
     "F821", # Undefined name
     "C901", # Function is too complex
@@ -176,9 +173,7 @@ ignore = [
     "N801", # Class name should use CapWords
     "N802", # Function name should be lowercase
     "N818", # Exception name should end in 'Error'
-    "B950", # Line too long (conflicts with Black)
     "F401", # Imported but unused
-    "B907"   # Prefer `!r` over manual repr wrapping
 ]
 
 [tool.ruff.lint.mccabe]
