@@ -1,7 +1,5 @@
 repos:
-  # ─────────────────────────────────────────────────────────────────────
-  # 🧰 Built-in hooks for config, formatting, etc.
-  # ─────────────────────────────────────────────────────────────────────
+  # 🧰 Built-in hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
@@ -14,20 +12,16 @@ repos:
       - id: trailing-whitespace
         exclude: \.py$  # Ruff handles Python files
 
-  # ─────────────────────────────────────────────────────────────────────
   # ✨ Ruff for lint + format
-  # ─────────────────────────────────────────────────────────────────────
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.6
+    rev: v0.11.7
     hooks:
       - id: ruff
         args: [ --exit-non-zero-on-fix ]
 
-  # ─────────────────────────────────────────────────────────────────────
-  # 🧪 Typing, formatting, and security tools via official mirrors
-  # ─────────────────────────────────────────────────────────────────────
+  # 🧪 Typing, dependency, security checks
   - repo: https://github.com/psf/black
-    rev: 23.1.0
+    rev: 25.1.0
     hooks:
       - id: black
         args: [
@@ -35,19 +29,26 @@ repos:
           --target-version=py39
         ]
 
+  - repo: https://github.com/pypa/pip-audit
+    rev: v2.9.0
+    hooks:
+      - id: pip-audit
+        args: [ "--strict" ]
+        pass_filenames: false
+
+  - repo: https://github.com/fpgmaas/deptry.git
+    rev: 0.23.0
+    hooks:
+      - id: deptry
+
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.4
+    rev: 1.8.3
     hooks:
       - id: bandit
-        args: [
-          "-lll",
-          "-n", "3",
-          "-r",
-          "-x", "venv/*,setup.py,tests/*"
-        ]
+        args: [ "-lll", "-n", "3", "-r", "-x", "venv/*,setup.py,tests/*" ]
 
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.4
+    rev: v2.4.1
     hooks:
       - id: codespell
 
@@ -61,17 +62,9 @@ repos:
         types: [ markdown ]
         args: [ --fix ]
 
-  # ─────────────────────────────────────────────────────────────────────
-  # 🧱 Local system hooks (must be installed via pyproject + uv)
-  # ─────────────────────────────────────────────────────────────────────
+  # 🧱 Local system hooks (for tools with no mirrors or your preference)
   - repo: local
     hooks:
-      - id: deptry
-        name: deptry
-        entry: uv run deptry .
-        language: system
-        types: [ python ]
-
       - id: mypy
         name: mypy
         entry: mypy
@@ -90,20 +83,11 @@ repos:
         language: system
         types: [ python ]
         args: [
-          "{{cookiecutter.project_slug}}",
+          "reelname",
           "tests",
           "--min-confidence", "80"
         ]
-
-      - id: safety
-        name: safety
-        entry: safety
-        language: system
-        types: [ python ]
-        args: [
-          "check", "--full-report"
-        ]
-  {% if cookiecutter.cli_tool == "y" %}
+        pass_filenames: false
 
       - id: cog
         name: cog
@@ -111,5 +95,4 @@ repos:
         language: system
         types: [ markdown ]
         require_serial: true
-        args: [ -r, "README.md" ]
-  {% endif %}
+        args: [ "-r", "README.md" ]
