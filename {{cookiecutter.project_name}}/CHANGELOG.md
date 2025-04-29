@@ -16,4 +16,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ## [0.1.0] - YYYY-MM-DD
 
 ### Features
+
 - Initial release
