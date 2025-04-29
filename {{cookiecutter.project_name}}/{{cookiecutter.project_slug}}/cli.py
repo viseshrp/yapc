@@ -29,9 +29,7 @@ def main(stuff: str) -> None:
         raise click.ClickException(str(e))
     except Exception as e:
         # all other exceptions
-        raise click.ClickException(
-            f"An unknown error occurred :: {e}\n"
-        )
+        raise click.ClickException(f"An unknown error occurred :: {e}\n")
 
 
 if __name__ == "__main__":
