@@ -7,5 +7,5 @@ from {{cookiecutter.project_slug}}.{{cookiecutter.project_slug}} import do_stuff
     "option",
     ["test1", "test2"],
 )
-def test_do_stuff(option) -> None:
+def test_do_stuff(option: str) -> None:
     assert do_stuff(option) == option

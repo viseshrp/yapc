@@ -1,7 +1,7 @@
-import pytest
 from click.testing import CliRunner
+import pytest
 
-from {{cookiecutter.project_slug}} import __version__, cli, exceptions
+from {{cookiecutter.project_slug}} import __version__, cli
 
 
 @pytest.mark.parametrize("options", [["-h"], ["--help"]])
@@ -22,8 +22,8 @@ def test_version(options: list[str]) -> None:
     result = runner.invoke(cli.main, options)
 
     assert (
-            result.exit_code == 0
+        result.exit_code == 0
     ), f"Version options {options} failed with exit code {result.exit_code}"
     assert (
-            __version__ in result.output
+        __version__ in result.output
     ), f"Expected version {__version__} not found in output for {options}"
