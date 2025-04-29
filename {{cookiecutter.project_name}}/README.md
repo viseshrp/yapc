@@ -38,6 +38,7 @@ pip install {{cookiecutter.project_name}}
 ```
 {% endif -%}
 
+
 ## 📐 Requirements
 
 * Python >= 3.9
