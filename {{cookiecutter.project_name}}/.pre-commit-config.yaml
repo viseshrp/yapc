@@ -7,7 +7,6 @@ repos:
       - id: check-merge-conflict
       - id: check-toml
       - id: check-yaml
-        args: [ --autofix, --no-sort-keys ]
       - id: end-of-file-fixer
       - id: trailing-whitespace
         exclude: \.py$  # Ruff handles Python files
@@ -89,6 +88,7 @@ repos:
         ]
         pass_filenames: false
 
+{% if cookiecutter.cli_tool == 'y' -%}
       - id: cog
         name: cog
         entry: cog
@@ -96,3 +96,4 @@ repos:
         types: [ markdown ]
         require_serial: true
         args: [ "-r", "README.md" ]
+{% endif -%}
