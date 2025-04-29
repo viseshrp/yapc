@@ -14,7 +14,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-python@v5
+    - name: Setup Python
+      uses: actions/setup-python@v5
       with:
         python-version: {% raw %}${{ inputs.python-version }}{% endraw %}
 

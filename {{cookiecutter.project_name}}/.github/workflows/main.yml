@@ -78,6 +78,7 @@ jobs:
           token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
 
 {%- endif %}
+
   publish-to-testpypi:
     if: github.ref == 'refs/heads/main'
     needs: [ quality, tests ]
@@ -99,4 +100,4 @@ jobs:
       - name: Publish to TestPyPI
         run: make publish-test
         env:
-          TEST_PYPI_TOKEN: {% raw %}${{ secrets.TEST_PYPI_API_TOKEN }}{% endraw %}
+          TEST_PYPI_TOKEN: {% raw %}${{ secrets.TEST_PYPI_TOKEN }}{% endraw %}

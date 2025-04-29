@@ -30,4 +30,4 @@ jobs:
       - name: Publish package to PyPI
         run: make publish
         env:
-          UV_PUBLISH_TOKEN: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
+          PYPI_TOKEN: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
