@@ -196,7 +196,7 @@ known-first-party = ["{{cookiecutter.project_slug}}", "tests"]
 force-sort-within-sections = true
 
 [tool.codespell]
-ignore-words = "{{cookiecutter.project_slug}},{{cookiecutter.project_name}}"
+ignore-words = "{{cookiecutter.project_name}}"
 skip = '*.pyc,*.xml,*.gif,*.png,*.jpg,*.js,*.html,*.json,*.gz'
 quiet-level = 3
 
