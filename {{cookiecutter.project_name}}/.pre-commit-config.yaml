@@ -89,6 +89,7 @@ repos:
         pass_filenames: false
 
 {%- if cookiecutter.cli_tool == 'y' %}
+
       - id: cog
         name: cog
         entry: cog
