@@ -1,18 +1,18 @@
 # {{cookiecutter.project_name}}
 
 {% if cookiecutter.publish_to_pypi == 'y' -%}
-[![PyPI version](https://img.shields.io/pypi/v/{{cookiecutter.project_slug}}.svg)](https://pypi.org/project/{{cookiecutter.project_slug}}/) 
-[![Python versions](https://img.shields.io/pypi/pyversions/{{cookiecutter.project_slug}}.svg?logo=python&logoColor=white)](https://pypi.org/project/{{cookiecutter.project_slug}}/) 
+[![PyPI version](https://img.shields.io/pypi/v/{{cookiecutter.project_slug}}.svg)](https://pypi.org/project/{{cookiecutter.project_slug}}/)
+[![Python versions](https://img.shields.io/pypi/pyversions/{{cookiecutter.project_slug}}.svg?logo=python&logoColor=white)](https://pypi.org/project/{{cookiecutter.project_slug}}/)
 {%- endif %}
 {% if cookiecutter.github_actions == 'y' -%}
-[![CI](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/actions/workflows/main.yml/badge.svg)](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/actions/workflows/main.yml) 
+[![CI](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/actions/workflows/main.yml/badge.svg)](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/actions/workflows/main.yml)
 {%- endif %}
 {% if cookiecutter.codecov == 'y' -%}
-[![Coverage](https://codecov.io/gh/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/branch/main/graph/badge.svg)](https://codecov.io/gh/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}) 
+[![Coverage](https://codecov.io/gh/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/branch/main/graph/badge.svg)](https://codecov.io/gh/{{cookiecutter.github_username}}/{{cookiecutter.project_name}})
 {%- endif %}
-[![License: MIT](https://img.shields.io/github/license/{{cookiecutter.github_username}}/{{cookiecutter.project_name}})](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/blob/main/LICENSE) 
-[![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://black.readthedocs.io/en/stable/) 
-[![Lint: Ruff](https://img.shields.io/badge/lint-ruff-000000.svg)](https://docs.astral.sh/ruff/) 
+[![License: MIT](https://img.shields.io/github/license/{{cookiecutter.github_username}}/{{cookiecutter.project_name}})](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/blob/main/LICENSE)
+[![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://black.readthedocs.io/en/stable/)
+[![Lint: Ruff](https://img.shields.io/badge/lint-ruff-000000.svg)](https://docs.astral.sh/ruff/)
 [![Typing: mypy](https://img.shields.io/badge/typing-checked-blue.svg)](https://mypy.readthedocs.io/en/stable/)
 
 > {{cookiecutter.project_description}}
