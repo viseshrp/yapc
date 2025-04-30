@@ -48,12 +48,12 @@ tag: ## Create a Git tag from the current version
 .PHONY: publish
 publish: ## Publish to production PyPI
 	@echo "🚀 Publishing to PyPI"
-	@UV_PUBLISH_TOKEN=$(PYPI_TOKEN) uv publish --publish-url=https://upload.pypi.org/legacy/
+	@UV_PUBLISH_TOKEN=$(PYPI_TOKEN) uv publish --publish-url=https://upload.pypi.org/legacy/ --no-cache
 
 .PHONY: publish-test
 publish-test: ## Publish to TestPyPI (for dry runs)
 	@echo "🚀 Publishing to TestPyPI"
-	@UV_PUBLISH_TOKEN=$(TEST_PYPI_TOKEN) uv publish --publish-url=https://test.pypi.org/legacy/
+	@UV_PUBLISH_TOKEN=$(TEST_PYPI_TOKEN) uv publish --publish-url=https://test.pypi.org/legacy/ --no-cache
 
 .PHONY: build-and-publish
 build-and-publish: build publish ## Build and publish in one step
