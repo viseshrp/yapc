@@ -29,7 +29,7 @@ Documentation = "https://{{cookiecutter.github_username}}.github.io/{{cookiecutt
 [project.scripts]
 {{cookiecutter.project_slug}} = "{{cookiecutter.project_slug}}.cli:main"
 
-{% endif %}
+{%- endif %}
 [dependency-groups]
 dev = [
     "pre-commit>=4.2.0",
@@ -89,7 +89,7 @@ filterwarnings = [
     "ignore:.+:DeprecationWarning"
 ]
 
-{% if cookiecutter.codecov == "y"-%}
+{%- if cookiecutter.codecov == "y" %}
 # Configuration for coverage.py
 [tool.coverage.report]
 show_missing = true
@@ -219,11 +219,11 @@ skipsdist = true
 [tool.tox.root]
 skipsdist = true
 
-{% if cookiecutter.github_actions == 'y' %}
+{%- if cookiecutter.github_actions == 'y' %}
 [tool.tox-gh-actions]
 python = { "3.9" = "py39", "3.10" = "py310", "3.11" = "py311", "3.12" = "py312", "3.13" = "py313" }
 
-{% endif %}
+{% endif -%}
 [tool.tox.env.py39]
 pass_env = ["PYTHON_VERSION"]
 allowlist_externals = ["uv"]
