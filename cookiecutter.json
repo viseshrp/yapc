@@ -14,6 +14,10 @@
     "y",
     "n"
   ],
+  "git_init": [
+    "y",
+    "n"
+  ],
   "github_actions": [
     "y",
     "n"
