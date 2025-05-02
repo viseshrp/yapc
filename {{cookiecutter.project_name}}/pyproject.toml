@@ -53,11 +53,10 @@ build-backend = "hatchling.build"
 
 [tool.hatch.version]
 source = "vcs"
-path = "{{cookiecutter.project_slug}}/_version.py"
+scheme = "custom"
 
-[tool.hatch.version.raw-options]
-version_scheme = "guess-next-dev"
-local_scheme = "datetime"
+[tool.hatch.version.custom]
+path = "scripts/version.py"
 
 [tool.mypy]
 files = [
