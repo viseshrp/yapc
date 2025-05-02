@@ -73,7 +73,8 @@ show_error_codes = true
 
 [tool.deptry]
 extend_exclude = [
-  "\\{\\{cookiecutter\\.project_name\\}\\}/tests/.*"
+  "\\{\\{cookiecutter\\.project_name\\}\\}/tests/.*",
+  "\\{\\{cookiecutter\\.project_name\\}\\}/scripts/.*"
 ]
 
 [tool.deptry.per_rule_ignores]

@@ -39,7 +39,7 @@ repos:
     rev: 1.8.3
     hooks:
       - id: bandit
-        args: [ "-lll", "-n", "3", "-r", "-x", "venv/*,setup.py,tests/*" ]
+        args: [ "-lll", "-n", "3", "-r", "-x", "venv/*,setup.py,tests/*,scripts/*" ]
 
   - repo: https://github.com/codespell-project/codespell
     rev: v2.4.1

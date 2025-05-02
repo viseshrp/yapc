@@ -57,6 +57,7 @@ scheme = "custom"
 
 [tool.hatch.version.custom]
 path = "scripts/version.py"
+fallback = "0.0.0.dev0"
 
 [tool.mypy]
 files = [
@@ -184,6 +185,7 @@ max-complexity = 10
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["S101"]
+"scripts/*" = ["S101"]
 
 [tool.black]
 line-length = 100
@@ -204,7 +206,7 @@ recursive = true
 number = 3
 severity_level = "high"
 require_serial = true
-exclude_dirs = [ "venv/*", ".venv/*", "tests/*"]
+exclude_dirs = [ "venv/*", ".venv/*", "tests/*", "scripts/*"]
 
 [tool.pre-commit.default_language_versions]
 python = "3.11"
