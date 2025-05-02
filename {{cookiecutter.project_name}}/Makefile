@@ -3,6 +3,16 @@ install: ## Set up environment
 	@echo "🚀 Creating virtual environment using uv"
 	@uv sync --group dev --frozen
 
+check-version:
+	@echo "🔍 Checking if a Git tag exists..."
+	@if git describe --tags --abbrev=0 >/dev/null 2>&1; then \
+	    VERSION=$$(git describe --tags --abbrev=0); \
+	    echo "✅ Git tag found: $$VERSION"; \
+	else \
+	    echo "❌ No Git tag found. Please create one with: git tag v0.1.0"; \
+	    exit 1; \
+	fi
+
 .PHONY: check
 check: ## Run all code quality checks
 	@echo "🚀 Checking lock file consistency"
@@ -44,7 +54,7 @@ tag: ## Create a Git tag from the current version
 	@git tag v$(shell uv run hatch version)
 	@git push --tags
 
-{%- if cookiecutter.publish_to_pypi == "y" %}
+{% if cookiecutter.publish_to_pypi == "y" -%}
 .PHONY: publish
 publish: ## Publish to production PyPI
 	@echo "🚀 Publishing to PyPI"
