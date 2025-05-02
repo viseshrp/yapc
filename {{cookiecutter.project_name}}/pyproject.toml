@@ -70,7 +70,14 @@ check_untyped_defs = true
 warn_return_any = true
 warn_unused_ignores = true
 show_error_codes = true
-ignore_missing_imports = true
+
+[tool.mypy.overrides]
+"scripts.version" = { ignore_errors = true }
+
+[tool.deptry]
+extend_exclude = [
+  "scripts/.*"
+]
 
 [tool.pytest.ini_options]
 tmp_path_retention_policy = "failed"
