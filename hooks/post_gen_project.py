@@ -50,7 +50,7 @@ if __name__ == "__main__":
     # If Git is available, initialize a repo with a tag for hatch-vcs
     git_exe = shutil.which("git")
     if git_exe:
-        subprocess.run([git_exe, "init"], cwd=PROJECT_DIRECTORY, check=True)
+        subprocess.run([git_exe, "init", "-b", "main"], cwd=PROJECT_DIRECTORY, check=True)
         subprocess.run([git_exe, "add", "."], cwd=PROJECT_DIRECTORY, check=True)
-        subprocess.run([git_exe, "commit", "-m", "Initial commit"], cwd=PROJECT_DIRECTORY, check=True)
+        subprocess.run([git_exe, "commit", "-m", "Initial commit", "-n"], cwd=PROJECT_DIRECTORY, check=True)
         subprocess.run([git_exe, "tag", "v0.0.1"], cwd=PROJECT_DIRECTORY, check=True)
