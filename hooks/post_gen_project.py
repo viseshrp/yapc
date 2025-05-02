@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import shutil
+import subprocess
 from pathlib import Path
 
 PROJECT_DIRECTORY = Path.cwd().resolve()
@@ -45,3 +46,11 @@ if __name__ == "__main__":
     if "{{ cookiecutter.github_actions }}" != "y":
         remove_dir(".github/actions")
         remove_dir(".github/workflows")
+
+    # If Git is available, initialize a repo with a tag for hatch-vcs
+    git_exe = shutil.which("git")
+    if git_exe:
+        subprocess.run([git_exe, "init"], cwd=PROJECT_DIRECTORY, check=True)
+        subprocess.run([git_exe, "add", "."], cwd=PROJECT_DIRECTORY, check=True)
+        subprocess.run([git_exe, "commit", "-m", "Initial commit"], cwd=PROJECT_DIRECTORY, check=True)
+        subprocess.run([git_exe, "tag", "v0.0.1"], cwd=PROJECT_DIRECTORY, check=True)
