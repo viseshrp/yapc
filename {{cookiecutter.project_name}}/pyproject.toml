@@ -53,11 +53,11 @@ build-backend = "hatchling.build"
 
 [tool.hatch.version]
 source = "vcs"
-scheme = "custom"
+path = "{{cookiecutter.project_slug}}/_version.py"
 
-[tool.hatch.version.custom]
-path = "scripts/version.py"
-fallback = "0.0.0.dev0"
+[tool.hatch.version.raw-options]
+version_scheme = "guess-next-dev"
+local_scheme = "datetime"
 
 [tool.mypy]
 files = [
@@ -70,15 +70,6 @@ warn_return_any = true
 warn_unused_ignores = true
 show_error_codes = true
 ignore_missing_imports = true
-
-[[tool.mypy.overrides]]
-module = "scripts.version"
-ignore_errors = true
-
-[tool.deptry]
-extend_exclude = [
-  "scripts/.*"
-]
 
 [tool.pytest.ini_options]
 tmp_path_retention_policy = "failed"
@@ -194,7 +185,6 @@ max-complexity = 10
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["S101"]
-"scripts/*" = ["S101"]
 
 [tool.black]
 line-length = 100
@@ -215,7 +205,7 @@ recursive = true
 number = 3
 severity_level = "high"
 require_serial = true
-exclude_dirs = [ "venv/*", ".venv/*", "tests/*", "scripts/*"]
+exclude_dirs = [ "venv/*", ".venv/*", "tests/*"]
 
 [tool.pre-commit.default_language_versions]
 python = "3.11"
