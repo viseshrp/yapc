@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- 
+-
 
 ### Fixed
 
@@ -21,25 +21,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- 
+-
 
-## [0.0.1] - 2023-03-05
+## [1.0.0] - <date>
 
 ### Added
 
--
+- First release
 
-### Fixed
+## [0.0.1] - <date>
 
-- 
+### Added
 
-### Changed
+- Stub release
 
-- 
-
-### Removed
-
-- 
-
-[unreleased]: https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/compare/v0.0.1...HEAD
+[unreleased]: https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/releases/tag/v1.0.0
 [0.0.1]: https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/releases/tag/v0.0.1
