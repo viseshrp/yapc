@@ -70,6 +70,8 @@ warn_return_any = true
 warn_unused_ignores = true
 show_error_codes = true
 ignore_missing_imports = true
+follow_imports = "silent"
+disable_error_code = ["import-untyped"]
 
 [tool.pytest.ini_options]
 tmp_path_retention_policy = "failed"
