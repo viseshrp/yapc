@@ -24,7 +24,3 @@ def main(stuff: str) -> None:
 
     """
     do_stuff(stuff)
-
-
-if __name__ == "__main__":
-    main()  # pragma: no cover

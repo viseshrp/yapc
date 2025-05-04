@@ -75,14 +75,14 @@ ignore_missing_imports = true
 tmp_path_retention_policy = "failed"
 testpaths = ["tests"]
 addopts = "--capture=tee-sys --tb=native -p no:warnings -vv"
-markers =[
+markers = [
     "integration:Run integration tests",
     "smoke:Run the smoke tests",
     "unit:Run the unit tests",
 ]
-norecursedirs =[
-  ".git",
-  ".idea",
+norecursedirs = [
+    ".git",
+    ".idea",
 ]
 filterwarnings = [
     "ignore:.+:DeprecationWarning"
@@ -97,19 +97,15 @@ skip_covered = true
 exclude_lines = [
     # Have to re-enable the standard pragma
     "pragma: no cover",
-
     # Don't complain about missing debug-only code:
     "def __repr__",
     "if self\\.debug",
-
     # Don't complain if tests don't hit defensive assertion code:
     "raise AssertionError",
     "raise NotImplementedError",
-
     # Don't complain if non-runnable code isn't run:
     "if 0:",
     "if __name__ == .__main__.:",
-
     # Don't complain about abstract methods, they aren't run:
     "@(abc\\.)?abstractmethod",
 ]
@@ -205,7 +201,7 @@ recursive = true
 number = 3
 severity_level = "high"
 require_serial = true
-exclude_dirs = [ "venv/*", ".venv/*", "tests/*"]
+exclude_dirs = ["venv/*", ".venv/*", "tests/*"]
 
 [tool.pre-commit.default_language_versions]
 python = "3.11"
@@ -227,9 +223,9 @@ python = { "3.9" = "py39", "3.10" = "py310", "3.11" = "py311", "3.12" = "py312",
 pass_env = ["PYTHON_VERSION"]
 allowlist_externals = ["uv"]
 commands = [
-  ["uv", "sync", "--python", "{envpython}"],
-  ["uv", "run", "python", "-m", "pytest", "tests"{% if cookiecutter.codecov == 'y' %}, "--cov", "--cov-config=pyproject.toml", "--cov-report=xml"{% endif %}],
-  ["uv", "run", "mypy"]
+    ["uv", "sync", "--python", "{envpython}"],
+    ["uv", "run", "python", "-m", "pytest", "tests"{% if cookiecutter.codecov == 'y' %}, "--cov", "--cov-config=pyproject.toml", "--cov-report=xml"{% endif %}],
+    ["uv", "run", "mypy"]
 ]
 
 [tool.tox.env.py310]
