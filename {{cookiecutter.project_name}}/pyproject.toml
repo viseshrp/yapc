@@ -21,11 +21,11 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://{{cookiecutter.github_username}}.github.io/{{cookiecutter.project_name}}/"
+Homepage = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}"
 Repository = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}"
-Documentation = "https://{{cookiecutter.github_username}}.github.io/{{cookiecutter.project_name}}/"
+Documentation = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/blob/main/README.md"
 
-{% if cookiecutter.cli_tool == "y" %}
+{% if cookiecutter.cli_tool == "y" -%}
 [project.scripts]
 {{cookiecutter.project_slug}} = "{{cookiecutter.project_slug}}.cli:main"
 
@@ -42,7 +42,7 @@ dev = [
     "pytest-cov>=6.1.1",
     {% endif -%}
     "vulture>=2.14",
-    {% if cookiecutter.cli_tool == 'y' -%}
+    {%- if cookiecutter.cli_tool == 'y' -%}
     "cogapp>=3.4.1",
     {%- endif %}
 ]
@@ -56,8 +56,8 @@ source = "vcs"
 path = "{{cookiecutter.project_slug}}/_version.py"
 
 [tool.hatch.version.raw-options]
-version_scheme = "guess-next-dev"
 local_scheme = "no-local-version"
+version_scheme = "guess-next-dev"
 
 [tool.mypy]
 files = [
@@ -226,8 +226,7 @@ pass_env = ["PYTHON_VERSION"]
 allowlist_externals = ["uv"]
 commands = [
     ["uv", "sync", "--python", "{envpython}"],
-    ["uv", "run", "python", "-m", "pytest", "tests"{% if cookiecutter.codecov == 'y' %}, "--cov", "--cov-config=pyproject.toml", "--cov-report=xml"{% endif %}],
-    ["uv", "run", "mypy"]
+    ["uv", "run", "python", "-m", "pytest", "-rvx", "--setup-show", "tests"{% if cookiecutter.codecov == 'y' %}, "--cov", "--cov-config=pyproject.toml", "--cov-report", "html:coverage-html", "--cov-report", "term", "--cov-report", "xml:coverage.xml"{% endif %}],
 ]
 
 [tool.tox.env.py310]

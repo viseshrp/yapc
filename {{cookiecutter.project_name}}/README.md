@@ -56,7 +56,7 @@ See [CHANGELOG.md](https://github.com/{{cookiecutter.github_username}}/{{cookiec
 
 ## 🙏 Credits
 
-{% if cookiecutter.cli_tool == "y" %}* [Click](https://click.palletsprojects.com), for enabling delightful CLI development.{% endif %}
+{% if cookiecutter.cli_tool == "y" %}* [Click](https://click.palletsprojects.com), for enabling delightful CLI development.{% endif -%}
 * Inspired by [Simon Willison](https://github.com/simonw)'s work.
 
 ## 📄 License
