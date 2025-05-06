@@ -32,9 +32,9 @@ test: ## Run tests using tox
 test-local: ## Run tests in current Python environment using uv
 	@echo "🚀 Testing code locally"
 {%- if cookiecutter.codecov == "y" %}
-	uv run python -m pytest -rvx --setup-show tests --cov --cov-config=pyproject.toml --cov-report html:coverage-html --cov-report term --cov-report xml:coverage.xml
+	uv run python -m pytest -rvx tests --cov --cov-config=pyproject.toml --cov-report html:coverage-html
 {%- else %}
-	uv run python -m pytest -rvx --setup-show tests
+	uv run python -m pytest -rvx tests
 {%- endif %}
 
 .PHONY: build

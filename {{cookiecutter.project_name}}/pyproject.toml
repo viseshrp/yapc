@@ -215,7 +215,7 @@ pass_env = ["PYTHON_VERSION"]
 allowlist_externals = ["uv"]
 commands = [
     ["uv", "sync", "--python", "{envpython}"],
-    ["uv", "run", "python", "-m", "pytest", "-rvx", "--setup-show", "tests"{% if cookiecutter.codecov == 'y' %}, "--cov", "--cov-config=pyproject.toml", "--cov-report", "html:coverage-html", "--cov-report", "term", "--cov-report", "xml:coverage.xml"{% endif %}],
+    ["uv", "run", "python", "-m", "pytest", "tests"{% if cookiecutter.codecov == 'y' %}, "--cov", "--cov-config=pyproject.toml", "--cov-report", "xml:coverage.xml"{% endif %}],
 ]
 
 [tool.tox.env.py310]

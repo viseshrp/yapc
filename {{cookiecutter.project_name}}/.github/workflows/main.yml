@@ -63,15 +63,6 @@ jobs:
 
 {%- if cookiecutter.codecov == "y" %}
 
-      - name: Upload coverage report
-        if: {% raw %}${{ matrix.python-version == env.MAIN_PYTHON_VERSION }}{% endraw %}
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-html
-          path: coverage-html
-          retention-days: 60
-          if-no-files-found: error
-
       - name: Upload coverage to Codecov
         if: {% raw %}${{ matrix.python-version == env.MAIN_PYTHON_VERSION }}{% endraw %}
         uses: codecov/codecov-action@v5
