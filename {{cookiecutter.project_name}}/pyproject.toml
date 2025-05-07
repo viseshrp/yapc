@@ -128,7 +128,6 @@ target-version = "py39"
 line-length = 120
 fix = true
 exclude = [".venv", "__init__.py"]
-ignore = ["PGH003"]
 
 [tool.ruff.lint]
 select = [
@@ -165,6 +164,7 @@ select = [
 ]
 ignore = [
     "C901", # Function is too complex
+    "PGH003" # blanket-type-ignore
 ]
 
 [tool.ruff.lint.mccabe]
