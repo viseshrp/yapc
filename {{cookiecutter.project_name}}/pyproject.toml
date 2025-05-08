@@ -44,7 +44,7 @@ dev = [
     "vulture>=2.14",
     {% if cookiecutter.cli_tool == 'y' -%}
     "cogapp>=3.4.1",
-    {%- endif -%}
+    {% endif -%}
     "ipdb>=0.13.13",
 ]
 
