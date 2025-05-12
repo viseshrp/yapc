@@ -53,6 +53,7 @@ jobs:
         run: |
           gh label create dependencies --description "Dependency updates" --color FFCD00 || echo "Label 'dependencies' already exists"
           gh label create chore --description "Chores and maintenance" --color 00CED1 || echo "Label 'chore' already exists"
+          gh label create automerge --description "automerge" --color 3E0651 || echo "Label 'automerge' already exists"
         env:
           GH_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
 
@@ -68,5 +69,5 @@ jobs:
             # Update pre-commit hooks
 
             - This PR updates the versions of pre-commit hooks to their latest releases.
-          labels: dependencies, chore
+          labels: dependencies, chore, automerge
           delete-branch: true

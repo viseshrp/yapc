@@ -1,10 +1,13 @@
-name: Dependabot Automerge
+name: Automerge
 
 on:
   workflow_dispatch:
   pull_request_target:
     types:
       - labeled
+      - synchronize
+      - opened
+      - reopened
 
 permissions:
   contents: write
