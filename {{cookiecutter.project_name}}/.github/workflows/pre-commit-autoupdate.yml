@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   autoupdate:
+    if: github.ref == 'refs/heads/main'  # Prevent running on update branch
     name: Autoupdate Pre-commit Hooks
     runs-on: ubuntu-latest
     steps:
