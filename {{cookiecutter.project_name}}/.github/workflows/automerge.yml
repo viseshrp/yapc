@@ -19,6 +19,12 @@ jobs:
     if: github.event.label.name == 'automerge'
     runs-on: ubuntu-latest
     steps:
+      - name: Auto-approve if opened by github-actions
+        if: github.event.pull_request.user.login == 'github-actions[bot]'
+        uses: hmarr/auto-approve-action@v3
+        with:
+          github-token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+
       - name: Enable auto-merge
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
