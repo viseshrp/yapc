@@ -21,3 +21,4 @@ jobs:
         with:
           token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
           merge-method: squash
+          pull-request-number: {% raw %}${{ github.event.pull_request.number }}{% endraw %}
