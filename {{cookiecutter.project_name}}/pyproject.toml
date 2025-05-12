@@ -199,36 +199,3 @@ exclude_dirs = ["venv/*", ".venv/*", "tests/*"]
 
 [tool.pre-commit.default_language_versions]
 python = "3.11"
-
-[tool.tox]
-min_version = "4.0"
-env_list = ["py39", "py310", "py311", "py312", "py313"]
-skipsdist = true
-
-[tool.tox.root]
-skipsdist = true
-
-{% if cookiecutter.github_actions == 'y' -%}
-[tool.tox-gh-actions]
-python = { "3.9" = "py39", "3.10" = "py310", "3.11" = "py311", "3.12" = "py312", "3.13" = "py313" }
-
-{% endif -%}
-[tool.tox.env.py39]
-pass_env = ["PYTHON_VERSION"]
-allowlist_externals = ["uv"]
-commands = [
-    ["uv", "sync", "--python", "{envpython}"],
-    ["uv", "run", "python", "-m", "pytest", "tests"{% if cookiecutter.codecov == 'y' %}, "--cov", "--cov-config=pyproject.toml", "--cov-report", "xml:coverage.xml"{% endif %}],
-]
-
-[tool.tox.env.py310]
-inherits = "py39"
-
-[tool.tox.env.py311]
-inherits = "py39"
-
-[tool.tox.env.py312]
-inherits = "py39"
-
-[tool.tox.env.py313]
-inherits = "py39"
