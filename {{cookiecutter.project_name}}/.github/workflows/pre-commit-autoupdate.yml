@@ -2,7 +2,7 @@ name: Pre-commit Autoupdate
 
 on:
   schedule:
-    - cron: '0 4 * * 1'  # Every Monday at 11 PM Eastern / 4 AM UTC
+    - cron: '0 4 * * *'  # Daily at 4 AM UTC / 11 PM Eastern
   workflow_dispatch:
 
 permissions:
