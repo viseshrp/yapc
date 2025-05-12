@@ -8,17 +8,18 @@ on:
 permissions:
   pull-requests: write
   contents: write
+  issues: write  # Needed to create labels
 
 jobs:
   autoupdate:
-    if: github.ref == 'refs/heads/main'  # Prevent running on update branch
+    if: startsWith(github.ref, 'refs/heads/main')  # Ensure we only run from main
     name: Autoupdate Pre-commit Hooks
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Necessary for full branch context
+          fetch-depth: 0
 
       - name: Cache pre-commit hooks
         uses: actions/cache@v4
@@ -47,6 +48,13 @@ jobs:
         run: |
           git add .pre-commit-config.yaml
           git commit -m "chore(pre-commit): Update pre-commit hooks" || echo "No changes to commit"
+
+      - name: Ensure labels exist
+        run: |
+          gh label create dependencies --description "Dependency updates" --color FFCD00 || echo "Label 'dependencies' already exists"
+          gh label create chore --description "Chores and maintenance" --color 00CED1 || echo "Label 'chore' already exists"
+        env:
+          GH_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
 
       - name: Create Pull Request for Updated Hooks
         uses: peter-evans/create-pull-request@v7
