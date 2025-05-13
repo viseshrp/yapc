@@ -16,11 +16,18 @@ permissions:
 
 jobs:
   automerge:
-    if: github.event.label.name == 'automerge'
+    if: contains(github.event.pull_request.labels.*.name, 'automerge')
     runs-on: ubuntu-latest
     steps:
-      - name: Auto-approve if opened by github-actions
-        if: github.event.pull_request.user.login == 'github-actions[bot]'
+      - name: Debug PR info
+        run: |
+          {% raw %}echo "PR author: ${{ github.event.pull_request.user.login }}"
+          echo "Labels: ${{ toJson(github.event.pull_request.labels) }}"{% endraw %}
+
+      - name: Auto-approve if opened by github-actions or dependabot
+        if: |
+          github.event.pull_request.user.login == 'github-actions[bot]' ||
+          github.event.pull_request.user.login == 'dependabot[bot]'
         uses: hmarr/auto-approve-action@v3
         with:
           github-token: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
