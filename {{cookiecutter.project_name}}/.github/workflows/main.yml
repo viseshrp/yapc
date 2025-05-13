@@ -2,7 +2,7 @@ name: Main
 
 on:
   workflow_dispatch:
-  pull_request_target:
+  pull_request:
     branches:
       - main
       - release/*
@@ -21,23 +21,6 @@ env:
   MAIN_PYTHON_VERSION: '3.13'
 
 jobs:
-  init:
-    name: Check triggering source
-    runs-on: ubuntu-latest
-    outputs:
-      proceed: {% raw %}${{ steps.check.outputs.proceed }}{% endraw %}
-    steps:
-      - id: check
-        run: |
-          {% raw %}echo "Triggered by: ${{ github.actor }} via ${{ github.event_name }}"
-          if [[ "${{ github.event_name }}" != "pull_request_target" ]] ||
-             [[ "${{ github.actor }}" == "github-actions[bot]" ]] ||
-             [[ "${{ github.actor }}" == "dependabot[bot]" ]]; then
-            echo "proceed=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "proceed=false" >> "$GITHUB_OUTPUT"
-          fi{% endraw %}
-
   quality:
     if: needs.init.outputs.proceed == 'true'
     runs-on: ubuntu-latest
