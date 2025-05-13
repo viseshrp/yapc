@@ -2,8 +2,9 @@ name: Release
 
 on:
   workflow_dispatch:
-  release:
-    types: [ published ]
+  push:
+    tags:
+      - 'v*'
 
 concurrency:
   group: {% raw %}${{ github.workflow }}-${{ github.ref }}{% endraw %}
@@ -13,13 +14,13 @@ jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write  # Required to create a release and upload artifacts
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Required for hatch-vcs to generate full version
+          fetch-depth: 0
           fetch-tags: true
 
       - name: Set up Python Environment
@@ -35,3 +36,22 @@ jobs:
         run: make publish
         env:
           PYPI_TOKEN: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
+
+      - name: Check for existing release
+        run: |
+          {% raw %}if gh release view "${{ github.ref_name }}" > /dev/null 2>&1; then
+            echo "❌ Release for tag '${{ github.ref_name }}' already exists."{% endraw %}
+            exit 1
+          fi
+        env:
+          GH_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+
+      - name: Create Draft GitHub Release with Artifacts
+        run: |
+          gh release create {% raw %}"${{ github.ref_name }}"{% endraw %} \
+            --title "Release ${GITHUB_REF_NAME}" \
+            --notes "See [CHANGELOG.md](./CHANGELOG.md)" \
+            --draft \
+            dist/*
+        env:
+          GH_TOKEN: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
