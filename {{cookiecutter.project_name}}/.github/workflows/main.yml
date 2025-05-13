@@ -29,15 +29,14 @@ jobs:
     steps:
       - id: check
         run: |
-          ALLOWED=0
           {% raw %}echo "Triggered by: ${{ github.actor }} via ${{ github.event_name }}"
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]] ||
+          if [[ "${{ github.event_name }}" != "pull_request_target" ]] ||
              [[ "${{ github.actor }}" == "github-actions[bot]" ]] ||
-             [[ "${{ github.actor }}" == "dependabot[bot]" ]]; then{% endraw %}
+             [[ "${{ github.actor }}" == "dependabot[bot]" ]]; then
             echo "proceed=true" >> "$GITHUB_OUTPUT"
           else
             echo "proceed=false" >> "$GITHUB_OUTPUT"
-          fi
+          fi{% endraw %}
 
   quality:
     if: needs.init.outputs.proceed == 'true'
