@@ -39,7 +39,7 @@ jobs:
             exit 1
           fi
         env:
-          GH_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          GH_TOKEN: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
 
       - name: Create Draft GitHub Release with Artifacts
         run: |
