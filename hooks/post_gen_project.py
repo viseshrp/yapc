@@ -98,3 +98,10 @@ if __name__ == "__main__":
                 stderr=subprocess.DEVNULL,
                 check=True,
             )
+            subprocess.run(
+                [git_exe, "branch", "--set-upstream-to=origin/main"],
+                cwd=PROJECT_DIRECTORY,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=True,
+            )
