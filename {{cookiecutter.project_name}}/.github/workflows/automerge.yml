@@ -30,7 +30,7 @@ jobs:
           github.event.pull_request.user.login == 'dependabot[bot]'
         uses: hmarr/auto-approve-action@v3
         with:
-          github-token: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
+          token: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
 
       - name: Enable auto-merge
         uses: peter-evans/enable-pull-request-automerge@v3
