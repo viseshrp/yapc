@@ -34,7 +34,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Stub release
-
-[unreleased]: https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/releases/tag/v1.0.0
-[0.0.1]: https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/releases/tag/v0.0.1
