@@ -23,11 +23,11 @@ jobs:
         if: github.event.pull_request.user.login == 'github-actions[bot]'
         uses: hmarr/auto-approve-action@v3
         with:
-          github-token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          github-token: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
 
       - name: Enable auto-merge
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          token: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
           merge-method: squash
           pull-request-number: {% raw %}${{ github.event.pull_request.number }}{% endraw %}

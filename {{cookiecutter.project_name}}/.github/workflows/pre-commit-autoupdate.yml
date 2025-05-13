@@ -19,6 +19,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          ref: main
+          token: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
           fetch-depth: 0
 
       - name: Cache pre-commit hooks
@@ -55,12 +57,12 @@ jobs:
           gh label create chore --description "Chores and maintenance" --color 00CED1 || echo "Label 'chore' already exists"
           gh label create automerge --description "automerge" --color 3E0651 || echo "Label 'automerge' already exists"
         env:
-          GH_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          GH_TOKEN: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
 
       - name: Create Pull Request for Updated Hooks
         uses: peter-evans/create-pull-request@v7
         with:
-          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          token: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
           base: main
           branch: chore/pre-commit-update
           title: "chore(pre-commit): Update pre-commit hooks"
