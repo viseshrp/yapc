@@ -7,7 +7,7 @@ readme = "README.md"
 keywords = ["cookiecutter", "template", "uv", "cli", "yapc"]
 requires-python = ">=3.9,<4.0"
 dependencies = [
-  "cookiecutter>=2.1.1"
+    "cookiecutter>=2.1.1"
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -73,7 +73,7 @@ show_error_codes = true
 
 [tool.deptry]
 extend_exclude = [
-  "\\{\\{cookiecutter\\.project_name\\}\\}/tests/.*",
+    "\\{\\{cookiecutter\\.project_name\\}\\}/.*",
 ]
 
 [tool.deptry.per_rule_ignores]
@@ -83,29 +83,38 @@ DEP002 = ["cookiecutter"]
 target-version = "py39"
 line-length = 120
 fix = true
+exclude = [
+    "build",
+    "dist",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "docs/_build",
+    "\\{\\{cookiecutter\\.project_name\\}\\}/.*",
+]
 
 [tool.ruff.lint]
 select = [
-    "YTT",  # flake8-2020
-    "S",    # flake8-bandit
-    "B",    # flake8-bugbear
-    "A",    # flake8-builtins
-    "C4",   # flake8-comprehensions
-    "T10",  # flake8-debugger
-    "SIM",  # flake8-simplify
-    "I",    # isort
-    "C90",  # mccabe
-    "E", "W",  # pycodestyle
-    "F",       # pyflakes
-    "PGH",     # pygrep-hooks
-    "UP",      # pyupgrade
-    "RUF",     # ruff
-    "TRY",     # tryceratops
+    "YTT", # flake8-2020
+    "S", # flake8-bandit
+    "B", # flake8-bugbear
+    "A", # flake8-builtins
+    "C4", # flake8-comprehensions
+    "T10", # flake8-debugger
+    "SIM", # flake8-simplify
+    "I", # isort
+    "C90", # mccabe
+    "E", "W", # pycodestyle
+    "F", # pyflakes
+    "PGH", # pygrep-hooks
+    "UP", # pyupgrade
+    "RUF", # ruff
+    "TRY", # tryceratops
 ]
 ignore = [
-    "S603",  # `subprocess` call: check for execution of untrusted input
-    "E501",  # LineTooLong
-    "E731",  # DoNotAssignLambda
+    "S603", # `subprocess` call: check for execution of untrusted input
+    "E501", # LineTooLong
+    "E731", # DoNotAssignLambda
 ]
 
 [tool.ruff.lint.per-file-ignores]
