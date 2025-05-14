@@ -68,6 +68,9 @@ packages = ["{{cookiecutter.project_slug}}"]
 [tool.hatch.build.targets.editable]
 packages = ["{{cookiecutter.project_slug}}"]
 
+[tool.uv]
+default-groups = "all"
+
 [tool.mypy]
 files = [
     "{{cookiecutter.project_slug}}"
