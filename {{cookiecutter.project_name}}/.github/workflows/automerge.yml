@@ -8,6 +8,8 @@ on:
       - synchronize
       - opened
       - reopened
+  pull_request_target:
+    types: [ labeled ]  # For forks & bots like Dependabot
 
 permissions:
   contents: write
@@ -41,3 +43,8 @@ jobs:
           token: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
           merge-method: squash
           pull-request-number: {% raw %}${{ github.event.pull_request.number }}{% endraw %}
+
+      - name: Confirm automerge is enabled
+        run: gh pr view {% raw %}${{ github.event.pull_request.number }}{% endraw %} --json autoMergeRequest
+        env:
+          GH_TOKEN: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}

@@ -34,6 +34,18 @@ runs:
         restore-keys: |
           {% raw %}uv-venv-${{ inputs.python-version }}-{% endraw %}
 
+    - name: Cache uv global cache
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/uv
+        key: {% raw %}uv-cache-${{ inputs.python-version }}{% endraw %}
+        restore-keys: |
+          uv-cache-
+
+    - name: Disable pip version check (optional)
+      run: echo "PIP_DISABLE_PIP_VERSION_CHECK=1" >> $GITHUB_ENV
+      shell: bash
+
     - name: Install Python dependencies
       run: uv sync --frozen
       shell: bash
