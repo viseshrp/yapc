@@ -15,16 +15,39 @@ Enter
 Show
 
 # Type a command in the terminal.
+{% if cookiecutter.cli_tool == "y" %}
+# CLI demo
 Type "{{cookiecutter.project_slug}} --help"
-
-# Pause for dramatic effect...
 Sleep 2s
-
-# Run the command by pressing enter.
+Enter
+Sleep 4s
+{% else %}
+# Python library demo
+Type "python"
+Sleep 2s
 Enter
 
-# Admire the output for a bit.
+Type "import {{cookiecutter.project_slug}}"
+Sleep 2s
+Enter
+# Pause for dramatic effect...
 Sleep 4s
+
+Type "help({{cookiecutter.project_slug}})"
+Sleep 2s
+Enter
+Sleep 4s
+
+Type "{{cookiecutter.project_slug}}.__version__"
+Sleep 2s
+Enter
+Sleep 4s
+
+Type "exit()"
+Sleep 2s
+Enter
+Sleep 4s
+{% endif %}
 
 Hide
 Type "clear"

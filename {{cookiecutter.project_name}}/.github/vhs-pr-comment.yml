@@ -1,0 +1,52 @@
+name: Comment VHS GIF on PR
+
+on:
+  pull_request:
+    paths:
+      - demo.tape
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  vhs-comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+
+      - name: Render demo.tape → demo.gif
+        uses: charmbracelet/vhs-action@v1
+        with:
+          path: demo.tape
+          out: demo.gif
+
+      - name: Commit demo.gif to PR branch
+        run: |
+          if git diff --quiet -- demo.gif; then
+            echo "✅ No changes to demo.gif"
+            exit 0
+          fi
+
+          git config user.name "vhs-action 📼"
+          git config user.email "actions@github.com"
+          git add demo.gif
+          git commit -m "chore(demo): update demo.gif"
+          git push
+        env:
+          PERSONAL_ACCESS_TOKEN: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
+
+      - name: Comment on PR with demo.gif
+        uses: github-actions-up-and-running/pr-comment@v1.0.1
+        env:
+          IMAGE_URL: {% raw %}https://raw.githubusercontent.com/${{ github.repository }}/${{ github.event.pull_request.head.ref }}/demo.gif{% endraw %}
+          MESSAGE: |
+            🖼️ **VHS Preview**
+
+            Here's the updated `demo.gif` based on your changes:
+
+            ![Demo]({0})
+        with:
+          repo-token: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
+          message: {% raw %}${{ format(env.MESSAGE, env.IMAGE_URL) }}{% endraw %}
