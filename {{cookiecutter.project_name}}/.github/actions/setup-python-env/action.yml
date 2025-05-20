@@ -23,7 +23,7 @@ runs:
       uses: astral-sh/setup-uv@v6
       with:
         version: {% raw %}${{ inputs.uv-version }}{% endraw %}
-        enable-cache: "true"
+        enable-cache: true
         cache-suffix: {% raw %}${{ inputs.python-version }}{% endraw %}
 
     - name: Cache .venv directory
@@ -47,7 +47,7 @@ runs:
       shell: bash
 
     - name: Install Python dependencies
-      run: uv sync --frozen
+      run: make install
       shell: bash
 
     - name: Add .venv/bin to PATH
