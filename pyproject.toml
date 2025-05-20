@@ -71,11 +71,6 @@ warn_return_any = true
 warn_unused_ignores = true
 show_error_codes = true
 
-[tool.deptry]
-extend_exclude = [
-    "\\{\\{cookiecutter\\.project_name\\}\\}/.*",
-]
-
 [tool.deptry.per_rule_ignores]
 DEP002 = ["cookiecutter"]
 
@@ -90,7 +85,6 @@ exclude = [
     "venv",
     "__pycache__",
     "docs/_build",
-    "\\{\\{cookiecutter\\.project_name\\}\\}/.*",
 ]
 
 [tool.ruff.lint]
