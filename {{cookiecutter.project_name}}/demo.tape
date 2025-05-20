@@ -14,13 +14,6 @@ Type "clear"
 Enter
 Show
 
-# Type a command in the terminal.
-# Activate virtual environment
-Type "source .venv/bin/activate"
-Sleep 1s
-Enter
-Sleep 1s
-
 {% if cookiecutter.cli_tool == "y" -%}
 # CLI demo
 Type "{{cookiecutter.project_slug}} --help"
