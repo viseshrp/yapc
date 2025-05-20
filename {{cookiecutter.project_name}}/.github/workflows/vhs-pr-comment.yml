@@ -18,8 +18,6 @@ jobs:
 
       - name: Set up Python + Environment
         uses: ./.github/actions/setup-python-env
-        with:
-          python-version: '3.13'
 
       - name: Render demo.tape → demo.gif
         uses: charmbracelet/vhs-action@v1

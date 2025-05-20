@@ -27,11 +27,14 @@ jobs:
           git config user.name "vhs-action 📼"
           git config user.email "actions@github.com"
 
+      - name: Set up Python + virtual environment
+        uses: ./.github/actions/setup-python-env
+
       - name: Render demo.tape → demo.gif
         uses: charmbracelet/vhs-action@v1
         with:
-          path: 'demo.tape'
-          out: 'demo.gif'
+          path: demo.tape
+          out: demo.gif
 
       - name: Commit demo.gif if changed
         run: |
