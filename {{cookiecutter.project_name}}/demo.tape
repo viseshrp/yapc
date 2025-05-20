@@ -21,7 +21,7 @@ Sleep 1s
 Enter
 Sleep 1s
 
-{% if cookiecutter.cli_tool == "y" %}
+{% if cookiecutter.cli_tool == "y" -%}
 # CLI demo
 Type "{{cookiecutter.project_slug}} --help"
 Sleep 2s
@@ -53,7 +53,7 @@ Type "exit()"
 Sleep 2s
 Enter
 Sleep 4s
-{% endif %}
+{%- endif %}
 
 Hide
 Type "clear"
