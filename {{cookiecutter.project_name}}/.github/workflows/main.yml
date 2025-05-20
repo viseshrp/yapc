@@ -6,6 +6,8 @@ on:
   push:
     tags:
       - "v*"
+    branches-ignore:
+      - "gh-pages"
 
 concurrency:
   group: {% raw %}${{ github.workflow }}-${{ github.ref }}{% endraw %}
