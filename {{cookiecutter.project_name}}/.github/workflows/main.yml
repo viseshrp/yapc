@@ -6,9 +6,6 @@ on:
   push:
     tags:
       - "v*"
-    branches:
-      - main
-      - release/*
 
 concurrency:
   group: {% raw %}${{ github.workflow }}-${{ github.ref }}{% endraw %}
