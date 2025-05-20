@@ -16,11 +16,11 @@ Show
 Type "{{cookiecutter.project_slug}} --help"
 Sleep 2s
 Enter
-Sleep 4s
+Sleep 6s
 {% else %}
 # Python library demo
 Type "python"
-Sleep 2s
+Sleep 3s
 Enter
 
 Type "import {{cookiecutter.project_slug}}"
@@ -32,7 +32,7 @@ Sleep 4s
 Type "help({{cookiecutter.project_slug}})"
 Sleep 2s
 Enter
-Sleep 4s
+Sleep 6s
 
 Type "{{cookiecutter.project_slug}}.__version__"
 Sleep 2s
