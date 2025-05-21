@@ -15,6 +15,9 @@ jobs:
     steps:
       - name: Checkout PR branch
         uses: actions/checkout@v4
+        with:
+          token: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
+          ref: {% raw %}${{ github.event.pull_request.head.ref }}{% endraw %}
 
       - name: Set Git identity
         run: |
