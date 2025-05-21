@@ -60,6 +60,11 @@ tag: ## 🏷 Tag the current release version (stripping .dev) and push
 	git push origin --tags
 
 {% if cookiecutter.publish_to_pypi == "y" -%}
+.PHONY: check-dist
+check-dist: ## Validate dist/ artifacts (long description, format)
+	@echo "🔍 Validating dist/ artifacts..."
+	uv run twine check dist/*
+
 .PHONY: publish
 publish: ## Publish to production PyPI
 	@echo "🚀 Publishing to PyPI"
@@ -71,7 +76,7 @@ publish-test: ## Publish to TestPyPI (for dry runs)
 	UV_PUBLISH_TOKEN=$(TEST_PYPI_TOKEN) uv publish --publish-url=https://test.pypi.org/legacy/ --no-cache
 
 .PHONY: build-and-publish
-build-and-publish: build publish ## Build and publish in one step
+build-and-publish: build check-dist publish ## Build and publish in one step
 
 {%- endif %}
 .PHONY: help

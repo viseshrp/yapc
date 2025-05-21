@@ -52,6 +52,7 @@ dev = [
     {% if cookiecutter.cli_tool == 'y' -%}
     "cogapp>=3.4.1",
     {% endif -%}
+    "twine>=6.1.0",
     "ipdb>=0.13.13",
 ]
 
