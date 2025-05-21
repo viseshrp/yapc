@@ -59,7 +59,6 @@ tag: ## 🏷 Tag the current release version (stripping .dev) and push
 	git tag v$(shell hatch version | sed 's/\.dev.*//')
 	git push origin --tags
 
-{% if cookiecutter.publish_to_pypi == "y" -%}
 .PHONY: check-dist
 check-dist: ## Validate dist/ artifacts (long description, format)
 	@echo "🔍 Validating dist/ artifacts..."
@@ -78,7 +77,6 @@ publish-test: ## Publish to TestPyPI (for dry runs)
 .PHONY: build-and-publish
 build-and-publish: build check-dist publish ## Build and publish in one step
 
-{%- endif %}
 .PHONY: help
 help:
 	uv run python -c "import re; \

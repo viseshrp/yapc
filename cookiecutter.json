@@ -21,9 +21,5 @@
   "github_actions": [
     "y",
     "n"
-  ],
-  "publish_to_pypi": [
-    "y",
-    "n"
   ]
 }

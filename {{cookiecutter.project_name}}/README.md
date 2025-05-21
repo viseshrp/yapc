@@ -1,9 +1,7 @@
 # {{cookiecutter.project_name}}
 
-{% if cookiecutter.publish_to_pypi == 'y' -%}
 [![PyPI version](https://img.shields.io/pypi/v/{{cookiecutter.project_name}}.svg)](https://pypi.org/project/{{cookiecutter.project_name}}/)
 [![Python versions](https://img.shields.io/pypi/pyversions/{{cookiecutter.project_name}}.svg?logo=python&logoColor=white)](https://pypi.org/project/{{cookiecutter.project_name}}/)
-{%- endif %}
 {% if cookiecutter.github_actions == 'y' -%}
 [![CI](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/actions/workflows/main.yml/badge.svg)](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/actions/workflows/main.yml)
 {%- endif %}

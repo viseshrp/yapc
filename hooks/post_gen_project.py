@@ -29,10 +29,6 @@ def move_dir(src: str, dst: str) -> None:
 
 
 if __name__ == "__main__":
-    # GitHub Actions cleanup
-    if "{{ cookiecutter.publish_to_pypi }}" == "n":
-        remove_file(".github/workflows/release.yml")
-
     # Codecov config
     if "{{ cookiecutter.codecov }}" != "y":
         remove_file("codecov.yml")

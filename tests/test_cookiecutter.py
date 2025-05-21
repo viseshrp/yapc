@@ -41,19 +41,6 @@ def test_using_pytest(cookies, tmp_path, cli_opt):
             subprocess.run([make_exe, "test"], check=True)
 
 
-def test_cicd_contains_pypi_secrets(cookies, tmp_path):
-    with run_within_dir(tmp_path):
-        result = cookies.bake(extra_context={"publish_to_pypi": "y"})
-        project_path = Path(result.project_path)
-
-        workflow = project_path / ".github" / "workflows" / "release.yml"
-        makefile = project_path / "Makefile"
-        assert result.exit_code == 0
-        assert is_valid_yaml(workflow)
-        assert file_contains_text(workflow, "PYPI_TOKEN")
-        assert file_contains_text(makefile, "build-and-publish")
-
-
 def test_codecov(cookies, tmp_path):
     with run_within_dir(tmp_path):
         result = cookies.bake()
@@ -96,15 +83,6 @@ def test_not_github_actions(cookies, tmp_path):
         assert result.exit_code == 0
         assert not (project_path / ".github" / "actions").is_dir()
         assert not (project_path / ".github" / "workflows").is_dir()
-
-
-def test_remove_release_workflow(cookies, tmp_path):
-    with run_within_dir(tmp_path):
-        result = cookies.bake(extra_context={"publish_to_pypi": "n"})
-        project_path = Path(result.project_path)
-
-        assert result.exit_code == 0
-        assert not (project_path / ".github" / "workflows" / "release.yml").is_file()
 
 
 def test_license_mit(cookies, tmp_path):
