@@ -47,7 +47,9 @@ build: clean ## Build package using uv
 .PHONY: clean
 clean: ## Clean build artifacts
 	@echo "🚀 Removing build artifacts"
-	rm -rf dist *.egg-info build
+	rm -rf dist build *.egg-info
+	rm -rf .coverage coverage-html coverage.xml .pytest_cache
+	find . -name '*.pyc' -delete
 
 .PHONY: version
 version: ## Print the current project version
