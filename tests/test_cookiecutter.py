@@ -61,7 +61,7 @@ def test_codecov(cookies, tmp_path):
 
         assert result.exit_code == 0
         assert is_valid_yaml(project_path / ".github" / "workflows" / "main.yml")
-        assert (project_path / "codecov.yaml").is_file()
+        assert (project_path / "codecov.yml").is_file()
         assert (project_path / ".github" / "workflows" / "validate-codecov-config.yml").is_file()
 
 
@@ -72,7 +72,7 @@ def test_not_codecov(cookies, tmp_path):
 
         assert result.exit_code == 0
         assert is_valid_yaml(project_path / ".github" / "workflows" / "main.yml")
-        assert not (project_path / "codecov.yaml").is_file()
+        assert not (project_path / "codecov.yml").is_file()
         assert not (project_path / ".github" / "workflows" / "validate-codecov-config.yml").is_file()
 
 
