@@ -10,11 +10,13 @@ dependencies = [{% if cookiecutter.cli_tool == "y" %}"click>=8.1.1", {% endif %}
 license = { text = "MIT" }
 classifiers = [
     "Development Status :: 4 - Beta",
-    "Environment :: Console",
     "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Operating System :: OS Independent",
     "Intended Audience :: Developers",
+    {% if cookiecutter.cli_tool == "y" -%}
+    "Environment :: Console",
+    {% endif -%}
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
@@ -48,11 +50,11 @@ dev = [
     "mypy>=1.15.0",
     "deptry>=0.23.0",
     "pytest>=8.3.5",
-    {% if cookiecutter.codecov == 'y' -%}
+    {% if cookiecutter.codecov == "y" -%}
     "pytest-cov>=6.1.1",
     {% endif -%}
     "vulture>=2.14",
-    {% if cookiecutter.cli_tool == 'y' -%}
+    {% if cookiecutter.cli_tool == "y" -%}
     "cogapp>=3.4.1",
     {% endif -%}
     "twine>=6.1.0",
