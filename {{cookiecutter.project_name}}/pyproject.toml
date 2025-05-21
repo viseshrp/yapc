@@ -153,6 +153,7 @@ fix = true
 exclude = [".venv", "__init__.py"]
 
 [tool.ruff.lint]
+fixable = ["ALL"]
 select = [
     # flake8-2020
     "YTT",
