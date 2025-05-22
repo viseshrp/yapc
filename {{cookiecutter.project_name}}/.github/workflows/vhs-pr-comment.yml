@@ -18,6 +18,7 @@ jobs:
         with:
           token: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
           ref: {% raw %}${{ github.event.pull_request.head.ref }}{% endraw %}
+          fetch-depth: 2
 
       - name: Exit if demo.tape not changed
         run: |
