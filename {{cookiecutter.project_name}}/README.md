@@ -25,9 +25,9 @@ Explain the problem this tool solves or the goal it's intended to fulfill.
 
 Explain how the tool works.
 
-## 🛠️ Features
+## 📐 Requirements
 
-* Does stuff
+* Python >= 3.9
 
 ## 📦 Installation
 
@@ -44,9 +44,9 @@ pip install {{cookiecutter.project_name}}
 ```
 {%- endif %}
 
-## 📐 Requirements
+## 🛠️ Features
 
-* Python >= 3.9
+* Does stuff
 
 ## 🧾 Changelog
 
