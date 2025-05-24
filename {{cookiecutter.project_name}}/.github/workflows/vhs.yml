@@ -8,7 +8,7 @@ on:
     paths:
       - demo.tape
       - .github/workflows/vhs.yml
-{% if cookiecutter.cli_tool == "y" -%}
+{%- if cookiecutter.cli_tool == "y" -%}
       - {{cookiecutter.project_slug}}/cli.py
 {%- endif %}
 
