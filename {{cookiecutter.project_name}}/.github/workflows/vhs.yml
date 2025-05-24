@@ -1,6 +1,7 @@
 name: Auto-update demo.gif
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -9,8 +10,7 @@ on:
       - .github/workflows/vhs.yml
       {% if cookiecutter.cli_tool == "y" -%}
       - {{cookiecutter.project_slug}}/cli.py
-      {% endif -%}
-  workflow_dispatch:
+      {%- endif %}
 
 permissions:
   contents: write
