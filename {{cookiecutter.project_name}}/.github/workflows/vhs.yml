@@ -10,7 +10,7 @@ on:
       - .github/workflows/vhs.yml
       {% if cookiecutter.cli_tool == "y" -%}
       - {{cookiecutter.project_slug}}/cli.py
-      {%- endif %}
+      {%- endif -%}
 
 permissions:
   contents: write
