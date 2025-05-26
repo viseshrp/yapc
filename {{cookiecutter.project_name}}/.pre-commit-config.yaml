@@ -37,7 +37,7 @@ repos:
       - id: bandit
         args: [
           "-c", "pyproject.toml",
-          "-r", ".",
+          "-r",
           "-n", "3",
           "--severity-level", "high"
         ]
