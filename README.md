@@ -37,17 +37,19 @@ On your local machine, navigate to the directory in which you want to
 create a project directory, and run the following command:
 
 ```bash
-uvx cookiecutter https://github.com/viseshrp/yapc.git
+uv pip install cruft  # highly recommended instead of cookiecutter!
+cruft create https://github.com/viseshrp/yapc.git
 ```
 
-or if you don't have `uv` installed yet:
+Follow the prompts to configure your project. Once completed, a new directory containing your project will be created.
+Then navigate into your newly created project directory and follow the instructions in the `README.md` to complete the
+setup of your project.
 
+To update your project with the latest changes from the template, you can run:
 ```bash
-pip install cookiecutter
-cookiecutter https://github.com/viseshrp/yapc.git
+cd <your-project-name>
+cruft update
 ```
-
-Follow the prompts to configure your project. Once completed, a new directory containing your project will be created. Then navigate into your newly created project directory and follow the instructions in the `README.md` to complete the setup of your project.
 
 ## Acknowledgements
 
