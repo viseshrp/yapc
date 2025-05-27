@@ -1,3 +1,5 @@
+"""The version module for the {{ cookiecutter.project_name }} package."""
+
 from importlib.metadata import PackageNotFoundError, version
 
 try:

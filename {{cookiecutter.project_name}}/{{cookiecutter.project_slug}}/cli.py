@@ -1,4 +1,4 @@
-"""Console script for {{cookiecutter.project_slug}}."""
+"""The console script for {{cookiecutter.project_name}}."""
 
 import click
 
