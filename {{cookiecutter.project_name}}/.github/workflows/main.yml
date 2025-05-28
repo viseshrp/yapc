@@ -62,7 +62,7 @@ jobs:
 {%- if cookiecutter.codecov == "y" %}
 
       - name: Upload coverage to Codecov
-        if: {% raw %}${{ matrix.python-version == env.MAIN_PYTHON_VERSION }}{% endraw %}
+        if: {% raw %}${{ matrix.python-version == env.MAIN_PYTHON_VERSION && matrix.os == 'ubuntu-latest' }}{% endraw %}
         uses: codecov/codecov-action@v5
         with:
           token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
