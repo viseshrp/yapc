@@ -37,7 +37,7 @@ jobs:
         run: make check
 
   tests:
-    runs-on: ${{ matrix.os }}
+    runs-on: {% raw %}${{ matrix.os }}{% endraw %}
     strategy:
       fail-fast: false
       max-parallel: 4
