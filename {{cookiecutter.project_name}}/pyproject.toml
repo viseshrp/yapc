@@ -79,6 +79,9 @@ packages = ["{{cookiecutter.project_slug}}"]
 [tool.hatch.build.targets.editable]
 packages = ["{{cookiecutter.project_slug}}"]
 
+[tool.hatch.envs.default]
+path = ".venv"
+
 [tool.uv]
 default-groups = "all"
 
