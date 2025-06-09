@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 
-class CustomException(Exception):
+class CustomError(Exception):
     """
     Base exception. All other exceptions
     inherit from here.
