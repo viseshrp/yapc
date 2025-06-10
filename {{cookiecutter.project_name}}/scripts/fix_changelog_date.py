@@ -34,11 +34,11 @@ def main(version: str) -> None:
 
     if not replaced:
         print(f"❌ ERROR: Could not find line exactly matching:\n   {target_line}")
-        print(f"🔎 Tip: Double-check your changelog formatting.")
+        print("🔎 Tip: Double-check your changelog formatting.")
         sys.exit(1)
 
     CHANGELOG_PATH.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
-    print(f"✅ Successfully updated changelog:")
+    print("✅ Successfully updated changelog:")
     print(f"   {target_line} → {replacement_line}")
 
 
