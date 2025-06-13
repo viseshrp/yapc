@@ -1,52 +1,71 @@
 repos:
   # 🧰 Built-in hooks
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+  - repo: local
     hooks:
       - id: check-case-conflict
+        entry: check-case-conflict
+        language: system
+
       - id: check-merge-conflict
+        entry: check-merge-conflict
+        language: system
+
       - id: check-toml
+        entry: check-toml
+        language: system
+
       - id: check-yaml
+        entry: check-yaml
+        language: system
+
       - id: end-of-file-fixer
+        entry: end-of-file-fixer
+        language: system
+
       - id: trailing-whitespace
+        entry: trailing-whitespace
+        language: system
         exclude: \.py$  # Ruff handles Python files
 
   # 🧪 Typing, dependency, security checks
-  - repo: https://github.com/psf/black
-    rev: 25.1.0
+  - repo: local
     hooks:
       - id: black
+        entry: black
+        language: system
 
-  # ✨ Ruff for lint + format
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.10
+  - repo: local
     hooks:
       # Run the linter alone
       - id: ruff-check
+        entry: ruff check
+        language: system
 
-  - repo: https://github.com/pypa/pip-audit
-    rev: v2.9.0
+  - repo: local
     hooks:
       - id: pip-audit
+        entry: pip-audit
+        language: system
         args: [ "--strict" ]
         pass_filenames: false
 
-  - repo: https://github.com/PyCQA/bandit
-    rev: 1.8.3
+  - repo: local
     hooks:
       - id: bandit
+        entry: bandit
+        language: system
         args: [
           "-c", "pyproject.toml",
           "-r",
           "-n", "3",
           "--severity-level", "high"
         ]
-        additional_dependencies: [ "bandit[toml]" ]
 
-  - repo: https://github.com/codespell-project/codespell
-    rev: v2.4.1
+  - repo: local
     hooks:
       - id: codespell
+        entry: codespell
+        language: system
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.44.0
