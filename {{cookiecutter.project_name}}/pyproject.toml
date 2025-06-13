@@ -42,30 +42,28 @@ CI = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project
 {% endif -%}
 [dependency-groups]
 dev = [
-    "pre-commit",
-    "pre-commit-hooks",  # for check-case-conflict, etc.
+    "ipdb",
     "uv",
     "tox",
     "tox-uv",
     "tox-gh-actions",
-    "mypy",
-    "deptry",
+    "pytest",
+    {% if cookiecutter.codecov == "y" -%}
+    "pytest-cov",
+    {% endif -%}
+    "pre-commit",
     "black",
     "ruff",
     "pip-audit",
     "bandit[toml]",
     "codespell",
+    "mypy",
     "vulture",
-    "pytest",
-    {% if cookiecutter.codecov == "y" -%}
-    "pytest-cov",
-    {% endif -%}
-    "vulture",
+    "deptry",
     {% if cookiecutter.cli_tool == "y" -%}
     "cogapp",
     {% endif -%}
     "twine",
-    "ipdb",
     "hatch",
 ]
 
