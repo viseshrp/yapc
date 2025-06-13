@@ -3,26 +3,32 @@ repos:
   - repo: local
     hooks:
       - id: check-case-conflict
+        name: check-case-conflict
         entry: check-case-conflict
         language: system
 
       - id: check-merge-conflict
+        name: check-merge-conflict
         entry: check-merge-conflict
         language: system
 
       - id: check-toml
+        name: check-toml
         entry: check-toml
         language: system
 
       - id: check-yaml
+        name: check-yaml
         entry: check-yaml
         language: system
 
       - id: end-of-file-fixer
+        name: end-of-file-fixer
         entry: end-of-file-fixer
         language: system
 
       - id: trailing-whitespace
+        name: trailing-whitespace
         entry: trailing-whitespace
         language: system
         exclude: \.py$  # Ruff handles Python files
