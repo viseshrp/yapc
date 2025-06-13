@@ -37,19 +37,24 @@ repos:
   - repo: local
     hooks:
       - id: black
+        name: black
         entry: black
         language: system
+        types: [ python ]
 
   - repo: local
     hooks:
       # Run the linter alone
       - id: ruff-check
+        name: ruff-check
         entry: ruff check
         language: system
+        types: [ python ]
 
   - repo: local
     hooks:
       - id: pip-audit
+        name: pip-audit
         entry: pip-audit
         language: system
         args: [ "--strict" ]
@@ -58,8 +63,10 @@ repos:
   - repo: local
     hooks:
       - id: bandit
+        name: bandit
         entry: bandit
         language: system
+        types: [ python ]
         args: [
           "-c", "pyproject.toml",
           "-r",
@@ -70,6 +77,7 @@ repos:
   - repo: local
     hooks:
       - id: codespell
+        name: codespell
         entry: codespell
         language: system
 
@@ -77,6 +85,7 @@ repos:
     rev: v0.44.0
     hooks:
       - id: markdownlint
+        name: markdownlint
         args: [ --fix, --disable, MD024 ]
 
   # 🧱 Local system hooks (for tools with no mirrors or your preference)
@@ -100,8 +109,7 @@ repos:
       - id: deptry
         name: deptry
         entry: uv run deptry .
-        language: python
-        language_version: python3
+        language: system
         types: [ python ]
         args: [ "--config", "pyproject.toml" ]
         pass_filenames: false
