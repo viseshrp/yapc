@@ -42,24 +42,31 @@ CI = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project
 {% endif -%}
 [dependency-groups]
 dev = [
-    "pre-commit>=4.2.0",
-    "uv>=0.6.17",
-    "tox>=4.25.0",
-    "tox-uv>=1.25.0",
-    "tox-gh-actions>=3.3.0",
-    "mypy>=1.15.0",
-    "deptry>=0.23.0",
-    "pytest>=8.3.5",
+    "pre-commit",
+    "pre-commit-hooks",  # for check-case-conflict, etc.
+    "uv",
+    "tox",
+    "tox-uv",
+    "tox-gh-actions",
+    "mypy",
+    "deptry",
+    "black",
+    "ruff",
+    "pip-audit",
+    "bandit[toml]",
+    "codespell",
+    "vulture",
+    "pytest",
     {% if cookiecutter.codecov == "y" -%}
-    "pytest-cov>=6.1.1",
+    "pytest-cov",
     {% endif -%}
-    "vulture>=2.14",
+    "vulture",
     {% if cookiecutter.cli_tool == "y" -%}
-    "cogapp>=3.4.1",
+    "cogapp",
     {% endif -%}
-    "twine>=6.1.0",
-    "ipdb>=0.13.13",
-    "hatch>=1.14.1",
+    "twine",
+    "ipdb",
+    "hatch",
 ]
 
 [build-system]
