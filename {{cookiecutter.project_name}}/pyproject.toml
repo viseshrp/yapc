@@ -160,6 +160,7 @@ show_contexts = true
 target-version = "py39"
 line-length = 100
 fix = true
+unsafe-fixes = true
 exclude = [".venv", "__init__.py"]
 
 [tool.ruff.lint]
