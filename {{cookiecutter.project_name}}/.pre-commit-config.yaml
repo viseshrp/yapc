@@ -37,6 +37,7 @@ repos:
         name: pip-audit
         entry: pip-audit
         language: system
+        args: [ "--skip-editable" ]
         pass_filenames: false
 
   - repo: local
