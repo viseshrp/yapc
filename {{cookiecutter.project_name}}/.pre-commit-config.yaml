@@ -81,7 +81,7 @@ repos:
         args: [ "--config", "pyproject.toml" ]
         pass_filenames: false
 
-  {%- if cookiecutter.cli_tool == 'y' %}
+{%- if cookiecutter.cli_tool == 'y' %}
 
       - id: cog
         name: cog
