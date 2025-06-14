@@ -28,8 +28,10 @@ runs:
 
     - name: Get resolved Python version
       id: resolved-python
-      run: echo "version=$(python -c 'import sys; print(\"%d.%d.%d\" % sys.version_info[:3])')" >> "$GITHUB_OUTPUT"
       shell: bash
+      run: |
+        PYTHON_VERSION=$(python -c "import sys; print('{}.{}.{}'.format(*sys.version_info[:3]))")
+        echo "version=$PYTHON_VERSION" >> "$GITHUB_OUTPUT"
 
     - name: Cache .venv directory
       uses: actions/cache@v4
