@@ -29,7 +29,7 @@ runs:
     - name: Get resolved Python version
       id: resolved-python
       run: |
-        echo "version=$(python -c \"import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}')\")" >> $GITHUB_OUTPUT
+        python -c "import sys; v = f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}'; print(f'version={v}', file=open('$GITHUB_OUTPUT', 'a'))"
       shell: bash
 
     - name: Cache .venv directory
