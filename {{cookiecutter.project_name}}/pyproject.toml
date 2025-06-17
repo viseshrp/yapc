@@ -80,6 +80,14 @@ validate-bump = true
 local_scheme = "no-local-version"
 timestamp_format = "long"
 
+[tool.hatch.build]
+include = [
+  "{{cookiecutter.project_slug}}/**",
+  "README.md",
+  "LICENSE",
+  "CHANGELOG.md"
+]
+
 [tool.hatch.build.targets.wheel]
 packages = ["{{cookiecutter.project_slug}}"]
 
