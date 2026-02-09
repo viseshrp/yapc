@@ -28,7 +28,7 @@ jobs:
         run: uv run deptry .
 
       - name: Check typing
-        run: uv run mypy
+        run: uv run ty check
 
   tests:
     runs-on: ubuntu-latest

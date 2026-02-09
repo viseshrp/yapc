@@ -36,7 +36,7 @@ dev = [
     "pytest-cookies>=0.6.1",
     "tox-uv>=1.11.3",
     "deptry>=0.23.0",
-    "mypy>=0.991",
+    "ty",
     "pytest-cov>=4.0.0",
     "ruff>=0.11.5",
 ]
@@ -61,15 +61,14 @@ skip_empty = true
 branch = true
 source = ["yapc"]
 
-[tool.mypy]
-files = ["yapc"]
-disallow_untyped_defs = true
-disallow_any_unimported = true
-no_implicit_optional = true
-check_untyped_defs = true
-warn_return_any = true
-warn_unused_ignores = true
-show_error_codes = true
+[tool.ty.src]
+include = ["yapc"]
+
+[tool.ty.environment]
+python-version = "3.9"
+
+[tool.ty.rules]
+unused-type-ignore-comment = "error"
 
 [tool.deptry]
 extend_exclude = [
