@@ -52,7 +52,6 @@ dev = [
     "pytest-cov",
     {% endif -%}
     "pre-commit",
-    "black",
     "ruff",
     "pip-audit",
     "bandit[toml]",
@@ -224,10 +223,6 @@ max-complexity = 10
 [tool.ruff.lint.isort]
 known-first-party = ["{{cookiecutter.project_slug}}", "tests"]
 force-sort-within-sections = true
-
-[tool.black]
-line-length = 100
-target-version = ["py39"]
 
 [tool.codespell]
 ignore-words = "codespell.txt"

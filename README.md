@@ -14,7 +14,7 @@ all the necessary tools for development, testing, and deployment. It supports th
 - 🔄 **Automated updates**:
   - [Dependabot](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically) for Python, GitHub Actions, and pre-commit hook versions
   - Daily `pre-commit autoupdate` PRs for hook freshness
-- 🔧 **Code formatting** with [black](https://black.readthedocs.io/en/stable/) and [ruff format](https://docs.astral.sh/ruff/formatter/)
+- 🔧 **Code formatting** with [ruff format](https://docs.astral.sh/ruff/formatter/)
 - 📈 **Coverage reporting** with [Codecov](https://about.codecov.io/) (optional)
 - 📊 **Dependency analysis** with [deptry](https://github.com/fpgmaas/deptry)
 - 🦴 **Dead code detection** with [vulture](https://github.com/jendrikseipp/vulture)
