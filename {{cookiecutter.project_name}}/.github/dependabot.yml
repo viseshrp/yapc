@@ -1,7 +1,7 @@
 version: 2
 updates:
-  # 1. Python dependencies from pyproject.toml
-  - package-ecosystem: "pip"
+  # 1. Python dependencies from pyproject.toml and uv.lock
+  - package-ecosystem: "uv"
     directory: "/"
     schedule:
       interval: "daily"
@@ -10,9 +10,7 @@ updates:
       - "dependencies"
       - "automerge"
 
-  # 2. GitHub-hosted things:
-  #    - GitHub Actions in .github/workflows/
-  #    - pre-commit hook revs in .pre-commit-config.yaml
+  # 2. GitHub Actions in .github/workflows/
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
