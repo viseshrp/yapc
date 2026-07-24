@@ -43,8 +43,8 @@ jobs:
 
       - name: Ensure labels exist
         run: |
-          gh label create chore --description "Chores and maintenance" --color 00CED1 || echo "Label 'chore' already exists"
-          gh label create automerge --description "automerge" --color 3E0651 || echo "Label 'automerge' already exists"
+          gh label create chore --description "Chores and maintenance" --color 00CED1 --force
+          gh label create automerge --description "automerge" --color 3E0651 --force
         env:
           GH_TOKEN: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
 
