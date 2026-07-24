@@ -24,7 +24,8 @@ runs:
       with:
         version: {% raw %}${{ inputs.uv-version }}{% endraw %}
         enable-cache: true
-        cache-suffix: {% raw %}${{ inputs.python-version }}{% endraw %}
+        cache-suffix: {% raw %}${{ github.job }}-${{ inputs.python-version }}{% endraw %}
+        prune-cache: true
 
     - name: Get resolved Python version
       id: resolved-python

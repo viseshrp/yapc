@@ -24,7 +24,8 @@ runs:
       with:
         version: ${{ inputs.uv-version }}
         enable-cache: "true"
-        cache-suffix: ${{ inputs.python-version }}
+        cache-suffix: ${{ github.job }}-${{ inputs.python-version }}
+        prune-cache: "true"
 
     - name: Cache .venv directory
       uses: actions/cache@v6.1.0
