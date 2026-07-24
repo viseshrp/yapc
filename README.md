@@ -2,7 +2,7 @@
 # yapc
 
 [![Build status](https://img.shields.io/github/actions/workflow/status/viseshrp/yapc/main.yml?branch=main)](https://github.com/viseshrp/yapc/actions/workflows/main.yml?query=branch%3Amain)
-[![Supported Python versions](https://img.shields.io/badge/python-3.9_%7C_3.10_%7C_3.11_%7C_3.12_%7C_3.13-blue?labelColor=grey&color=blue)](https://github.com/viseshrp/yapc/blob/main/pyproject.toml)
+[![Supported Python versions](https://img.shields.io/badge/python-3.10_%7C_3.11_%7C_3.12_%7C_3.13_%7C_3.14-blue?labelColor=grey&color=blue)](https://github.com/viseshrp/yapc/blob/main/pyproject.toml)
 [![License](https://img.shields.io/github/license/viseshrp/yapc)](https://img.shields.io/github/license/viseshrp/yapc)
 
 This is a modern Cookiecutter template that can be used to initiate a Python project with

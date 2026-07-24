@@ -21,7 +21,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0  # Required for hatch-vcs to generate full version
           fetch-tags: true
@@ -49,7 +49,7 @@ jobs:
           GH_TOKEN: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
 
       - name: Create PR for updated demo.gif
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8.1.1
         with:
           token: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
           base: main

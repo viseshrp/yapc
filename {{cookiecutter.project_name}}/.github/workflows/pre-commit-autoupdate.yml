@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0  # Required for hatch-vcs to generate full version
           fetch-tags: true
@@ -25,7 +25,7 @@ jobs:
           token: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
 
       - name: Cache pre-commit hooks
-        uses: actions/cache@v4
+        uses: actions/cache@v6.1.0
         with:
           path: ~/.cache/pre-commit
           key: {% raw %}pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}{% endraw %}
@@ -57,7 +57,7 @@ jobs:
           GH_TOKEN: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
 
       - name: Create Pull Request for Updated Hooks
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8.1.1
         with:
           token: {% raw %}${{ secrets.PERSONAL_ACCESS_TOKEN }}{% endraw %}
           base: main

@@ -5,7 +5,7 @@ inputs:
   python-version:
     description: "Python version to use"
     required: false
-    default: "3.13"
+    default: "3.14"
   uv-version:
     description: "uv version to use"
     required: false
@@ -15,12 +15,12 @@ runs:
   using: "composite"
   steps:
     - name: Setup Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v7.0.0
       with:
         python-version: {% raw %}${{ inputs.python-version }}{% endraw %}
 
     - name: Install uv
-      uses: astral-sh/setup-uv@v6
+      uses: astral-sh/setup-uv@v9.0.0
       with:
         version: {% raw %}${{ inputs.uv-version }}{% endraw %}
         enable-cache: true
@@ -34,7 +34,7 @@ runs:
         echo "version=$PYTHON_VERSION" >> "$GITHUB_OUTPUT"
 
     - name: Cache .venv directory
-      uses: actions/cache@v4
+      uses: actions/cache@v6.1.0
       with:
         path: .venv
         key: {% raw %}uv-venv-${{ runner.os }}-${{ steps.resolved-python.outputs.version }}-${{ hashFiles('pyproject.toml', 'uv.lock') }}{% endraw %}

@@ -29,6 +29,8 @@ def move_dir(src: str, dst: str) -> None:
 
 
 if __name__ == "__main__":
+    move_file("pyproject.toml.jinja", "pyproject.toml")
+
     # Codecov config
     if "{{ cookiecutter.codecov }}" != "y":
         remove_file("codecov.yml")

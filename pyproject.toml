@@ -5,9 +5,9 @@ description = "A Python cookiecutter template for initializing new Python projec
 authors = [{ name = "Visesh P", email = "viseshrprasad@gmail.com" }]
 readme = "README.md"
 keywords = ["cookiecutter", "template", "uv", "cli", "yapc"]
-requires-python = ">=3.9,<4.0"
+requires-python = ">=3.10,<4.0"
 dependencies = [
-    "cookiecutter>=2.1.1"
+    "cookiecutter>=2.7.1"
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -15,11 +15,11 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Software Development :: Code Generators",
 ]
@@ -31,14 +31,14 @@ Homepage = "https://github.com/viseshrp/yapc"
 
 [dependency-groups]
 dev = [
-    "pytest>=7.2.0",
-    "pre-commit>=2.20.0",
-    "pytest-cookies>=0.6.1",
-    "tox-uv>=1.11.3",
-    "deptry>=0.23.0",
-    "ty",
-    "pytest-cov>=4.0.0",
-    "ruff>=0.11.5",
+    "pytest>=9.1.1",
+    "pre-commit>=4.6.1",
+    "pytest-cookies>=0.7.0",
+    "tox-uv>=1.36.0",
+    "deptry>=0.25.1",
+    "ty>=0.0.63",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.16.0",
 ]
 
 [build-system]
@@ -65,7 +65,7 @@ source = ["yapc"]
 include = ["yapc"]
 
 [tool.ty.environment]
-python-version = "3.9"
+python-version = "3.10"
 
 [tool.ty.rules]
 unused-type-ignore-comment = "error"
@@ -79,7 +79,7 @@ extend_exclude = [
 DEP002 = ["cookiecutter"]
 
 [tool.ruff]
-target-version = "py39"
+target-version = "py310"
 line-length = 120
 fix = true
 exclude = [
