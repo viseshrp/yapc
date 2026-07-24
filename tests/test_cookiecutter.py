@@ -20,6 +20,20 @@ def test_bake_project(cookies):
     assert project_path.is_dir()
 
 
+def test_not_git_init_has_a_lockable_project(cookies, tmp_path):
+    with run_within_dir(tmp_path):
+        result = cookies.bake(extra_context={"git_init": "n"})
+        project_path = Path(result.project_path)
+
+        assert result.exit_code == 0, result.exception
+        assert not (project_path / ".git").exists()
+
+        uv_exe = shutil.which("uv") or "uv"
+        subprocess.run([uv_exe, "lock"], cwd=project_path, check=True)
+
+        assert (project_path / "uv.lock").is_file()
+
+
 @pytest.mark.parametrize("cli_opt", ["y", "n"])
 def test_using_pytest(cookies, tmp_path, cli_opt):
     with run_within_dir(tmp_path):
