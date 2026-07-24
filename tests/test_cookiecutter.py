@@ -10,7 +10,7 @@ from tests.utils import is_valid_yaml, run_within_dir
 
 
 def test_bake_project(cookies):
-    result = cookies.bake(extra_context={"project_name": "my-project"})
+    result = cookies.bake(extra_context={"project_name": "my-project", "github_username": "project-owner"})
 
     assert result.exit_code == 0, result.exception
     assert result.exception is None
@@ -18,6 +18,9 @@ def test_bake_project(cookies):
     project_path = Path(result.project_path)
     assert project_path.name == "my-project"
     assert project_path.is_dir()
+    automerge = (project_path / ".github" / "workflows" / "automerge.yml").read_text(encoding="utf-8")
+    assert "'project-owner'" in automerge
+    assert "'viseshrp'" not in automerge
 
 
 def test_not_git_init_has_a_lockable_project(cookies, tmp_path):

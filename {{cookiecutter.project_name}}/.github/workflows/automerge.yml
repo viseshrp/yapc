@@ -28,7 +28,7 @@ jobs:
         if: |
           github.event.pull_request.user.login == 'github-actions[bot]' ||
           github.event.pull_request.user.login == 'dependabot[bot]' ||
-          github.event.pull_request.user.login == 'viseshrp'
+          github.event.pull_request.user.login == '{{ cookiecutter.github_username }}'
         uses: hmarr/auto-approve-action@v4
         with:
           github-token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
