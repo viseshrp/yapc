@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import pytest
 
 from {{cookiecutter.project_slug}}.{{cookiecutter.project_slug}} import do_stuff
