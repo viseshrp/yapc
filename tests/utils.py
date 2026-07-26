@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import os
-from collections.abc import Generator
 from contextlib import contextmanager
 from pathlib import Path
 
@@ -29,7 +28,7 @@ def is_valid_yaml(path: str | Path) -> bool:
 
 
 @contextmanager
-def run_within_dir(path: str | Path) -> Generator[None, None, None]:
+def run_within_dir(path: str | Path):
     path = Path(path).resolve()
     oldpwd = Path.cwd()
     try:

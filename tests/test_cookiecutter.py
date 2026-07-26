@@ -53,12 +53,9 @@ def test_using_pytest(cookies, tmp_path, cli_opt):
 
         with run_within_dir(project_path):
             uv_exe = shutil.which("uv") or "uv"
-            make_exe = shutil.which("make")
+            make_exe = shutil.which("make") or "make"
             subprocess.run([uv_exe, "sync"], check=True)
-            if make_exe:
-                subprocess.run([make_exe, "test"], check=True)
-            else:
-                subprocess.run([uv_exe, "run", "pytest"], check=True)
+            subprocess.run([make_exe, "test"], check=True)
 
 
 def test_codecov(cookies, tmp_path):

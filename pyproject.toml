@@ -45,15 +45,11 @@ dev = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.hatch.build]
-include = [
-    "yapc/**",
-    "cookiecutter.json",
-    "hooks/**",
-    "{{cookiecutter.project_name}}/**",
-    "README.md",
-    "LICENSE",
-]
+[tool.setuptools]
+packages = ["yapc"]
+
+[tool.setuptools.package-data]
+"yapc" = ["*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

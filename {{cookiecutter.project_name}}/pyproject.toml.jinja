@@ -168,10 +168,10 @@ show_contexts = true
 target-version = "py310"
 line-length = 100
 fix = true
+unsafe-fixes = true
 exclude = [".venv", "__init__.py"]
 
 [tool.ruff.lint]
-unsafe-fixes = true
 fixable = ["ALL"]
 select = [
     # flake8-2020
@@ -244,4 +244,4 @@ exclude = ["venv/", ".venv/"]
 exclude = ["venv/.*", ".venv/.*", "tests/.*"]
 
 [tool.pre-commit.default_language_versions]
-python = "3.10"
+python = "3.14"
