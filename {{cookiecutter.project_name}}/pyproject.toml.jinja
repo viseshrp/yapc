@@ -1,8 +1,8 @@
 [project]
-name = "{{cookiecutter.project_name}}"
+name = {{ cookiecutter.project_name|tojson }}
 dynamic = ["version"]
-description = "{{cookiecutter.project_description}}"
-authors = [{ name = "{{cookiecutter.author}}", email = "{{cookiecutter.email}}" }]
+description = {{ cookiecutter.project_description|tojson }}
+authors = [{ name = {{ cookiecutter.author|tojson }}, email = {{ cookiecutter.email|tojson }} }]
 readme = "README.md"
 keywords = ["python"]
 requires-python = ">=3.10,<4.0"
@@ -28,16 +28,16 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}"
-Repository = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}"
-Documentation = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/blob/main/README.md"
-Changelog = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/blob/main/CHANGELOG.md"
-Bug-Tracker = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/issues"
-CI = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/actions"
+Homepage = {{ ("https://github.com/" ~ cookiecutter.github_username ~ "/" ~ cookiecutter.project_name)|tojson }}
+Repository = {{ ("https://github.com/" ~ cookiecutter.github_username ~ "/" ~ cookiecutter.project_name)|tojson }}
+Documentation = {{ ("https://github.com/" ~ cookiecutter.github_username ~ "/" ~ cookiecutter.project_name ~ "/blob/main/README.md")|tojson }}
+Changelog = {{ ("https://github.com/" ~ cookiecutter.github_username ~ "/" ~ cookiecutter.project_name ~ "/blob/main/CHANGELOG.md")|tojson }}
+Bug-Tracker = {{ ("https://github.com/" ~ cookiecutter.github_username ~ "/" ~ cookiecutter.project_name ~ "/issues")|tojson }}
+CI = {{ ("https://github.com/" ~ cookiecutter.github_username ~ "/" ~ cookiecutter.project_name ~ "/actions")|tojson }}
 
 {% if cookiecutter.cli_tool == "y" -%}
 [project.scripts]
-{{cookiecutter.project_name}} = "{{cookiecutter.project_slug}}.__main__:main"
+{{ cookiecutter.project_name|tojson }} = {{ (cookiecutter.project_slug ~ ".__main__:main")|tojson }}
 
 {% endif -%}
 [dependency-groups]
@@ -71,7 +71,7 @@ requires = ["hatchling", "hatch-timestamp-version"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
-path = "{{cookiecutter.project_slug}}/_version.py"
+path = {{ (cookiecutter.project_slug ~ "/_version.py")|tojson }}
 source = "vcs-dev-timestamp"
 validate-bump = true
 
@@ -82,17 +82,17 @@ fallback_version = "0.0.0"
 
 [tool.hatch.build]
 include = [
-  "{{cookiecutter.project_slug}}/**",
+  {{ (cookiecutter.project_slug ~ "/**")|tojson }},
   "README.md",
   "LICENSE",
   "CHANGELOG.md"
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["{{cookiecutter.project_slug}}"]
+packages = [{{ cookiecutter.project_slug|tojson }}]
 
 [tool.hatch.build.targets.editable]
-packages = ["{{cookiecutter.project_slug}}"]
+packages = [{{ cookiecutter.project_slug|tojson }}]
 
 [tool.hatch.envs.default]
 path = ".venv"
@@ -102,7 +102,7 @@ default-groups = "all"
 
 [tool.ty.src]
 include = [
-    "{{cookiecutter.project_slug}}"
+    {{ cookiecutter.project_slug|tojson }}
 ]
 
 [tool.ty.environment]
@@ -155,9 +155,9 @@ exclude_lines = [
 
 [tool.coverage.run]
 branch = true
-omit = ["{{cookiecutter.project_slug}}/__main__.py"]
+omit = [{{ (cookiecutter.project_slug ~ "/__main__.py")|tojson }}]
 source = [
-    "{{cookiecutter.project_slug}}"
+    {{ cookiecutter.project_slug|tojson }}
 ]
 
 [tool.coverage.html]
@@ -222,7 +222,7 @@ max-complexity = 10
 "scripts/*.py" = ["T201"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["{{cookiecutter.project_slug}}", "tests"]
+known-first-party = [{{ cookiecutter.project_slug|tojson }}, "tests"]
 force-sort-within-sections = true
 
 [tool.codespell]
@@ -231,11 +231,11 @@ skip = '*.pyc,*.xml,*.gif,*.png,*.jpg,*.js,*.html,*.json,*.gz,Makefile'
 quiet-level = 3
 
 [tool.bandit]
-targets = ["{{cookiecutter.project_slug}}"]
+targets = [{{ cookiecutter.project_slug|tojson }}]
 exclude_dirs = ["venv", ".venv", "tests"]
 
 [tool.vulture]
-paths = ["{{cookiecutter.project_slug}}", "tests"]
+paths = [{{ cookiecutter.project_slug|tojson }}, "tests"]
 min_confidence = 80
 sort_by_size = true
 exclude = ["venv/", ".venv/"]

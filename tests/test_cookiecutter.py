@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import shutil
 import subprocess
 import sys
@@ -7,6 +8,7 @@ from datetime import date
 from pathlib import Path
 
 import pytest
+import tomli
 
 from hooks import post_gen_project
 from tests.utils import is_valid_yaml, run_within_dir
@@ -45,6 +47,55 @@ def test_valid_distribution_names_generate_importable_slugs(cookies, project_nam
 @pytest.mark.parametrize("project_name", ["-foo", "foo-", ".foo", "foo."])
 def test_distribution_names_must_start_and_end_with_alphanumeric(cookies, project_name):
     result = cookies.bake(extra_context={"project_name": project_name})
+
+    assert result.exit_code != 0
+
+
+def test_user_text_is_safely_serialized_for_python_toml_and_yaml(cookies):
+    author = 'Renée "Ada" O\'Connor'
+    description = 'Handles "quotes", C:\\tmp, Unicode Ω, and delimiters """ plus \'\'\'.'
+    result = cookies.bake(
+        extra_context={
+            "author": author,
+            "email": "ada+test@example.com",
+            "github_username": "octo-cat",
+            "project_description": description,
+            "git_init": "n",
+        }
+    )
+    project_path = Path(result.project_path)
+
+    assert result.exit_code == 0, result.exception
+
+    pyproject = tomli.loads((project_path / "pyproject.toml").read_text(encoding="utf-8"))
+    assert pyproject["project"]["description"] == description
+    assert pyproject["project"]["authors"] == [{"name": author, "email": "ada+test@example.com"}]
+    assert pyproject["project"]["scripts"]["example-project"] == "example_project.__main__:main"
+
+    for python_path in project_path.rglob("*.py"):
+        ast.parse(python_path.read_text(encoding="utf-8"), filename=str(python_path))
+
+    cli_module = ast.parse((project_path / "example_project" / "cli.py").read_text(encoding="utf-8"))
+    cli_function = next(node for node in cli_module.body if isinstance(node, ast.FunctionDef) and node.name == "main")
+    cli_docstring = ast.get_docstring(cli_function, clean=False)
+    assert cli_docstring is not None
+    assert cli_docstring.startswith(description)
+    assert is_valid_yaml(project_path / ".github" / "workflows" / "automerge.yml")
+
+
+@pytest.mark.parametrize(
+    "extra_context",
+    [
+        {"github_username": "bad'name"},
+        {"github_username": "bad\nname"},
+        {"email": "not-an-email"},
+        {"email": "ada@example.com\nBcc: other@example.com"},
+        {"author": "Lovelace, Ada"},
+        {"project_description": "first line\nsecond line"},
+    ],
+)
+def test_invalid_metadata_values_are_rejected(cookies, extra_context):
+    result = cookies.bake(extra_context=extra_context)
 
     assert result.exit_code != 0
 

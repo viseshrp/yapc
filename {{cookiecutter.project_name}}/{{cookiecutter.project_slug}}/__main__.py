@@ -1,4 +1,4 @@
-"""The main entry point for the {{ cookiecutter.project_name }} package."""
+{{ ("The main entry point for the " ~ cookiecutter.project_name ~ " package.")|tojson }}
 
 from .cli import main
 

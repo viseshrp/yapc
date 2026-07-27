@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 from __future__ import annotations
 
+import json
 import shutil
 import subprocess
 from pathlib import Path
+from urllib.parse import urlsplit
 
 PROJECT_DIRECTORY = Path.cwd().resolve()
 
@@ -28,6 +30,16 @@ def move_dir(src: str, dst: str) -> None:
     shutil.move(str(PROJECT_DIRECTORY / src), str(PROJECT_DIRECTORY / dst))
 
 
+def repository_ssh_url() -> str:
+    pyproject_path = PROJECT_DIRECTORY / "pyproject.toml"
+    repository_line = next(
+        line for line in pyproject_path.read_text(encoding="utf-8").splitlines() if line.startswith("Repository = ")
+    )
+    repository_url = json.loads(repository_line.partition("=")[2].strip())
+    parsed_url = urlsplit(repository_url)
+    return f"git@{parsed_url.hostname}:{parsed_url.path.lstrip('/')}.git"
+
+
 def initialize_git() -> None:
     git_exe = shutil.which("git")
     if git_exe is None:
@@ -47,7 +59,7 @@ def initialize_git() -> None:
             "remote",
             "add",
             "origin",
-            "git@github.com:{{ cookiecutter.github_username }}/{{ cookiecutter.project_name }}.git",
+            repository_ssh_url(),
         ],
         cwd=PROJECT_DIRECTORY,
         stdout=subprocess.DEVNULL,

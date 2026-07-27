@@ -1,4 +1,4 @@
-"""The console script for {{cookiecutter.project_name}}."""
+{{ ("The console script for " ~ cookiecutter.project_name ~ ".")|tojson }}
 
 import click
 
@@ -16,11 +16,5 @@ from .{{cookiecutter.project_slug}} import do_stuff
 @click.command(context_settings={"help_option_names": ["-h", "--help"]})
 @click.version_option(_version, "-v", "--version")
 def main(stuff: tuple[str, ...]) -> None:
-    """
-    {{cookiecutter.project_description}}
-
-    \b
-    Example usages:
-
-    """
+    {{ (cookiecutter.project_description ~ "\n\n\b\nExample usages:\n")|tojson }}
     do_stuff(stuff)

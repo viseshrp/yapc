@@ -35,6 +35,7 @@ dev = [
     "pytest-cookies>=0.7.0",
     "tox-uv>=1.36.0",
     "deptry>=0.25.1",
+    "tomli>=2.4.0",
     "ty>=0.0.63",
     "ruff>=0.16.0",
 ]

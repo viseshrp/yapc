@@ -1,4 +1,4 @@
-"""Top-level package for {{ cookiecutter.project_name }}."""
+{{ ("Top-level package for " ~ cookiecutter.project_name ~ ".")|tojson }}
 
 from ._version import __version__
 {% if cookiecutter.cli_tool == "y" -%}
