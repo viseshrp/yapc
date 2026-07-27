@@ -94,7 +94,7 @@ jobs:
         uses: ./.github/actions/setup-python-env
 
       - name: Run version checks
-        run: make check-version
+        run: make check-dev-version
 
       - name: Build project
         run: make build

@@ -19,6 +19,7 @@ install: ## 🚀 Set up environment and install project
 	@echo "🔧 Installing project in editable mode..."
 	uv pip install -e .
 
+.PHONY: check-version
 check-version:
 	@echo "🔍 Checking if a Git tag exists..."
 	@if git describe --tags --abbrev=0 >/dev/null 2>&1; then \
@@ -26,6 +27,17 @@ check-version:
 	    echo "✅ Git tag found: $$VERSION"; \
 	else \
 	    echo "❌ No Git tag found. Please create one with: git tag v0.1.0"; \
+	    exit 1; \
+	fi
+
+.PHONY: check-dev-version
+check-dev-version:
+	@echo "🔍 Checking the computed development version..."
+	@VERSION=$$(uv run hatch version); \
+	if [[ "$$VERSION" =~ \.dev[0-9]+$$ ]]; then \
+	    echo "✅ Development version: $$VERSION"; \
+	else \
+	    echo "❌ Expected a development version, got: $$VERSION"; \
 	    exit 1; \
 	fi
 

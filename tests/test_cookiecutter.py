@@ -109,6 +109,59 @@ def test_git_init_requires_available_git(monkeypatch):
         post_gen_project.initialize_git()
 
 
+def test_tagless_first_commit_has_development_version(cookies, tmp_path):
+    with run_within_dir(tmp_path):
+        result = cookies.bake()
+        project_path = Path(result.project_path)
+
+        assert result.exit_code == 0, result.exception
+
+        uv_exe = shutil.which("uv") or "uv"
+        subprocess.run([uv_exe, "sync"], cwd=project_path, check=True)
+
+        git_exe = shutil.which("git")
+        assert git_exe is not None
+        subprocess.run([git_exe, "add", "."], cwd=project_path, check=True)
+        subprocess.run(
+            [
+                git_exe,
+                "-c",
+                "user.name=Template Test",
+                "-c",
+                "user.email=template-test@example.invalid",
+                "commit",
+                "-m",
+                "Initial commit",
+            ],
+            cwd=project_path,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        tags = subprocess.run(
+            [git_exe, "tag", "--list"],
+            cwd=project_path,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        assert tags.stdout == ""
+
+        workflow = (project_path / ".github" / "workflows" / "main.yml").read_text(encoding="utf-8")
+        assert "run: make check-dev-version" in workflow
+
+        make_exe = shutil.which("make") or "make"
+        version_check = subprocess.run(
+            [make_exe, "check-dev-version"],
+            cwd=project_path,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        assert ".dev" in version_check.stdout
+
+
 @pytest.mark.parametrize("cli_opt", ["y", "n"])
 def test_using_pytest(cookies, tmp_path, cli_opt):
     with run_within_dir(tmp_path):
