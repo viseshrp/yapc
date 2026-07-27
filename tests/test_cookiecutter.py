@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import shutil
 import subprocess
+from datetime import date
 from pathlib import Path
 
 import pytest
@@ -160,6 +161,119 @@ def test_tagless_first_commit_has_development_version(cookies, tmp_path):
             text=True,
         )
         assert ".dev" in version_check.stdout
+
+
+def test_release_helper_checks_state_before_pushing_tag(cookies, tmp_path):
+    with run_within_dir(tmp_path):
+        result = cookies.bake()
+        project_path = Path(result.project_path)
+        remote_path = tmp_path / "remote.git"
+
+        assert result.exit_code == 0, result.exception
+
+        uv_exe = shutil.which("uv") or "uv"
+        git_exe = shutil.which("git")
+        bash_exe = shutil.which("bash")
+        assert git_exe is not None
+        assert bash_exe is not None
+
+        subprocess.run([uv_exe, "sync"], cwd=project_path, check=True)
+        subprocess.run([git_exe, "init", "--bare", str(remote_path)], check=True, capture_output=True, text=True)
+        subprocess.run([git_exe, "remote", "set-url", "origin", str(remote_path)], cwd=project_path, check=True)
+        subprocess.run([git_exe, "add", "."], cwd=project_path, check=True)
+        subprocess.run(
+            [
+                git_exe,
+                "-c",
+                "user.name=Template Test",
+                "-c",
+                "user.email=template-test@example.invalid",
+                "commit",
+                "-m",
+                "Initial commit",
+            ],
+            cwd=project_path,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        development_version = subprocess.run(
+            [uv_exe, "run", "hatch", "version"],
+            cwd=project_path,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        release_version = development_version.partition(".dev")[0]
+        changelog_path = project_path / "CHANGELOG.md"
+        changelog = changelog_path.read_text(encoding="utf-8")
+        changelog_path.write_text(
+            changelog.replace(
+                "## [0.0.2] - <Unreleased>",
+                f"## [{release_version}] - {date.today().isoformat()}",
+            ),
+            encoding="utf-8",
+        )
+        subprocess.run([git_exe, "add", "CHANGELOG.md"], cwd=project_path, check=True)
+        subprocess.run(
+            [
+                git_exe,
+                "-c",
+                "user.name=Template Test",
+                "-c",
+                "user.email=template-test@example.invalid",
+                "commit",
+                "-m",
+                "Prepare release",
+            ],
+            cwd=project_path,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        subprocess.run([git_exe, "push", "--set-upstream", "origin", "main"], cwd=project_path, check=True)
+
+        untracked_path = project_path / "untracked.txt"
+        untracked_path.write_text("not ready\n", encoding="utf-8")
+        dirty = subprocess.run(
+            [bash_exe, "scripts/tag_release.sh"],
+            cwd=project_path,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        assert dirty.returncode != 0
+        assert "tracked and untracked changes" in dirty.stderr
+        untracked_path.unlink()
+
+        released = subprocess.run(
+            [bash_exe, "scripts/tag_release.sh"],
+            cwd=project_path,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        expected_tag = f"v{release_version}"
+        assert f"Tag {expected_tag} pushed successfully" in released.stdout
+
+        local_tags = subprocess.run(
+            [git_exe, "tag", "--list", expected_tag],
+            cwd=project_path,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        assert local_tags.stdout.strip() == expected_tag
+
+        remote_tags = subprocess.run(
+            [git_exe, "show-ref", "--verify", f"refs/tags/{expected_tag}"],
+            cwd=remote_path,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        assert remote_tags.stdout.strip().endswith(f"refs/tags/{expected_tag}")
 
 
 @pytest.mark.parametrize("cli_opt", ["y", "n"])
