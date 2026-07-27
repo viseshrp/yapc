@@ -390,6 +390,18 @@ def test_generated_tox_uses_supported_version_requirement(cookies):
     assert "min_version" not in tox_config
 
 
+def test_generated_metadata_uses_pep639_license_fields(cookies):
+    result = cookies.bake()
+
+    assert result.exit_code == 0, result.exception
+
+    pyproject = tomli.loads((Path(result.project_path) / "pyproject.toml").read_text(encoding="utf-8"))
+    project = pyproject["project"]
+    assert project["license"] == "MIT"
+    assert project["license-files"] == ["LICENSE"]
+    assert not any(classifier.startswith("License ::") for classifier in project["classifiers"])
+
+
 def test_wheel_installs_documented_cli_name(cookies, tmp_path):
     with run_within_dir(tmp_path):
         result = cookies.bake(extra_context={"project_name": "my-project"})

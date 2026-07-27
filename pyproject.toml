@@ -4,6 +4,8 @@ version = "0.0.1"
 description = "A Git/Cruft-only Cookiecutter template for initializing new Python projects."
 authors = [{ name = "Visesh P", email = "viseshrprasad@gmail.com" }]
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 keywords = ["cookiecutter", "template", "uv", "cli", "yapc"]
 requires-python = ">=3.10,<4.0"
 dependencies = []
@@ -11,7 +13,6 @@ classifiers = [
     "Private :: Do Not Upload",
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",

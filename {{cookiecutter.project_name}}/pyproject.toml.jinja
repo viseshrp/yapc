@@ -4,13 +4,13 @@ dynamic = ["version"]
 description = {{ cookiecutter.project_description|tojson }}
 authors = [{ name = {{ cookiecutter.author|tojson }}, email = {{ cookiecutter.email|tojson }} }]
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 keywords = ["python"]
 requires-python = ">=3.10,<4.0"
 dependencies = [{% if cookiecutter.cli_tool == "y" %}"click>=8.4.2", {% endif %}]
-license = { text = "MIT" }
 classifiers = [
     "Development Status :: 4 - Beta",
-    "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Operating System :: OS Independent",
     "Intended Audience :: Developers",
