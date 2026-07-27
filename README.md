@@ -8,6 +8,9 @@
 This is a modern Cookiecutter template that can be used to initiate a Python project with
 all the necessary tools for development, testing, and deployment. It supports the following features:
 
+This repository is a Git/Cruft-only template. It is not distributed as a Python package and does not install a
+`yapc` command.
+
 ## 🚀 Features
 
 - 📦 **Dependency management** with [uv](https://docs.astral.sh/uv/), including `uv.lock` support

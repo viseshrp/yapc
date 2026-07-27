@@ -1,15 +1,14 @@
 [project]
 name = "yapc"
 version = "0.0.1"
-description = "A Python cookiecutter template for initializing new Python projects."
+description = "A Git/Cruft-only Cookiecutter template for initializing new Python projects."
 authors = [{ name = "Visesh P", email = "viseshrprasad@gmail.com" }]
 readme = "README.md"
 keywords = ["cookiecutter", "template", "uv", "cli", "yapc"]
 requires-python = ">=3.10,<4.0"
-dependencies = [
-    "cookiecutter>=2.7.1"
-]
+dependencies = []
 classifiers = [
+    "Private :: Do Not Upload",
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
@@ -20,7 +19,6 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
-    "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Software Development :: Code Generators",
 ]
 
@@ -31,38 +29,24 @@ Homepage = "https://github.com/viseshrp/yapc"
 
 [dependency-groups]
 dev = [
+    "cookiecutter>=2.7.1",
     "pytest>=9.1.1",
     "pre-commit>=4.6.1",
     "pytest-cookies>=0.7.0",
     "tox-uv>=1.36.0",
     "deptry>=0.25.1",
     "ty>=0.0.63",
-    "pytest-cov>=7.1.0",
     "ruff>=0.16.0",
 ]
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[tool.setuptools]
-packages = ["yapc"]
-
-[tool.setuptools.package-data]
-"yapc" = ["*"]
+[tool.uv]
+package = false
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
-[tool.coverage.report]
-skip_empty = true
-
-[tool.coverage.run]
-branch = true
-source = ["yapc"]
-
 [tool.ty.src]
-include = ["yapc"]
+include = ["hooks", "tests"]
 
 [tool.ty.environment]
 python-version = "3.10"
@@ -74,9 +58,6 @@ unused-type-ignore-comment = "error"
 extend_exclude = [
     "\\{\\{cookiecutter\\.project_name\\}\\}/.*",
 ]
-
-[tool.deptry.per_rule_ignores]
-DEP002 = ["cookiecutter"]
 
 [tool.ruff]
 target-version = "py310"
