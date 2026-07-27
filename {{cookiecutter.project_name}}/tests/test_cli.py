@@ -27,3 +27,13 @@ def test_version(options: list[str]) -> None:
     assert __version__ in result.output, (
         f"Expected version {__version__} not found in output for {options}"
     )
+
+
+def test_variadic_arguments_are_forwarded_as_a_tuple(monkeypatch: pytest.MonkeyPatch) -> None:
+    received: list[tuple[str, ...]] = []
+    monkeypatch.setattr(cli, "do_stuff", received.append)
+
+    result = CliRunner().invoke(cli.main, ["alpha", "beta"])
+
+    assert result.exit_code == 0
+    assert received == [("alpha", "beta")]
