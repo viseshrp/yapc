@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import shutil
 import subprocess
+import sys
 from datetime import date
 from pathlib import Path
 
@@ -303,6 +304,45 @@ def test_release_workflows_publish_tested_tag_artifacts(cookies):
     assert "gh release download" in release_workflow
     assert "make build" not in release_workflow
     assert "needs: [ quality, tests ]" in release_workflow
+
+
+def test_wheel_installs_documented_cli_name(cookies, tmp_path):
+    with run_within_dir(tmp_path):
+        result = cookies.bake(extra_context={"project_name": "my-project"})
+        project_path = Path(result.project_path)
+
+        assert result.exit_code == 0, result.exception
+
+        uv_exe = shutil.which("uv") or "uv"
+        dist_path = tmp_path / "dist"
+        venv_path = tmp_path / "wheel-venv"
+        subprocess.run(
+            [uv_exe, "build", "--wheel", "--out-dir", str(dist_path)],
+            cwd=project_path,
+            check=True,
+        )
+        wheel_path = next(dist_path.glob("*.whl"))
+        subprocess.run(
+            [uv_exe, "venv", "--python", sys.executable, str(venv_path)],
+            check=True,
+        )
+        venv_python = venv_path / ("Scripts/python.exe" if sys.platform == "win32" else "bin/python")
+        subprocess.run(
+            [uv_exe, "pip", "install", "--python", str(venv_python), str(wheel_path)],
+            check=True,
+        )
+
+        scripts_path = venv_path / ("Scripts" if sys.platform == "win32" else "bin")
+        command_path = scripts_path / ("my-project.exe" if sys.platform == "win32" else "my-project")
+        completed = subprocess.run(
+            [str(command_path), "--help"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        assert "Usage: my-project" in completed.stdout
+        assert not (scripts_path / "my_project").exists()
 
 
 @pytest.mark.parametrize("cli_opt", ["y", "n"])

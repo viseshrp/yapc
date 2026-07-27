@@ -13,7 +13,7 @@ Show
 
 {% if cookiecutter.cli_tool == "y" -%}
 # CLI demo
-Type "{{cookiecutter.project_slug}} --help"
+Type "{{cookiecutter.project_name}} --help"
 Sleep 2s
 Enter
 Sleep 6s

@@ -37,7 +37,7 @@ CI = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project
 
 {% if cookiecutter.cli_tool == "y" -%}
 [project.scripts]
-{{cookiecutter.project_slug}} = "{{cookiecutter.project_slug}}.__main__:main"
+{{cookiecutter.project_name}} = "{{cookiecutter.project_slug}}.__main__:main"
 
 {% endif -%}
 [dependency-groups]
