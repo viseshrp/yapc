@@ -380,6 +380,16 @@ def test_release_workflows_publish_tested_tag_artifacts(cookies):
     assert "needs: [ quality, tests ]" in release_workflow
 
 
+def test_generated_tox_uses_supported_version_requirement(cookies):
+    result = cookies.bake()
+
+    assert result.exit_code == 0, result.exception
+
+    tox_config = (Path(result.project_path) / "tox.ini").read_text(encoding="utf-8")
+    assert "requires = tox>=4" in tox_config
+    assert "min_version" not in tox_config
+
+
 def test_wheel_installs_documented_cli_name(cookies, tmp_path):
     with run_within_dir(tmp_path):
         result = cookies.bake(extra_context={"project_name": "my-project"})
