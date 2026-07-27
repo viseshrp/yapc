@@ -106,3 +106,41 @@ jobs:
         run: make publish-test
         env:
           TEST_PYPI_TOKEN: {% raw %}${{ secrets.TEST_PYPI_TOKEN }}{% endraw %}
+
+  create-draft-release:
+    if: {% raw %}${{ startsWith(github.ref, 'refs/tags/v') }}{% endraw %}
+    needs: [ quality, tests ]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0  # Required for hatch-vcs to generate full version
+          fetch-tags: true
+
+      - name: Set up Python + Environment
+        uses: ./.github/actions/setup-python-env
+
+      - name: Verify release tag matches package version
+        run: make check-version
+        env:
+          RELEASE_TAG: {% raw %}${{ github.ref_name }}{% endraw %}
+
+      - name: Build and verify release artifacts
+        run: |
+          make build
+          make check-dist
+
+      - name: Create draft GitHub release with verified artifacts
+        run: |
+          gh release create "$RELEASE_TAG" \
+            --title "Release $RELEASE_TAG" \
+            --notes-from-tag \
+            --draft \
+            --verify-tag \
+            dist/*
+        env:
+          GH_TOKEN: {% raw %}${{ github.token }}{% endraw %}
+          RELEASE_TAG: {% raw %}${{ github.ref_name }}{% endraw %}

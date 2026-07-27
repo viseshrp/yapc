@@ -21,13 +21,17 @@ install: ## 🚀 Set up environment and install project
 
 .PHONY: check-version
 check-version:
-	@echo "🔍 Checking if a Git tag exists..."
-	@if git describe --tags --abbrev=0 >/dev/null 2>&1; then \
-	    VERSION=$$(git describe --tags --abbrev=0); \
-	    echo "✅ Git tag found: $$VERSION"; \
-	else \
-	    echo "❌ No Git tag found. Please create one with: git tag v0.1.0"; \
+	@echo "🔍 Checking the release tag against the package version..."
+	@VERSION=$$(uv run hatch version); \
+	EXPECTED_TAG="v$$VERSION"; \
+	if [ -z "$(RELEASE_TAG)" ]; then \
+	    echo "❌ RELEASE_TAG must identify the release being checked."; \
 	    exit 1; \
+	elif [ "$(RELEASE_TAG)" != "$$EXPECTED_TAG" ]; then \
+	    echo "❌ Release tag '$(RELEASE_TAG)' does not match package version '$$VERSION'."; \
+	    exit 1; \
+	else \
+	    echo "✅ Release tag matches package version: $(RELEASE_TAG)"; \
 	fi
 
 .PHONY: check-dev-version

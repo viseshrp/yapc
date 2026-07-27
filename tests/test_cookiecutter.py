@@ -282,6 +282,29 @@ def test_release_helper_checks_state_before_pushing_tag(cookies, tmp_path):
         assert remote_tags.stdout.strip().endswith(f"refs/tags/{expected_tag}")
 
 
+def test_release_workflows_publish_tested_tag_artifacts(cookies):
+    result = cookies.bake()
+    project_path = Path(result.project_path)
+
+    assert result.exit_code == 0, result.exception
+
+    workflows = project_path / ".github" / "workflows"
+    main_workflow = (workflows / "main.yml").read_text(encoding="utf-8")
+    release_workflow = (workflows / "release.yml").read_text(encoding="utf-8")
+
+    assert not (workflows / "create-draft-release.yml").exists()
+    assert is_valid_yaml(workflows / "main.yml")
+    assert is_valid_yaml(workflows / "release.yml")
+    assert "create-draft-release:" in main_workflow
+    assert "needs: [ quality, tests ]" in main_workflow
+    assert "--verify-tag" in main_workflow
+    assert "workflow_dispatch" not in release_workflow
+    assert "ref: ${{ github.event.release.tag_name }}" in release_workflow
+    assert "gh release download" in release_workflow
+    assert "make build" not in release_workflow
+    assert "needs: [ quality, tests ]" in release_workflow
+
+
 @pytest.mark.parametrize("cli_opt", ["y", "n"])
 def test_using_pytest(cookies, tmp_path, cli_opt):
     with run_within_dir(tmp_path):
