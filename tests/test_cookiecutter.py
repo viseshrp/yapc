@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+from hooks import post_gen_project
 from tests.utils import is_valid_yaml, run_within_dir
 
 
@@ -35,6 +36,77 @@ def test_not_git_init_has_a_lockable_project(cookies, tmp_path):
         subprocess.run([uv_exe, "lock"], cwd=project_path, check=True)
 
         assert (project_path / "uv.lock").is_file()
+
+
+def test_git_init_starts_an_uncommitted_repository(cookies, tmp_path):
+    with run_within_dir(tmp_path):
+        result = cookies.bake(
+            extra_context={
+                "git_init": "y",
+                "github_username": "project-owner",
+                "project_name": "my-project",
+            }
+        )
+        project_path = Path(result.project_path)
+
+        assert result.exit_code == 0, result.exception
+        assert (project_path / ".git").is_dir()
+        assert not (project_path / "uv.lock").exists()
+
+        git_exe = shutil.which("git")
+        assert git_exe is not None
+
+        branch = subprocess.run(
+            [git_exe, "symbolic-ref", "--short", "HEAD"],
+            cwd=project_path,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        assert branch.stdout.strip() == "main"
+
+        head = subprocess.run(
+            [git_exe, "rev-parse", "--verify", "HEAD"],
+            cwd=project_path,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        assert head.returncode != 0
+
+        status = subprocess.run(
+            [git_exe, "status", "--short"],
+            cwd=project_path,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        assert "README.md" in status.stdout
+
+        remote = subprocess.run(
+            [git_exe, "remote", "get-url", "origin"],
+            cwd=project_path,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        assert remote.stdout.strip() == "git@github.com:project-owner/my-project.git"
+
+        local_user = subprocess.run(
+            [git_exe, "config", "--local", "--get", "user.name"],
+            cwd=project_path,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        assert local_user.returncode != 0
+
+
+def test_git_init_requires_available_git(monkeypatch):
+    monkeypatch.setattr(post_gen_project.shutil, "which", lambda _: None)
+
+    with pytest.raises(SystemExit, match="Git initialization was requested"):
+        post_gen_project.initialize_git()
 
 
 @pytest.mark.parametrize("cli_opt", ["y", "n"])

@@ -29,6 +29,24 @@ Explain how the tool works.
 
 * Python >= 3.10
 
+## 🏁 Initial project setup
+
+Cruft creates `.cruft.json` after the template finishes generating the project, so the template initializes Git without
+making a commit. Create the lockfile, validate the generated project, and then make the first commit:
+
+```bash
+uv sync
+uv run pre-commit install
+git add .
+make check
+make test-local
+git add .
+git commit -m "Initial commit"
+```
+
+The first commit will include both Cruft's template-tracking file (`.cruft.json`) and uv's reproducibility lockfile
+(`uv.lock`).
+
 ## 📦 Installation
 
 ```bash

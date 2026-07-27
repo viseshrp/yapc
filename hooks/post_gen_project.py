@@ -28,6 +28,34 @@ def move_dir(src: str, dst: str) -> None:
     shutil.move(str(PROJECT_DIRECTORY / src), str(PROJECT_DIRECTORY / dst))
 
 
+def initialize_git() -> None:
+    git_exe = shutil.which("git")
+    if git_exe is None:
+        message = "Git initialization was requested, but Git is not installed or is not available on PATH."
+        raise SystemExit(message)
+
+    subprocess.run(
+        [git_exe, "init", "-b", "main"],
+        cwd=PROJECT_DIRECTORY,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=True,
+    )
+    subprocess.run(
+        [
+            git_exe,
+            "remote",
+            "add",
+            "origin",
+            "git@github.com:{{ cookiecutter.github_username }}/{{ cookiecutter.project_name }}.git",
+        ],
+        cwd=PROJECT_DIRECTORY,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=True,
+    )
+
+
 if __name__ == "__main__":
     move_file("pyproject.toml.jinja", "pyproject.toml")
 
@@ -46,53 +74,4 @@ if __name__ == "__main__":
         remove_dir(".github/workflows")
 
     if "{{ cookiecutter.git_init }}" == "y":
-        git_exe = shutil.which("git")
-        if git_exe:
-            subprocess.run(
-                [git_exe, "init", "-b", "main"],
-                cwd=PROJECT_DIRECTORY,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                check=True,
-            )
-            subprocess.run(
-                [git_exe, "config", "user.name", "{{ cookiecutter.author }}"],
-                cwd=PROJECT_DIRECTORY,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                check=True,
-            )
-            subprocess.run(
-                [git_exe, "config", "user.email", "{{ cookiecutter.email }}"],
-                cwd=PROJECT_DIRECTORY,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                check=True,
-            )
-            subprocess.run(
-                [git_exe, "add", "."],
-                cwd=PROJECT_DIRECTORY,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                check=True,
-            )
-            subprocess.run(
-                [git_exe, "commit", "-m", "Init commit", "--no-verify"],
-                cwd=PROJECT_DIRECTORY,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                check=True,
-            )
-            subprocess.run(
-                [
-                    git_exe,
-                    "remote",
-                    "add",
-                    "origin",
-                    "git@github.com:{{ cookiecutter.github_username }}/{{ cookiecutter.project_name }}.git",
-                ],
-                cwd=PROJECT_DIRECTORY,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                check=True,
-            )
+        initialize_git()
