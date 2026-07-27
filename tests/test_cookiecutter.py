@@ -402,6 +402,17 @@ def test_generated_metadata_uses_pep639_license_fields(cookies):
     assert not any(classifier.startswith("License ::") for classifier in project["classifiers"])
 
 
+def test_generated_pytest_keeps_deprecation_warnings_visible(cookies):
+    result = cookies.bake()
+
+    assert result.exit_code == 0, result.exception
+
+    pyproject = tomli.loads((Path(result.project_path) / "pyproject.toml").read_text(encoding="utf-8"))
+    pytest_config = pyproject["tool"]["pytest"]["ini_options"]
+    assert "-p no:warnings" not in pytest_config["addopts"]
+    assert "filterwarnings" not in pytest_config
+
+
 def test_wheel_installs_documented_cli_name(cookies, tmp_path):
     with run_within_dir(tmp_path):
         result = cookies.bake(extra_context={"project_name": "my-project"})

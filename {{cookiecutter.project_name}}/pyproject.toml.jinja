@@ -117,7 +117,7 @@ unused-type-ignore-comment = "error"
 [tool.pytest.ini_options]
 tmp_path_retention_policy = "failed"
 testpaths = ["tests"]
-addopts = "--capture=tee-sys --tb=native -p no:warnings -ra -vv"
+addopts = "--capture=tee-sys --tb=native -ra -vv"
 markers = [
     "integration:Run integration tests",
     "smoke:Run the smoke tests",
@@ -126,9 +126,6 @@ markers = [
 norecursedirs = [
     ".git",
     ".idea",
-]
-filterwarnings = [
-    "ignore:.+:DeprecationWarning"
 ]
 
 {% if cookiecutter.codecov == "y" -%}
