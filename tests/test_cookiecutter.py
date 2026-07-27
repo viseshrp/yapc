@@ -26,6 +26,29 @@ def test_bake_project(cookies):
     assert "'viseshrp'" not in automerge
 
 
+@pytest.mark.parametrize(
+    ("project_name", "project_slug"),
+    [
+        ("a", "a"),
+        ("friendly.bard", "friendly_bard"),
+        ("friendly_bard", "friendly_bard"),
+        ("1-project", "_1_project"),
+    ],
+)
+def test_valid_distribution_names_generate_importable_slugs(cookies, project_name, project_slug):
+    result = cookies.bake(extra_context={"project_name": project_name})
+
+    assert result.exit_code == 0, result.exception
+    assert (Path(result.project_path) / project_slug / "__init__.py").is_file()
+
+
+@pytest.mark.parametrize("project_name", ["-foo", "foo-", ".foo", "foo."])
+def test_distribution_names_must_start_and_end_with_alphanumeric(cookies, project_name):
+    result = cookies.bake(extra_context={"project_name": project_name})
+
+    assert result.exit_code != 0
+
+
 def test_not_git_init_has_a_lockable_project(cookies, tmp_path):
     with run_within_dir(tmp_path):
         result = cookies.bake(extra_context={"git_init": "n"})
