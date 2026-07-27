@@ -180,6 +180,12 @@ def test_release_helper_checks_state_before_pushing_tag(cookies, tmp_path):
         subprocess.run([uv_exe, "sync"], cwd=project_path, check=True)
         subprocess.run([git_exe, "init", "--bare", str(remote_path)], check=True, capture_output=True, text=True)
         subprocess.run([git_exe, "remote", "set-url", "origin", str(remote_path)], cwd=project_path, check=True)
+        subprocess.run([git_exe, "config", "user.name", "Template Test"], cwd=project_path, check=True)
+        subprocess.run(
+            [git_exe, "config", "user.email", "template-test@example.invalid"],
+            cwd=project_path,
+            check=True,
+        )
         subprocess.run([git_exe, "add", "."], cwd=project_path, check=True)
         subprocess.run(
             [
