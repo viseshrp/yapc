@@ -57,9 +57,26 @@ pip install {{cookiecutter.project_name}}
 {% if cookiecutter.cli_tool == 'y' %}
 * To view the help message, run the following command:
 
-```bash
-{{cookiecutter.project_name}} --help
-```
+<!-- [[[cog
+import cog
+from click.testing import CliRunner
+
+from {{cookiecutter.project_slug}}.cli import main
+
+result = CliRunner().invoke(
+    main,
+    ["--help"],
+    prog_name={{ cookiecutter.project_name|tojson }},
+)
+if result.exit_code != 0:
+    raise RuntimeError(result.output) from result.exception
+
+cog.outl("```console")
+cog.outl("$ " + {{ cookiecutter.project_name|tojson }} + " --help")
+cog.out(result.output)
+cog.outl("```")
+]]] -->
+<!-- [[[end]]] -->
 {%- endif %}
 
 ## 🛠️ Features

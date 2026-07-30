@@ -46,7 +46,9 @@ dev = [
     "uv",
     "tox",
     "tox-uv",
+    {% if cookiecutter.github_actions == "y" -%}
     "tox-gh-actions",
+    {% endif -%}
     "pytest",
     {% if cookiecutter.codecov == "y" -%}
     "pytest-cov",

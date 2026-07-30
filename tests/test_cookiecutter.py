@@ -517,6 +517,54 @@ def test_not_github_actions(cookies, tmp_path):
         assert not (project_path / ".github" / "workflows").is_dir()
 
 
+@pytest.mark.parametrize(("github_actions", "expected"), [("y", True), ("n", False)])
+def test_tox_gh_actions_matches_github_actions_option(cookies, github_actions, expected):
+    result = cookies.bake(extra_context={"github_actions": github_actions})
+
+    assert result.exit_code == 0, result.exception
+    project_path = Path(result.project_path)
+    pyproject = tomli.loads((project_path / "pyproject.toml").read_text(encoding="utf-8"))
+    tox_config = (project_path / "tox.ini").read_text(encoding="utf-8")
+    assert ("tox-gh-actions" in pyproject["dependency-groups"]["dev"]) is expected
+    assert ("[gh-actions]" in tox_config) is expected
+
+
+@pytest.mark.parametrize(("cli_tool", "expected"), [("y", True), ("n", False)])
+def test_cog_matches_cli_tool_option(cookies, cli_tool, expected):
+    result = cookies.bake(extra_context={"cli_tool": cli_tool})
+
+    assert result.exit_code == 0, result.exception
+    project_path = Path(result.project_path)
+    pyproject = tomli.loads((project_path / "pyproject.toml").read_text(encoding="utf-8"))
+    pre_commit = (project_path / ".pre-commit-config.yaml").read_text(encoding="utf-8")
+    readme = (project_path / "README.md").read_text(encoding="utf-8")
+
+    assert ("cogapp" in pyproject["dependency-groups"]["dev"]) is expected
+    assert ("- id: cog" in pre_commit) is expected
+    assert ("<!-- [[[cog" in readme) is expected
+
+
+def test_cog_renders_cli_help(cookies, tmp_path):
+    with run_within_dir(tmp_path):
+        result = cookies.bake(
+            extra_context={
+                "git_init": "n",
+                "project_description": "Short project description.",
+            }
+        )
+        project_path = Path(result.project_path)
+
+        assert result.exit_code == 0, result.exception
+
+        uv_exe = shutil.which("uv") or "uv"
+        subprocess.run([uv_exe, "sync"], cwd=project_path, check=True)
+        subprocess.run([uv_exe, "run", "cog", "-r", "README.md"], cwd=project_path, check=True)
+
+        readme = (project_path / "README.md").read_text(encoding="utf-8")
+        assert "$ example-project --help" in readme
+        assert "Usage: example-project [OPTIONS] <what_you_worked_on>" in readme
+
+
 def test_license_mit(cookies, tmp_path):
     with run_within_dir(tmp_path):
         result = cookies.bake()
