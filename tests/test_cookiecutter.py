@@ -402,6 +402,23 @@ def test_generated_metadata_uses_pep639_license_fields(cookies):
     assert not any(classifier.startswith("License ::") for classifier in project["classifiers"])
 
 
+def test_generated_project_configures_security_and_license_hooks(cookies):
+    result = cookies.bake()
+
+    assert result.exit_code == 0, result.exception
+
+    project_path = Path(result.project_path)
+    pyproject = tomli.loads((project_path / "pyproject.toml").read_text(encoding="utf-8"))
+    pre_commit = (project_path / ".pre-commit-config.yaml").read_text(encoding="utf-8")
+
+    assert "liccheck" in pyproject["dependency-groups"]["dev"]
+    assert "setuptools<81" in pyproject["dependency-groups"]["dev"]
+    assert pyproject["tool"]["liccheck"]["dependencies"] is True
+    assert "repo: https://github.com/gitleaks/gitleaks" in pre_commit
+    assert "- id: gitleaks" in pre_commit
+    assert "- id: liccheck" in pre_commit
+
+
 def test_generated_pytest_keeps_deprecation_warnings_visible(cookies):
     result = cookies.bake()
 

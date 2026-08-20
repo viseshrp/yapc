@@ -61,6 +61,9 @@ dev = [
     "ty",
     "vulture",
     "deptry",
+    "liccheck",
+    # liccheck imports pkg_resources, which newer setuptools no longer provides.
+    "setuptools<81",
     {% if cookiecutter.cli_tool == "y" -%}
     "cogapp",
     {% endif -%}
@@ -241,6 +244,30 @@ exclude = ["venv/", ".venv/"]
 
 [tool.deptry]
 exclude = ["venv/.*", ".venv/.*", "tests/.*"]
+
+[tool.liccheck]
+authorized_licenses = [
+    "apache",
+    "apache 2.0",
+    "apache software license",
+    "bsd",
+    "bsd license",
+    "bsd-3-clause",
+    "isc",
+    "isc license",
+    "mit",
+    "mit license",
+    "python software foundation license",
+]
+unauthorized_licenses = [
+    "agpl",
+    "gpl",
+    "gpl v2",
+    "gpl v3",
+    "gnu affero general public license",
+    "gnu general public license",
+]
+dependencies = true
 
 [tool.pre-commit.default_language_versions]
 python = "3.14"
