@@ -27,7 +27,7 @@ Explain how the tool works.
 
 ## 📐 Requirements
 
-* Python >= 3.10
+* Python >= 3.11
 
 ## 🏁 Initial project setup
 
