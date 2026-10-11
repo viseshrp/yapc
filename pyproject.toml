@@ -34,10 +34,10 @@ dev = [
     "pytest>=9.1.1",
     "pre-commit>=4.6.2",
     "pytest-cookies>=0.7.0",
-    "tox-uv>=1.36.1",
+    "tox-uv>=1.37.0",
     "deptry>=0.25.1",
-    "tomli>=2.4.1",
-    "ty>=0.0.84",
+    "tomli>=2.5.0",
+    "ty>=0.0.86",
     "pyyaml>=6.0.3",
 ]
 
