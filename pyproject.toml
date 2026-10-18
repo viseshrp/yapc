@@ -32,12 +32,12 @@ Homepage = "https://github.com/viseshrp/yapc"
 dev = [
     "cookiecutter>=2.7.1",
     "pytest>=9.1.1",
-    "pre-commit>=4.6.2",
+    "pre-commit>=4.7.0",
     "pytest-cookies>=0.7.0",
     "tox-uv>=1.37.0",
     "deptry>=0.25.1",
     "tomli>=2.5.0",
-    "ty>=0.0.86",
+    "ty>=0.0.89",
     "pyyaml>=6.0.3",
 ]
 
