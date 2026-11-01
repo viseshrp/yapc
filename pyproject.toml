@@ -31,13 +31,13 @@ Homepage = "https://github.com/viseshrp/yapc"
 [dependency-groups]
 dev = [
     "cookiecutter>=2.7.1",
-    "pytest>=9.1.1",
+    "pytest>=9.2.0",
     "pre-commit>=4.7.0",
     "pytest-cookies>=0.7.0",
-    "tox-uv>=1.37.0",
+    "tox-uv>=1.37.3",
     "deptry>=0.25.1",
     "tomli>=2.5.0",
-    "ty>=0.0.91",
+    "ty>=0.0.95",
     "pyyaml>=6.0.3",
 ]
 
