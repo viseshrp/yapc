@@ -34,11 +34,11 @@ dev = [
     "pytest>=9.2.0",
     "pre-commit>=4.7.0",
     "pytest-cookies>=0.7.0",
-    "tox-uv>=1.37.7",
+    "tox-uv>=1.37.9",
     "deptry>=0.25.1",
     "tomli>=2.5.0",
-    "ty>=0.0.104",
-    "pyyaml>=6.0.3",
+    "ty>=0.0.107",
+    "pyyaml>=6.0.4",
 ]
 
 [tool.uv]
